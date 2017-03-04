@@ -1,0 +1,161 @@
+
+                                  JRoar
+
+                   a pure JavaTM Streaming Server Dedicated to Ogg
+                                by JCraft,Inc.
+
+                      http://www.jcraft.com/jroar/
+
+Last modified: Thu Nov 28 14:12:44 UTC 2002
+
+
+Description
+===========
+JRoar is a streaming sever for Ogg(http://xiph.org/ogg/) in pure Java.
+JRoar casts live Ogg streams to Ogg Vorbis players as IceCast2
+(http://www.icecast.org/) does and shouts live Ogg streams to IceCast2
+and JRoar(, but JRoar does not support encoding/re-encoding). 
+JRoar also accepts live Ogg streams from Ices.
+The uniqueness of JRoar is that JRoar works as a proxy for live Ogg
+streams and enables you to share single stream with others. Of course,
+its characteristic property is that it is in pure Java. JRoar can be easily
+deployed and in fact, it can run on the built-in JVM of IE.
+
+
+Features
+========
+  - JRoar casts live Ogg streams to Ogg Vorbis players.
+  - JRoar accepts live Ogg streams from shouting systems, like ice.
+  - JRoar loads Ogg Vorbis files(Vorbis, Speex, Theora) from the hard disk and 
+    casts those contents. (it is still incomplete.)
+  - JRoar transfers live Ogg streams to IceCast2 and JRoar in the ICE protocol.
+  - JRoar casts Ogg streams on UDP broadcast packets to local subnet.
+    This broadcast-stream is only enjoyable by JOrbisPlayer from JOrbis. 
+  - JRoar depends on JOrbis(http://www.jcraft.com/jorbis).
+  - JRoar is implemented within JDK 1.1.*;
+  - JRoar is licensed under GNU GPL.
+  - JRoar supports Speex(http://speex.sourceforge.net/), 
+    an open-source (LGPL) patent-free voice codec.
+
+Why JRoar is hacked?
+====================
+First of all, JRoar must not be a competitor for IceCast2,Ices,etc.
+and there are no intentions to replace them with JRoar. Needless to
+say, JRoar has many disadvantages , for example, JRoar can not support 
+encoding/re-encoding and will not run faster than them, because it is
+in pure Java. However, it is easily deployed and will enable you to share Ogg
+streams with other. We have imagined to deploy JRoar all over the world
+and to construct Ogg stream networks in p2p style. Of course, JRoar is just a
+easily deployed proxy server for Ogg, so there must be some mechanism
+to plug several JRoars efficiently. but we hope some of p2p systems may help
+us. How do you feel this vision?
+
+
+UDP Broadcast
+=============
+JRoar will cast Ogg streams on UDP broadcast packets to the local subnet.
+Please note that these UDP packets don't depend on any formal
+specifications like a specification for Vorbis/RTP.
+In current implementation, Ogg packets are thrown to the local subnet
+in UDP packets without any trick. These packets are only enjoyable 
+by JOrbisPlayer, which is included in JOribs 0.0.10 or later.
+If you access to the mount point for UDP broadcast on JRoar by JOrbisPlayer,
+JOrbisPlayer will get some Ogg packets which include comments and
+CodeBooks for playing currently streamed sound and the port number for
+UDP via HTTP protocol. The UDP port number will be given in returned HTTP
+header 'udp-port'. Then it will listen to UDP port and start to play sounds. 
+Please refer to 'Options' section in this document to register mount
+points for UDP broadcasting.
+We hope that this ad-hock and quick hack will motivate to improve
+broadcasting systems and specifications in this area.
+
+
+How To Enjoy
+============
+Extract the archive jroar-*.zip at http://www.jcraft.com/jroar/ .
+
+  $ cd jroar-*
+  $ java com.jcraft.jroar.JRoar
+If you are in the inside of fire-wall and the http proxy server is running at
+192.168.0.3:80, add options as follows,
+  $ java -Dhttp.proxyHost=192.168.0.3 -Dhttp.proxyPort=80 com.jcraft.jroar.JRoar
+
+Suppose that your machine has ip-address, 192.168.0.2. In this case,
+JRoar will wait for your requests at http://192.168.0.2:8000/ .
+The most simply way to use JRoar as a proxy, open following URL,
+  http://192.168.0.2:8000/mount?mountpoint=/test.ogg&source=http://somewhere/
+by Winamp or other Ogg Vorbis player. If Ogg Vorbis stream is available at
+http://somewhere/, your player will start to play.
+Now, if you open 
+  http://192.168.0.2:8000/test.ogg 
+from other box by Ogg Vorbis player, you will be able to enjoy same stream.
+
+As another way to enjoy this shared stream, try to visit 
+  http://192.168.0.2:8000/
+from other box by a web browser, for example, IE.
+You will find the anchor on the text '/test.ogg'. If the Ogg Vorbis
+player is correctly installed on your system, you can enjoy again that
+shared stream by just clicking '/test.ogg'. 
+On this web page, you can also add another mount point.
+
+
+Customising The Web Interface
+=============================
+By extending 'com.jcraft.jroar.UserPage' class, you can add pages
+to the web interface. For example, if you have 'MyPage' class, which
+extends com.jcraft.jroar.UserPage, try as follows,
+  java com.jcraft.jroar.JRoar -page MyPage /test.htm
+You will see the new page at http://localhost:8000/test.htm .
+There is a sample under 'misc' directory.
+
+
+Relaying Ogg Vorbis Streams from PeerCast
+=========================================
+JRoar will relay Ogg Vorbis streams from PeerCast(http://www.peercast.org).
+For example, try
+  $ java com.jcraft.jroar.JRoar \
+       -peercast-host connect1.peercast.org:7144 \
+       -relay /test.ogg peercast://pls/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.pls
+, where 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX' should be peercast-ID. 
+
+
+Options
+=======
+JRoar accepts following options in running as an application,
+
+  -port     port-number (default: 8000)
+  -ipaddress my-address
+  -relay    mount-point  url-of-source
+  -page     page-name class-name
+  -passwd   password-for-web-interface
+  -icepasswd password-for-ICE
+  -playlist mount-point  filename 
+  -mplistener class-name
+  -shout    src-mount-point ip-address port-number password  dst-mount-point
+  -udp      src-mount-point broadcast-address port-number dst-mount-point
+  -peercast-host  peercast-lookup-host (default: localhost:7144)
+
+For example, 
+  $ find ~/my_ogg_files -name "*.ogg" -print  > /tmp/foo
+  $ java com.jcraft.jroar.JRoar -port 9000
+                                -playlist /test1.ogg /tmp/foo \
+                                -relay /test2.ogg http://somewhere/test.ogg \
+                                -udp /test1.ogg 192.168.0.255 8000 /test3.ogg \
+                                -udp /test2.ogg 192.168.0.255 8001 /test4.ogg 
+/test3,ogg, /test4.ogg are only enjoyable by JOrbisPlayer from JOrbis 0.0.10.
+If you have JOrbisPlayer, try to access http://your_box:9000/test3.ogg  .
+If you don't have it, but you have the J2SE Java plug-in,
+try to open following URL by the web browser,
+  http://www.jcraft.com/jorbis/player/JOrbisPlayer.php?play=http://your_box:9000/test4.ogg
+The JOrbisPlayer applet signed digitally by JCraft will be downloaded
+and play the Ogg Vorbis stream on UDP broadcast packets, which is
+originally from http://somewhere/test.ogg .
+
+
+Copyrights & Disclaimers
+========================
+JRoar is copyrighted by JCraft Inc. and is licensed through the
+GNU General Public License. Read the COPYING file for the complete license.
+
+If you have any comments, suggestions and questions, write us 
+at jroar@jcraft.com

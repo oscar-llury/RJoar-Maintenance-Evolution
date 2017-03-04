@@ -1,0 +1,4 @@
+This archive includes the package com.jcraft.jogg.* and
+com.jcraft.jorbis.* which are from JOrbis. 
+JOrbis is pure Java Ogg Vorbis decoder under GNU GPL.
+The source code is available at http://www.jcraft.com/jorbis/ .

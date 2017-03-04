@@ -1,0 +1,64 @@
+
+ChangeLog of JRoar
+====================================================================
+Last modified: Sat Oct 16 18:27:41 UTC 2004
+
+Changes since version 0.0.8:
+- this release can relay grouped ogg streams, for example, Theora streams.
+- this release can stream theora files.
+  This functionality has been still under development; timing depends on
+  vorbis stream.	 
+- updated jorbis to version 0.0.14.
+
+	
+Changes since version 0.0.7:
+............................
+- supported HTTP Basic Authentication in accepting a stream 
+  from streamers like ices, darkice, etc.
+- supported ogg vorbis streams from PeerCast.
+- added an option '-peercast-host'.
+- deleted '\n' from the output of 'stats.xml'
+
+	
+Changes since version 0.0.6:
+............................
+- added the Speex support.
+- added the experimental mount point lister functionality.
+
+
+Changes since version 0.0.5:
+............................
+- added '-store' option, which will enable JRoar to dish out the java applet.
+- added the limit parameter for '-proxy' and '-playlist' option.
+
+	
+Changes since version 0.0.4:
+............................
+- fixed several dead-locking and freezing problems.
+- added the 'simple' pass-word protection to web interface.
+- added '-page' option, which enables you to customize the web interface. 
+- updated jorbis to version 0.0.12.
+
+	
+Changes since version 0.0.3:
+............................
+- fixed locking problem on some JVM, which are based on green threads.
+- modified to accept some mount points, which does not start with '/'.
+- added the support for '/stats.xml' as Icecast2 does.
+
+	
+Changes since version 0.0.2:
+............................
+- implemented the logic for calculating the sleep period according to VBR
+  for streaming Ogg Vorbis files from local hard disks.
+- fixed a bug that unavailable mount points were never purged.
+- improved that comments in Ogg Vorbis streams and the number of listeners
+  will be displayed on the homepage of web interface.
+
+	
+Changes since version 0.0.1:
+............................
+- added a functionality to cast Ogg streams on UDP broadcast packets to
+  local sub-network.	 
+  This broadcast streams are only enjoyable by JOrbisPlayer, which is
+  included in JOrbis 0.0.10 or later.
