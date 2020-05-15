@@ -21,6 +21,7 @@
  */
 
 package com.jcraft.jroar;
+import java.lang.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -35,6 +36,10 @@ class M3u extends Page{
     this.pls=pls;
   }
   public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException{
+    //Busca un fichero  en ogg en Sources, si no lo busca terminado en spx.
+    //Si lo encuentra devuevle HTTP OK por el MySocket que recibe de parametro de entrada y si no lo encuentra llama notFound,
+    // método heredado de la clase abstracta Page que devuelve un HTTP NOT FOUND por el MySockect que se le pasa de parámetro
+
     byte[] foo=pls.getBytes();
     foo[foo.length-1]='g'; foo[foo.length-2]='g'; foo[foo.length-3]='o';
     String ogg=new String(foo);
@@ -59,6 +64,9 @@ class M3u extends Page{
   }
 
   static String getURL(String m3u){
+    //Método que recibe un String como parámetro de entrada y si empieza por http:// considera que es uns url e intenta conectarse a ella
+    // si no logra conectarse devuelve null, si logra conectarse accede al flujo de entrada de la conexión (getInputStream())
+    // si este flujo esta a null devuelve null y si no lee una linea de este flujo (con readline) y la devuelve después de cerrar el flujo
     InputStream pstream=null;
     if(m3u.startsWith("http://")){
       try{
@@ -82,6 +90,7 @@ class M3u extends Page{
     return line;
   }     
   static private String readline(InputStream is) {
+    //Método que lee una línea desde un InputStream que recibe como parámetro de entrada
     StringBuffer rtn=new StringBuffer();
     int temp;
     do {

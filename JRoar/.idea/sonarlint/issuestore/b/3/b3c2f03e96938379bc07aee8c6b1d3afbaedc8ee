@@ -1,0 +1,12 @@
+
+l
+java:S1128"QRemove this unnecessary import: java.lang classes are always implicitly imported.(ãø©Æşÿÿÿÿ
+V	java:S125<"<This block of commented-out lines of code should be removed.(ï…¹Ğûÿÿÿÿ
+m
+java:S3776#"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(úçıúÿÿÿÿ
+f	java:S1173"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒĞ»ç
+H
+java:S11992"-Extract this nested code block into a method.(ÒÌâ–øÿÿÿÿ
+1
+java:S3626]"Remove this redundant jump.(ûÁİ…
+>	java:S1087")Either remove or fill this block of code.(”ı¾

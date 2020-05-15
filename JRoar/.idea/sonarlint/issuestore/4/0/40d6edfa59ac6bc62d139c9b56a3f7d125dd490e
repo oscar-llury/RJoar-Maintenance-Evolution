@@ -1,0 +1,72 @@
+
+E
+java:S3740"/Provide the parametrized type for this generic.(Æãí
+E
+java:S3740"/Provide the parametrized type for this generic.(Æãí
+J
+java:S3740r"/Provide the parametrized type for this generic.(âÕÏıüÿÿÿÿ
+J
+java:S3740r"/Provide the parametrized type for this generic.(âÕÏıüÿÿÿÿ
+D
+java:S3740t"/Provide the parametrized type for this generic.(¦ì›d
+J
+java:S3740y"/Provide the parametrized type for this generic.(³»¥ƒüÿÿÿÿ
+J
+java:S3740y"/Provide the parametrized type for this generic.(³»¥ƒüÿÿÿÿ
+F
+java:S3740"/Provide the parametrized type for this generic.(Ø†Ù¦
+K
+java:S3740¤"/Provide the parametrized type for this generic.(³»¥ƒüÿÿÿÿ
+K
+java:S3740¤"/Provide the parametrized type for this generic.(³»¥ƒüÿÿÿÿ
+r	java:S127D"XRefactor the code in order to not assign to this loop counter from within the loop body.( æƒ«ıÿÿÿÿ
+n	java:S1352"YReduce the total number of break and continue statements in this loop to use at most one.(õæ×Ä
+t	java:S135…"YReduce the total number of break and continue statements in this loop to use at most one.(˜ïˆÿÿÿÿÿ
+l
+java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(Æãí
+u
+java:S11491"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+q
+java:S1149r"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(âÕÏıüÿÿÿÿ
+€
+java:S1149r"eReplace the synchronized class "Vector" by an unsynchronized one such as "ArrayList" or "LinkedList".(âÕÏıüÿÿÿÿ
+k
+java:S1149t"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(¦ì›d
+q
+java:S1149y"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(³»¥ƒüÿÿÿÿ
+m
+java:S1149"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(Ø†Ù¦
+r
+java:S1149¤"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(³»¥ƒüÿÿÿÿ
+v
+java:S1149ª"_Replace the synchronized class "StringBuffer" by an unsynchronized one such as "StringBuilder".(í…Ò‰
+t
+java:S1845("^Rename method "map" to prevent any misunderstanding/clash with field "map" defined on line 29.(ãÜÏ·
+h
+java:S3776."RRefactor this method to reduce its Cognitive Complexity from 36 to the 15 allowed.(†‚µ·
+B
+java:S19054"'Remove this unnecessary cast to "char".(„Ÿ±ëøÿÿÿÿ
+_
+java:S3358:"DExtract this nested ternary operation into an independent statement.( ö›åşÿÿÿÿ
+Z
+java:S3358;"DExtract this nested ternary operation into an independent statement.(‚ï¯Œ
+_
+java:S3358?"DExtract this nested ternary operation into an independent statement.(£à‚ÿÿÿÿÿ
+_
+java:S3358@"DExtract this nested ternary operation into an independent statement.(ø­Ò›úÿÿÿÿ
+J
+java:S1172g"/Remove this unused method parameter "location".(‡†²ïøÿÿÿÿ
+S
+java:S1854†"7Remove this useless assignment to local variable "key".(´ò¶âûÿÿÿÿ
+U
+java:S1854†"9Remove this useless assignment to local variable "value".(´ò¶âûÿÿÿÿ
+:
+java:S1659ƒ"#Declare "value" on a separate line.(ß—êù
+:
+java:S1659«"#Declare "value" on a separate line.(ß—êù
+B
+java:S1481€"&Remove this unused "i" local variable.(ùó›Ìøÿÿÿÿ
+B
+java:S1481"&Remove this unused "c" local variable.(ª››ıÿÿÿÿ
+Q	java:S125O"<This block of commented-out lines of code should be removed.(ÙÑƒ•
+Q	java:S125l"<This block of commented-out lines of code should be removed.(‡û±ó

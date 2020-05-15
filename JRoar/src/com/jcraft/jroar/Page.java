@@ -44,7 +44,7 @@ public abstract class Page {
     }
 
     String decode(String arg) {
-
+        //Método que recibe un String y devuelve otro String que se optiene decodificando el anterior
         byte[] foo = arg.getBytes();
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < foo.length; i++) {
@@ -74,6 +74,7 @@ public abstract class Page {
     }
 
     static void forward(MySocket mysocket, String location) throws IOException {
+        //Método que escribe en el socket el el código HTTP 302 y donde se ha encontrado (location)
         mysocket.println("HTTP/1.0 302 Found");
         //mysocket.println("Location: "+HttpServer.myURL+location);
         mysocket.println("Location: " + location);
@@ -83,6 +84,7 @@ public abstract class Page {
     }
 
     static void unknown(MySocket mysocket, String location) throws IOException {
+        //Método que escribe en el socket el el código HTTP 404 y que no se ha encontrada nada en el servidor en location
         mysocket.println("HTTP/1.0 404 Not Found");
         mysocket.println("Connection: close");
         mysocket.println("Content-Type: text/html; charset=iso-8859-1");
@@ -99,6 +101,7 @@ public abstract class Page {
     }
 
     static void ok(MySocket mysocket, String location) throws IOException {
+        //Método que escribe en el socket el el código HTTP 200
         mysocket.println("HTTP/1.0 200 OK");
         mysocket.println("Last-Modified: Thu, 04 Oct 2001 14:09:23 GMT");
         mysocket.println("Connection: close");
@@ -111,7 +114,10 @@ public abstract class Page {
     abstract void kick(MySocket mysocket, Hashtable ht, Vector v) throws IOException;
 
     Hashtable getVars(String arg) {
-
+        // Método que recibe un String y devulve una tabla Hash
+        // La primera entrada es clave=jroar-method y valor=GET
+        // El String tendrá un formato de pares clave=valor separados por & si hay varios
+        // El programa irá almacenando en la tabla Hash estos pares clave = valor cortando el String por los = y los &
         Hashtable vars = new Hashtable();
         vars.put("jroar-method", "GET");
         if (arg == null) return vars;
@@ -127,11 +133,14 @@ public abstract class Page {
         while (true) {
             key = value = null;
 
+            //Posición del siguiente = en la cadena
             foo = arg.indexOf('=');
+            // Si no hay = se termina de leer
             if (foo == -1) break;
             key = arg.substring(0, foo);
             arg = arg.substring(foo + 1);
 
+            //Posición del siguiente & en la cadena
             foo = arg.indexOf('&');
             if (foo != -1) {
                 value = arg.substring(0, foo);
@@ -140,12 +149,18 @@ public abstract class Page {
 
             vars.put(key, value);
 
+            // Si no hay & se termina de leer ya que no hay más pares clave=valor
             if (foo == -1) break;
         }
         return vars;
     }
 
     Hashtable getVars(MySocket mysocket, int len) {
+        // Método que recibe un MySocket y longitud len y devulve una tabla Hash
+        // La primera entrada es clave=jroar-method y valor=POST
+        // El String leído del MySocket tendrá un formato de pares clave=valor separados por & si hay varios
+        // Del MySocket se irán leyendo carácteres uno a uno hasta que se encuentren =, & o ya se haya leido toda la cadena (i=len) y convirtiendolos en String
+        // El programa irá almacenando en la tabla Hash estos pares clave = valor tras decodificarlos
         Hashtable vars = new Hashtable();
         vars.put("jroar-method", "POST");
         if (len == 0) return vars;
@@ -161,6 +176,7 @@ public abstract class Page {
             while (i < len) {
                 c = mysocket.readByte();
                 i++;
+                //Se ha encontrado un = por lo que se para de leer
                 if (c == '=') {
                     key = sb.toString();
                     break;
@@ -171,6 +187,7 @@ public abstract class Page {
             while (i < len) {
                 c = mysocket.readByte();
                 i++;
+                //Se ha encontrado un & por lo que se para de leer
                 if (c == '&') {
                     value = sb.toString();
                     break;
@@ -187,6 +204,7 @@ public abstract class Page {
     }
 
     static void notFound(MySocket ms) throws IOException {
+        //Método que escribe en el socket el el código HTTP 404 y que no se ha encontrada la url solicitada
         ms.println("HTTP/1.0 404 Not Found");
         ms.println("Content-Type: text/html");
         ms.println("");
