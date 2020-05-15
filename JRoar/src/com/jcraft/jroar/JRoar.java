@@ -116,8 +116,7 @@ public class JRoar extends Applet implements Runnable {
                 "  -icepasswd password-for-ICE",
                 "  -mplistener class-name",
                 "  -shout    src-mount-point ip-address port-number password  dst-mount-point",
-                "  -udp      src-mount-point broadcast-address port-number dst-mount-point",
-                "  -peercast-host peercast-lookup-host (default: localhost:7144)"
+                "  -udp      src-mount-point broadcast-address port-number dst-mount-point"
         };
 
         running_as_applet = false;
@@ -219,10 +218,7 @@ public class JRoar extends Applet implements Runnable {
                     System.err.println("Unknown listener class: " + arg[i + 1]);
                 }
                 i++;
-                // QUITAR
-            } else if (arg[i].equals("-peercast-host") && arg.length > i + 1) {
-                PeerCast.setLookupHost(arg[i + 1]);
-                i++;
+                // PeerCast eliminado
             } else {
                 System.err.println("invalid option: " + arg[i]);
                 for (int ii = 0; ii < usage.length; ii++) {
