@@ -61,11 +61,7 @@ class Mount extends Page {
 
         if (mountpoint != null &&
                 source != null &&
-                (source.startsWith("http://") ||
-                        source.startsWith("peercast://")) &&
-                Page.map(mountpoint) == null &&
-                mountpoint.startsWith("/") &&
-                Source.getSource(mountpoint) == null) {
+                (source.startsWith("http://")) && Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
             if (livestream != null && livestream.equals("true")) {
                 Proxy proxy = new Proxy(mountpoint, source);
                 if (limit != 0) {
