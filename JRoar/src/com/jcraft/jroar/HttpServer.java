@@ -36,7 +36,6 @@ class HttpServer extends Thread {
         Mount.register();
         Drop.register();
         Shout.register();
-        UDPPage.register();
         Store.register();
 
         Debug.register();

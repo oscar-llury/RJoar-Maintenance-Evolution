@@ -67,10 +67,7 @@ class Ctrl extends Page {
 
             s.println("<td align=left nowrap>");
             s.print("<a href=" + ogg2m3u(mountpoint) + ">" + mountpoint);
-            if (source instanceof UDPSource) {
-                UDPSource foo = (UDPSource) source;
-                s.print("(UDP:" + foo.b.port + ")");
-            }
+
             s.print("</a>");
             s.print("&nbsp;(" + source.getListeners() + "," + source.getConnections() + ")");
             s.println("</td>");
@@ -81,11 +78,7 @@ class Ctrl extends Page {
                 s.println("<td align=left>");
                 s.print("<a href=" + source_name + ">" + source_name + "</a>");
                 s.println("</td>");
-            } else if (source instanceof UDPSource) {
-                UDPSource foo = (UDPSource) source;
-                s.println("<td align=left>");
-                s.print(foo.b.srcmpoint);
-                s.println("</td>");
+
             } else {
                 s.println("<td align=left>" + source_name + "</td>");
             }
@@ -214,7 +207,7 @@ class Ctrl extends Page {
                 s.print("<select name=srcmpoint size=1>");
                 for (; keys.hasMoreElements(); ) {
                     String mpoint = ((String) (keys.nextElement()));
-                    if (Source.sources.get(mpoint) instanceof UDPSource) continue;
+
                     s.println("<OPTION VALUE=" + mpoint + ">" + mpoint);
                 }
                 s.print("</select>");
@@ -252,7 +245,7 @@ class Ctrl extends Page {
                 for (; keys.hasMoreElements(); ) {
                     String mpoint = ((String) (keys.nextElement()));
                     Source source = Source.getSource(mpoint);
-                    if (source == null || source instanceof UDPSource) continue;
+
                     s.println("<OPTION VALUE=" + mpoint + ">" + mpoint);
                 }
                 s.print("</select>");

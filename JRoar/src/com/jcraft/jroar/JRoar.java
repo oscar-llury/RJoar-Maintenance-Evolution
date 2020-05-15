@@ -176,11 +176,8 @@ public class JRoar extends Applet implements Runnable {
                 } catch (Exception e) {
                     System.err.println(e);
                 }
-                UDPBroadcast u = new UDPBroadcast(arg[i + 1], // src mount point
-                        arg[i + 2], // broadcast address
-                        port,     // port number
-                        arg[i + 4]);// dst mount point
-                i += 4;
+
+                //i += 4;
             } else if (arg[i].equals("-shout") && arg.length > i + 5) {
                 int port = 0;
                 try {

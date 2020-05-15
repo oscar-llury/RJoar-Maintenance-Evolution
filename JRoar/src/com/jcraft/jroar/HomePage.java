@@ -78,12 +78,7 @@ class HomePage extends Page {
             s.p(ogg2m3u(mountpoint));
             s.p(">");
             s.p(mountpoint);
-            if (source instanceof UDPSource) {
-                UDPSource foo = (UDPSource) source;
-                s.p("(UDP:");
-                s.p(foo.b.port);
-                s.p(")");
-            }
+
             s.p("</a>");
             s.p("&nbsp;");
             s.p("(");
@@ -103,11 +98,7 @@ class HomePage extends Page {
                 s.p(source_name);
                 s.p("</a>");
                 s.pn("</td>");
-            } else if (source instanceof UDPSource) {
-                UDPSource foo = (UDPSource) source;
-                s.pn("<td align=left>");
-                s.p(foo.b.srcmpoint);
-                s.pn("</td>");
+
             } else {
                 s.p("<td align=left>");
                 s.p(source_name);
