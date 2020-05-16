@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/home.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="/assets/js/home.js"></script>
+</head>
+
+<body>
+<!-- 
+   "  acceptable options",
+   "  -port     port-number (default: 8000)",
+   "  -myaddress my-address",
+   "  -relay    mount-point url-of-source [limit]",
+   "  -playlist mount-point filename [limit]",
+   "  -page     page-name class-name",
+   "  -store    page-name URL",
+   "  -passwd   password-for-web-interface",
+   "  -icepasswd password-for-ICE",
+   "  -mplistener class-name",
+   "  -shout    src-mount-point ip-address port-number password  dst-mount-point", -->
+
+	<div id="general-container">
+	
+		<div id="jroar-form">
+			<img src="/assets/img/img-form-emitir.png">
+		
+			<h1>Emite en JRoar</h1>
+			<p>A continuación, se detalla la lista de parámetros disponibles para comenzar a reproducir en JRoar.</p>
+			<p>* campos obligatorios</p>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-1" value="1"/>
+				<label>port (default: 8000)</label>
+				<div id="show-div-1">
+					<div class="jroar-form-element">
+						<label>port-number</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="port-number"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-2" value="1"/>
+				<label>myaddress</label>
+				<div id="show-div-2">
+					<div class="jroar-form-element">
+						<label>my-address</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="my-address"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-3" value="1"/>
+				<label>relay</label>
+				<div id="show-div-3">
+					<div class="jroar-form-element">
+						<label>mount-point</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="mount-point"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>url-of-source</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="url-of-source"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-4" value="1"/>
+				<label>playlist</label>
+				<div id="show-div-4">
+					<div class="jroar-form-element">
+						<label>mount-point</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="mount-point"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>filename</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="filename"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-5" value="1"/>
+				<label>page</label>
+				<div id="show-div-5">
+					<div class="jroar-form-element">
+						<label>page-name</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="page-name"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>class-name</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="class-name"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-6" value="1"/>
+				<label>store</label>
+				<div id="show-div-6">
+					<div class="jroar-form-element">
+						<label>page-name</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="page-name"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>URL</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="URL"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-7" value="1"/>
+				<label>passwd</label>
+				<div id="show-div-7">
+					<div class="jroar-form-element">
+						<label>password-for-web-interface</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="password-for-web-interface"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-8" value="1"/>
+				<label>icepasswd</label>
+				<div id="show-div-8">
+					<div class="jroar-form-element">
+						<label>password-for-ICE</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="password-for-ICE"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-9" value="1"/>
+				<label>mplistener</label>
+				<div id="show-div-9">
+					<div class="jroar-form-element">
+						<label>class-name</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="class-name"/>
+					</div>
+				</div>
+			</div>
+			
+			<div class="jroar-form-group">
+				<input type="checkbox" name="isPlaylist" id="show-button-10" value="1"/>
+				<label>shout</label>
+				<div id="show-div-10">
+					<div class="jroar-form-element">
+						<label>src-mount-point</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="src-mount-point"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>ip-address</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="ip-address"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>port-number</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="port-number"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>password</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="password"/>
+					</div>
+					<div class="jroar-form-element">
+						<label>dst-mount-point</label>
+						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="dst-mount-point"/>
+					</div>
+				</div>
+			</div>
+			
+			
+			<button id="but-comenzar">¡Comenzar!</button>
+			
+		</div>
+		
+		
+	</div>
+
+</body>
+</html>
