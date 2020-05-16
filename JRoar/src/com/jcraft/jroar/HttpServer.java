@@ -22,7 +22,6 @@
 
 package com.jcraft.jroar;
 
-import java.lang.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -55,7 +54,6 @@ class HttpServer extends Thread {
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            //System.out.println("ServerSocket error"+e );
             System.exit(1);
         }
         try {
@@ -63,12 +61,12 @@ class HttpServer extends Thread {
                 myURL = "http://" + InetAddress.getLocalHost().getHostAddress() + ":" + port;
             else
                 myURL = "http://" + myaddress + ":" + port;
-            //System.out.println("myURL: "+myURL);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
+    @Override
     public void run() {
         Socket socket = null;
         while (true) {
@@ -92,10 +90,12 @@ class HttpServer extends Thread {
             start();
         }
 
+        @Override
         public void run() {
             try {
                 (new Dispatch(socket)).doit();
             } catch (Exception e) {
+                System.err.println(e);
             }
         }
     }
@@ -103,8 +103,6 @@ class HttpServer extends Thread {
 
 class Dispatch {
     private MySocket mySocket = null; // Es el socket que se obtenía con serverSocket.accept()
-    private String rootDirectory = ".";
-    private String defaultFile = "index.html";
 
     Dispatch(Socket s) throws IOException {
         super();
@@ -141,7 +139,7 @@ class Dispatch {
         mySocket.close();
     }
 
-    private Vector getHttpHeader(MySocket ms) throws IOException {
+    private Vector getHttpHeader(MySocket ms) {
         Vector v = new Vector();
         String foo = null;
         while (true) {
@@ -158,14 +156,12 @@ class Dispatch {
     private void procPOST(String string, Vector httpheader) throws IOException {
         String foo;
         int len = 0; // Tamaño del contenido
-        int c; // Quitar
         String file = string.substring(string.indexOf(' ') + 1);
         if (file.indexOf(' ') != -1)
             file = file.substring(0, file.indexOf(' '));
 
         for (int i = 0; i < httpheader.size(); i++) {
             foo = (String) httpheader.elementAt(i);
-//System.out.println("foo: "+foo);
             if (foo.startsWith("Content-Length:") ||
                     foo.startsWith("Content-length:")  // hmm... for Opera, lynx
             ) {
@@ -194,6 +190,7 @@ class Dispatch {
                 }
             }
         } catch (Exception e) {
+            System.err.println(e);
         }
         Page.unknown(mySocket, file);
     }
@@ -269,6 +266,7 @@ class Dispatch {
                 }
             }
         } catch (Exception e) {
+            System.err.println(e);
         }
 
         if (_file.endsWith(".pls")) {
@@ -306,18 +304,14 @@ class Dispatch {
             if (_file.indexOf('?') != -1) _file = _file.substring(0, _file.indexOf('?'));
 
             Object o = Page.map(_file);
-            if (o != null) {
-                exist = true;
-            } else if (_file.endsWith(".pls")) {
-                exist = true;
-            } else if (_file.endsWith(".m3u")) {
+            if (o != null || _file.endsWith(".pls")||_file.endsWith(".m3u")) {
                 exist = true;
             }
             file = _file;
         }
 
         if (exist) {
-            Page.ok(mySocket, file);
+            Page.ok(mySocket);
         } else {
             Page.unknown(mySocket, file);
         }
@@ -341,7 +335,7 @@ class Dispatch {
         }
 
         Source source = Source.getSource(file);
-        if (source != null && (source instanceof Ice)) {
+        if (source instanceof Ice) {
             Ice ice = (Ice) source;
             if (!ice.isAlive()) {
                 ice.stop();
@@ -356,6 +350,7 @@ class Dispatch {
                 mySocket.flush();
                 mySocket.close();
             } catch (Exception e) {
+                System.err.println(e);
             }
         }
     }
@@ -372,11 +367,8 @@ class Dispatch {
             }
 
             String bar = foo.substring(0, foo.indexOf(' '));
-            //System.out.println(foo);
 
             Vector v = getHttpHeader(mySocket);
-
-//System.out.println(v);
 
             if (bar.equalsIgnoreCase("POST")) {
                 procPOST(foo, v);
@@ -399,6 +391,7 @@ class Dispatch {
             }
 
         } catch (Exception e) {
+            System.err.println(e);
         }
     }
 }

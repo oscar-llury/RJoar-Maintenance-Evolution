@@ -1,5 +1,5 @@
 /* -*-mode:java; c-basic-offset:2; -*- */
-/* JRoar -- pure Java streaming server for Ogg 
+/* JRoar -- pure Java streaming server for Ogg
  *
  * Copyright (C) 2001,2002 ymnk, JCraft,Inc.
  *
@@ -21,89 +21,114 @@
  */
 
 package com.jcraft.jroar;
+
 import java.io.*;
 import java.net.*;
-import java.util.*;
 
 public class MySocket {
-  Socket socket=null;
-  private DataInputStream dataInputStream=null;
-  private OutputStream os=null;
+    Socket socket = null;
+    private DataInputStream dataInputStream = null;
+    private OutputStream os = null;
 
-  MySocket(Socket s) throws IOException{
+    MySocket(Socket s) throws IOException {
 
-    try{ s.setTcpNoDelay(true); }
-    catch(Exception e){
-      System.out.println(e+" tcpnodelay");
+        try {
+            s.setTcpNoDelay(true);
+        } catch (Exception e) {
+            System.out.println(e + " tcpnodelay");
+        }
+        socket = s;
+        BufferedInputStream bis = new BufferedInputStream(s.getInputStream());
+        dataInputStream = new DataInputStream(bis);
+        os = s.getOutputStream();
     }
-    socket=s;
-    BufferedInputStream bis=new BufferedInputStream(s.getInputStream());
-    dataInputStream=new DataInputStream(bis);
-    os=s.getOutputStream();
-  }
 
-  InputStream getInputStream(){
-    try{ return dataInputStream;}
-    catch(Exception e){}
-    return null;
-  }
-
-  public void close(){
-    try{
-      socket.shutdownOutput();
-      dataInputStream.close();
-      os.close();
-      socket.close();
+    InputStream getInputStream() {
+        try {
+            return dataInputStream;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return null;
     }
-    catch(IOException e){ }
-  }
 
-  public int readByte(){
-    try{ int r=dataInputStream.readByte(); return(r&0xff); }
-    catch(IOException e){ return(-1); }
-  }
+    public void close() {
+        try {
+            socket.shutdownOutput();
+            dataInputStream.close();
+            os.close();
+            socket.close();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
+    }
 
-  public String readLine(){
-    try{ return(dataInputStream.readLine()); } // ! CAMBIAR
-    catch(IOException e){ return(null); }
-  }
+    public int readByte() {
+        try {
+            int r = dataInputStream.readByte();
+            return (r & 0xff);
+        } catch (IOException e) {
+            return (-1);
+        }
+    }
 
-  public void write(byte[] foo, int start, int length) throws IOException{
-    os.write(foo, start, length);
-  }
-  public void p(String s) throws IOException{
-    os.write(s.getBytes());
-  }
-  public void print(String s) throws IOException{
-    os.write(s.getBytes());
-  }
-  public void p(byte[] s) throws IOException{
-    os.write(s);
-  }
-  public void print(byte[] s) throws IOException{
-    os.write(s);
-  }
-  public void p(char c) throws IOException{
-    os.write(c);
-  }
-  public void print(char c) throws IOException{
-    os.write(c);
-  }
-  public void p(int c) throws IOException{
-    os.write(Integer.toString(c).getBytes());
-  }
-  public void print(int c) throws IOException{
-    os.write(Integer.toString(c).getBytes());
-  }
+    public String readLine() {
+        try {
+            return (dataInputStream.readLine());
+        } // ! CAMBIAR
+        catch (IOException e) {
+            return (null);
+        }
+    }
 
-  static final private byte[] _rn="\r\n".getBytes();
-  public void pn(String s) throws IOException{
-    println(s);
-  }
-  public void println(String s) throws IOException{
-    print(s); print(_rn);
-  }
-  public void flush() throws IOException{
-    os.flush();
-  }
+    public void write(byte[] foo, int start, int length) throws IOException {
+        os.write(foo, start, length);
+    }
+
+    public void p(String s) throws IOException {
+        os.write(s.getBytes());
+    }
+
+    public void print(String s) throws IOException {
+        os.write(s.getBytes());
+    }
+
+    public void p(byte[] s) throws IOException {
+        os.write(s);
+    }
+
+    public void print(byte[] s) throws IOException {
+        os.write(s);
+    }
+
+    public void p(char c) throws IOException {
+        os.write(c);
+    }
+
+    public void print(char c) throws IOException {
+        os.write(c);
+    }
+
+    public void p(int c) throws IOException {
+        os.write(Integer.toString(c).getBytes());
+    }
+
+    public void print(int c) throws IOException {
+        os.write(Integer.toString(c).getBytes());
+    }
+
+    static final private byte[] _rn = "\r\n".getBytes();
+
+    public void pn(String s) throws IOException {
+        println(s);
+    }
+
+    public void println(String s) throws IOException {
+        print(s);
+        print(_rn);
+    }
+
+    public void flush() throws IOException {
+        os.flush();
+    }
 }

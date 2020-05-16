@@ -35,7 +35,8 @@ public class JRoar extends Applet implements Runnable {
     static final String version = "0.0.9";
 
     static boolean running_as_applet = true;
-    static java.net.URL codebase = null; // Contiene TODA la información sobre una URL //  static String passwd="passssap";
+    static java.net.URL codebase = null; // Contiene TODA la información sobre una URL
+    //  static String passwd="passssap";
     static String passwd = null;
     //static String icepasswd="changeme";
     static String icepasswd = null;
@@ -48,6 +49,7 @@ public class JRoar extends Applet implements Runnable {
     public JRoar() {
     }
 
+    @Override
     public void init() {
         String s;
 
@@ -58,11 +60,9 @@ public class JRoar extends Applet implements Runnable {
             try {
                 HttpServer.port = Integer.parseInt(s);
             } catch (Exception e) {
+                System.err.println(e);
             }
         }
-
-//  s=getParameter("jroar.ipaddress");
-//  HttpServer.myaddress=s;
 
         s = getParameter("jroar.myaddress");
         HttpServer.myaddress = s;
@@ -127,14 +127,10 @@ public class JRoar extends Applet implements Runnable {
                 try {
                     HttpServer.port = Integer.parseInt(arg[i + 1]);
                 } catch (Exception e) {
+                    System.out.println(e);
                 }
                 i++;
-            }
-//    else if(arg[i].equals("-ipaddress") && arg.length>i+1){
-//      HttpServer.myaddress=arg[i+1];
-//      i++;
-//    }
-            else if (arg[i].equals("-myaddress") && arg.length > i + 1) {
+            } else if (arg[i].equals("-myaddress") && arg.length > i + 1) {
                 HttpServer.myaddress = arg[i + 1];
                 i++;
             } else if (arg[i].equals("-passwd") && arg.length > i + 1) {
@@ -154,6 +150,7 @@ public class JRoar extends Applet implements Runnable {
                     try {
                         proxy.setLimit(Integer.parseInt(arg[i + 1]));
                     } catch (Exception e) {
+                        System.out.println(e);
                     }
                     i++;
                 }
@@ -164,6 +161,7 @@ public class JRoar extends Applet implements Runnable {
                     try {
                         p.setLimit(Integer.parseInt(arg[i + 1]));
                     } catch (Exception e) {
+                        System.out.println(e);
                     }
                     i++;
                 }
@@ -176,7 +174,6 @@ public class JRoar extends Applet implements Runnable {
                     System.err.println(e);
                 }
 
-                //i += 4;
             } else if (arg[i].equals("-shout") && arg.length > i + 5) {
                 int port = 0;
                 try {
@@ -203,7 +200,7 @@ public class JRoar extends Applet implements Runnable {
                 try {
                     new Store(arg[i + 1], arg[i + 2]);
                 } catch (Exception e) {
-//        System.err.println("Unknown class: "+arg[i+2]);
+                    System.out.println(e);
                 }
                 i += 2;
             } else if (arg[i].equals("-mplistener") && arg.length > i + 1) {
@@ -225,35 +222,6 @@ public class JRoar extends Applet implements Runnable {
             }
         }
 
-
-        // Live Ogg stream at 'http://192.168.1.2:8000/example1.ogg'
-        // is mouted at /test1.ogg
-    /*
-    Proxy proxy=new Proxy("/foo1.ogg", 
-    	                    "http://192.168.1.2:8888/example1.ogg");
-    */
-
-    /*
-    // Ogg Vorbis files included in foo will be streamed at /test2.ogg
-    String[] foo={
-      "/tmp/foo.ogg",
-      "/tmp/bar.ogg"
-    };
-    PlayFile p=new PlayFile("/foo2.ogg", foo);
-    p.kick();
-    */  
- 
-    /*
-    // A stream mounted at /foo1.ogg will be broadcasted UDP port 8000
-    UDPBroadcast u=new UDPBroadcast("/foo1.ogg", "192.168.0.255", 8000, "/udp.ogg");
-    */
-
-        // A stream mounted at /test2.ogg is transfered to IceCast2/JRoar at
-        // 192.168.0.3:8000 with mountpoint /example2.ogg.
-    /*
-    ShoutClient sc=new ShoutClient("/foo2.ogg", "192.168.0.3", 8000, "/example2.ogg", "hackme");
-    */
-
         HttpServer httpServer = new HttpServer();
         httpServer.start();
 
@@ -266,7 +234,8 @@ public class JRoar extends Applet implements Runnable {
         if (m3u.startsWith("http://")) {
             try {
                 URL url = null;
-                if (running_as_applet) url = new URL(codebase, m3u); // Creates a URL by parsing the given spec within a specified context.
+                if (running_as_applet)
+                    url = new URL(codebase, m3u); // Creates a URL by parsing the given spec within a specified context.
                 else url = new URL(m3u);
                 URLConnection urlc = url.openConnection();
                 pstream = urlc.getInputStream(); // Flujo de audio que llega desde una conexión HTTP
@@ -292,6 +261,7 @@ public class JRoar extends Applet implements Runnable {
                 // Lee líneas de un archivo(playlist) que contiene rutas de archivos con audio.
                 line = readline(pstream);
             } catch (Exception e) {
+                System.out.println(e);
             }
             if (line == null) break;
             System.out.println("playFile (" + line + ")");
@@ -349,13 +319,14 @@ public class JRoar extends Applet implements Runnable {
     private static final int WATCHDOGSLEEP = 3000;
 
     static class WatchDog extends Thread {
+        @Override
         public void run() {
             Source source;
             Enumeration sources;
             while (true) {
                 try {
                     sources = Source.sources.elements();
-                    for (; sources.hasMoreElements(); ) {
+                    while (sources.hasMoreElements()) {
                         source = ((Source) sources.nextElement());
                         int size = source.listeners.size();
                         Client c = null;
@@ -363,10 +334,10 @@ public class JRoar extends Applet implements Runnable {
                             try {
                                 c = (Client) (source.listeners.elementAt(i));
                                 if (c.ready && System.currentTimeMillis() - c.lasttime > 1000) {
-//System.out.println("drop: "+c);
                                     ((HttpClient) c).ms.close();
                                 }
                             } catch (Exception ee) {
+                                System.out.println(ee);
                             }
                         }
                     }
@@ -377,6 +348,7 @@ public class JRoar extends Applet implements Runnable {
                 try {
                     Thread.sleep(WATCHDOGSLEEP);
                 } catch (Exception e) {
+                    System.out.println(e);
                 }
             }
         }

@@ -71,16 +71,19 @@ class HttpClient extends Client {
         ready = false;
     }
 
+    @Override
     public void close() {
         if (!headerIsSent) {
             try {
                 Page.unknown(ms, file);
             } catch (Exception e) {
+                System.err.println(e);
             }
         }
         try {
             ms.close();
         } catch (Exception e) {
+            System.err.println(e);
         }
         ms = null;
         super.close();

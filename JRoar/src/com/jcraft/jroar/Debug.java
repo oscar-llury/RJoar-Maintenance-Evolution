@@ -22,9 +22,7 @@
 
 package com.jcraft.jroar;
 
-import java.lang.*;
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 class Debug extends Page {
@@ -43,19 +41,14 @@ class Debug extends Page {
         s.println("</HEAD><BODY>");
         s.println("<h1>Debug</h1>");
         s.println("<pre>");
-//    s.println("PlayFile.status: "+PlayFile.status+"<br>");
-//    s.println("PlayFile.file: "+PlayFile.file+"<br>");
 
         Source source;
         Enumeration sources = Source.sources.elements();
-        for (; sources.hasMoreElements(); ) {
+        while (sources.hasMoreElements()) {
             source = ((Source) sources.nextElement());
             s.println("Source: " + source);
             s.println("         " + source.listeners);
         }
-//s.println("<p>");
-//
-//s.println("java.version:" +System.getProperty("java.version"));
 
         s.println("<p>");
 
@@ -74,27 +67,13 @@ class Debug extends Page {
 
     static final private String blank = "  ";
 
-    private void indent(StringBuffer sb, int foo) {
-        for (int i = 0; i < foo; i++) {
-            sb.append(blank);
-        }
-    }
-
     private void wrap(StringBuffer sb, String tag, String foo) {
         sb.append("<" + tag + ">" + foo + "</" + tag + ">");
-        return;
-    }
-
-    private void wrapln(StringBuffer sb, String tag, String foo) {
-        wrap(sb, tag, foo);
-        ln(sb);
-        return;
     }
 
     static final String _ln = "\n";
 
     private void ln(StringBuffer sb) {
         sb.append(_ln);
-        return;
     }
 }

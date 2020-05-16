@@ -117,6 +117,7 @@ class PlayFile extends Source implements Runnable {
             }
             d.close();
         } catch (Exception ee) {
+            System.err.println(ee);
         }
         this.files = new String[v.size()];
         for (int i = 0; i < v.size(); i++) {
@@ -135,18 +136,6 @@ class PlayFile extends Source implements Runnable {
     public void kick() {
 
         if (me != null) {
-	/*
-      int size=listeners.size();
-      Client c=null;
-        c=(Client)(listeners.elementAt(1));
-System.out.println(c);
-        if(System.currentTimeMillis()-c.lasttime>1000){
-          try{
-            ((HttpClient)c).ms.close();
-	  }
-          catch(Exception e){}
-	}
-	*/
             return;
         }
         me = new Thread(this);
@@ -154,7 +143,6 @@ System.out.println(c);
     }
 
     static String status = "status0";
-//static String file="??";
 
     public void run() {
         Vector http_header = new Vector();
@@ -162,7 +150,6 @@ System.out.println(c);
         http_header.addElement("Content-Type: application/x-ogg");
 
         int ii = -1;
-        loop:
         while (me != null) {
             ii++;
             if (this.file != null &&
@@ -176,8 +163,6 @@ System.out.println(c);
             if (ii >= files.length) ii = 0;
 
             status = "status1";
-
-//System.out.println("status: "+status+" files.length="+files.length);
 
             bitStream = null;
             if (files[ii].startsWith("http://")) {
@@ -195,8 +180,6 @@ System.out.println(c);
                 bitStream = System.in;
             }
 
-//System.out.println("bitStream: "+bitStream);
-
             if (bitStream == null) {
                 try {
                     bitStream = new FileInputStream(files[ii]);
@@ -204,8 +187,6 @@ System.out.println(c);
                     System.out.println(e);
                 }
             }
-
-//System.out.println("bitStream: "+bitStream);
 
             if (bitStream == null) {
                 files[ii] = null;
@@ -222,12 +203,8 @@ System.out.println(c);
                 continue;
             }
 
-//System.out.println("bitStream: "+bitStream);
-
             file = files[ii];
             status = "status2";
-
-//System.out.println("file: "+file);
 
             init_ogg();
 
@@ -257,8 +234,7 @@ System.out.println(c);
                     eos = true;
                     continue;
                 }
-                if (bytes == -1) break;
-                if (bytes == 0) break;
+                if (bytes == -1 || bytes == 0) break;
                 status = "status5";
                 oy.wrote(bytes);
 
@@ -269,20 +245,11 @@ System.out.println(c);
                     int result = oy.pageout(og);
 
                     if (result == 0) break; // need more data
-                    if (result == -1) { // missing or corrupt data at this page position
-//	    System.err.println("Corrupt or missing data in bitstream; continuing...");
-                    } else {
-	    /*
-  	    if(serialno!=og.serialno()){
-              header=null;
-              serialno=og.serialno();
-	    }
-	    */
+                    if (result != -1) {
+
                         serialno = og.serialno();
                         granulepos = og.granulepos();
                         status = "status8";
-
-//System.out.println("og: "+og+", pos="+og.granulepos());
 
                         if ((granulepos == 0)
                                 || (granulepos == -1)          // hack for Speex
@@ -297,7 +264,6 @@ System.out.println(c);
                         } else {
                             if (header == null) {
                                 parseHeader(pages, page_count);
-//System.out.println("rate: "+current_info.rate);
                                 com.jcraft.jogg.Page foo;
                                 for (int i = 0; i < page_count; i++) {
                                     foo = pages[i];
@@ -315,7 +281,6 @@ System.out.println(c);
                         }
 
                         status = "status9";
-//            synchronized(listeners){  // In some case, c.write will block.
                         status = "status99";
                         int size = listeners.size();
 
@@ -335,7 +300,6 @@ System.out.println(c);
                             }
                             i++;
                         }
-//	    }
                         status = "status11";
                         if (granulepos != 0 &&
                                 key_serialno == serialno) {
@@ -344,15 +308,12 @@ System.out.println(c);
                                 time = (System.currentTimeMillis() - start_time) * 1000;
                             } else {
                                 time += (long) (((granulepos - last_sample) * 1000000) /
-                                        ((current_info.rate)));
+                                        (current_info.rate));
                             }
                             last_sample = granulepos;
                             long sleep = (time / 1000) - (System.currentTimeMillis() - start_time);
-//System.out.println("sleep="+sleep);
-//if(sleep>10000){sleep=0; time=(System.currentTimeMillis()-start_time);}
                             status = "status112";
                             if (sleep > 0) {
-//System.out.println("sleep: "+sleep);
                                 try {
                                     Thread.sleep(sleep);
                                 } catch (Exception e) {
@@ -368,8 +329,6 @@ System.out.println(c);
                         }
 
                         status = "status13";
-
-//	    if(og.eos()!=0)eos=true;
 
                     }
                     status = "status14";
@@ -399,7 +358,6 @@ System.out.println(c);
     private void setURLProperties(URLConnection urlc) {
         if (HttpServer.myURL != null) {
             urlc.setRequestProperty("jroar-proxy", HttpServer.myURL + mountpoint);
-            //System.out.println(HttpServer.myURL+mountpoint);
             if (JRoar.comment != null)
                 urlc.setRequestProperty("jroar-comment", JRoar.comment);
         }
@@ -433,9 +391,9 @@ System.out.println(c);
         }
     }
 
+    @Override
     void drop() {
         stop();
-        //drop_clients();
         super.drop();
     }
 }

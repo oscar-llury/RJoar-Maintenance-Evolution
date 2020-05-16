@@ -49,7 +49,7 @@ public abstract class Page {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < foo.length; i++) {
             if (foo[i] == '+') {
-                sb.append((char) ' ');
+                sb.append(' ');
                 continue;
             }
             if (foo[i] == '%' && i + 2 < foo.length) {
@@ -76,7 +76,6 @@ public abstract class Page {
     static void forward(MySocket mysocket, String location) throws IOException {
         //Método que escribe en el socket el el código HTTP 302 y donde se ha encontrado (location)
         mysocket.println("HTTP/1.0 302 Found");
-        //mysocket.println("Location: "+HttpServer.myURL+location);
         mysocket.println("Location: " + location);
         mysocket.println("");
         mysocket.flush();
@@ -100,12 +99,11 @@ public abstract class Page {
         mysocket.close();
     }
 
-    static void ok(MySocket mysocket, String location) throws IOException {
+    static void ok(MySocket mysocket) throws IOException {
         //Método que escribe en el socket el el código HTTP 200
         mysocket.println("HTTP/1.0 200 OK");
         mysocket.println("Last-Modified: Thu, 04 Oct 2001 14:09:23 GMT");
         mysocket.println("Connection: close");
-//    mysocket.println("Content-Type: text/html; charset=iso-8859-1");
         mysocket.println("");
         mysocket.flush();
         mysocket.close();
@@ -125,13 +123,13 @@ public abstract class Page {
         arg = decode(arg);
 
         int foo = 0;
-        int i = 0;
-        int c = 0;
 
-        String key, value;
+        String key;
+        String value;
 
         while (true) {
-            key = value = null;
+            key = null;
+            value = null;
 
             //Posición del siguiente = en la cadena
             foo = arg.indexOf('=');
@@ -168,7 +166,8 @@ public abstract class Page {
         int i = 0;
         int c = 0;
         StringBuffer sb = new StringBuffer();
-        String key, value;
+        String key;
+        String value;
 
         while (i < len) {
             key = value = null;
@@ -214,5 +213,23 @@ public abstract class Page {
         ms.println("</BODY></HTML>");
         ms.flush();
         ms.close();
+    }
+
+    public static String readline(InputStream is) {
+        //Método que lee una línea desde un InputStream que recibe como parámetro de entrada
+        StringBuffer rtn = new StringBuffer();
+        int temp;
+        do {
+            try {
+                temp = is.read();
+            } catch (Exception e) {
+                return (null);
+            }
+            if (temp == -1) {
+                return (null);
+            }
+            if (temp != 0 && temp != '\n') rtn.append((char) temp);
+        } while (temp != '\n');
+        return (rtn.toString());
     }
 }

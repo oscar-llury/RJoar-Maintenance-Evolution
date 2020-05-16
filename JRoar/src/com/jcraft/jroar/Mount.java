@@ -22,9 +22,7 @@
 
 package com.jcraft.jroar;
 
-import java.lang.*;
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 class Mount extends Page {
@@ -53,11 +51,10 @@ class Mount extends Page {
                 try {
                     limit = Integer.parseInt(_limit);
                 } catch (Exception e) {
+                    System.err.println(e);
                 }
             }
         }
-
-//System.out.println("livestream="+livestream);
 
         if (mountpoint != null &&
                 source != null &&
@@ -86,7 +83,6 @@ class Mount extends Page {
 
         }
         forward(ms, "/");
-        return;
     }
 
 }

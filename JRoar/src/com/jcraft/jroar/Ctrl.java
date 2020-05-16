@@ -34,7 +34,6 @@ class Ctrl extends Page {
         register("/ctrl.html", Ctrl.class.getName());
     }
 
-    private static final int REFRESH = 60;
     private static int count = 0;
 
     public void kick(MySocket s, Hashtable vars, Vector httpheader) throws IOException {
@@ -44,15 +43,12 @@ class Ctrl extends Page {
         s.println("");
         s.println("<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">");
         s.println("<HTML><HEAD>");
-//  s.println("<META HTTP-EQUIV=\"refresh\" content=\""+REFRESH+";URL=/ctrl.html\">");
         s.println("<TITLE>JRoar " + JRoar.version + " at " + HttpServer.myURL + "/</TITLE>");
         s.println("</HEAD><BODY>");
         s.println("<h1>JRoar " + JRoar.version + " at " + HttpServer.myURL + "/</h1>");
 
         Enumeration keys = Source.sources.keys();
-        if (keys.hasMoreElements()) {
-            //s.println("Mount points.<br>");
-        } else {
+        if (!keys.hasMoreElements()) {
             s.println("There is no mount point.<br>");
         }
 
@@ -83,16 +79,7 @@ class Ctrl extends Page {
                 s.println("<td align=left>" + source_name + "</td>");
             }
             s.println("</tr>");
-      /*
-      String comment=getComment(source.current_comment);
-      if(comment!=null){
-        s.println("<tr>");
-        s.println("<td>&nbsp;</td>");
-        s.println("<td>&nbsp;</td>");
-        s.println("<td>"+comment+"</td>");
-        s.println("</tr>");
-      }
-      */
+
             Object[] proxies = source.getProxies();
             if (proxies != null) {
                 for (int i = 0; i < proxies.length; i++) {
@@ -226,7 +213,6 @@ class Ctrl extends Page {
 
                 s.print("&nbsp;&nbsp;");
                 s.print("<input type=submit name=Shout value=Shout>");
-//  s.print("&nbsp;(<i>This functionality has not been implemented yet.</i>)");
                 s.print("</form>");
                 s.print("</table>");
             }
@@ -293,17 +279,8 @@ class Ctrl extends Page {
         s.flush();
         s.close();
 
-//  System.gc();
     }
 
-    /*
-    private String ogg2pls(String ogg){
-      if(!ogg.endsWith(".ogg") && !ogg.endsWith(".spx")) return ogg;
-      byte[] foo=ogg.getBytes();
-      foo[foo.length-1]='s';foo[foo.length-2]='l';foo[foo.length-3]='p';
-      return new String(foo);
-    }
-    */
     private String ogg2m3u(String ogg) {
         // Convierte un .ogg a un .m3u
         if (!ogg.endsWith(".ogg") && !ogg.endsWith(".spx")) return ogg;
@@ -324,17 +301,4 @@ class Ctrl extends Page {
         }
         return null;
     }
-
-  /*
-  // hmm...
-  private String getComment(Comment c){
-    if(c.comments==0)return null;
-    StringBuffer sb=new StringBuffer();
-    for(int i=0; i<c.comments; i++){
-      sb.append(new String(c.user_comments[i], 0, c.user_comments[i].length-1));
-      if(i+1<c.comments) sb.append("<br>");
-    }
-    return sb.toString();
-  }
-  */
 }

@@ -23,6 +23,7 @@
 package com.jcraft.jroar;
 
 public interface MountPointListener {
-  void mount(String mpoint);
-  void unmount(String mpoint);
+    void mount(String mpoint);
+
+    void unmount(String mpoint);
 }

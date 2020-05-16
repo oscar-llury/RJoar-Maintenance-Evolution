@@ -22,9 +22,7 @@
 
 package com.jcraft.jroar;
 
-import java.lang.*;
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 class Drop extends Page {

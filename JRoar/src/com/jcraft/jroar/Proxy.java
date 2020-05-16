@@ -31,7 +31,6 @@ import com.jcraft.jogg.*;
 class Proxy extends Source implements Runnable {
     static final int BUFSIZE = 4096 * 2;
 
-    //  private String source=null;
     private InputStream bitStream = null;
 
     private SyncState oy;
@@ -66,9 +65,7 @@ class Proxy extends Source implements Runnable {
     public void kick() {
         if (me != null) {
             if (System.currentTimeMillis() - lasttime > 600000) {
-                //System.out.println("kick: stop!");
                 stop();
-                //System.out.println("kick: done!");
             }
             return;
         }
@@ -77,8 +74,8 @@ class Proxy extends Source implements Runnable {
         me.start();
     }
 
+    @Override
     public void run() {
-        //if(me==null) return;
         lasttime = System.currentTimeMillis();
 
         Vector http_header = new Vector();
@@ -96,14 +93,6 @@ class Proxy extends Source implements Runnable {
             setURLProperties(urlc);
 
             String foo;
-      /*
-      foo=urlc.getHeaderField(0); // HTTP/1.0 200 OK
-      if(foo.indexOf(" 200 ")==-1){
-        stop();
-        return;
-      }
-      */
-
             int i = 0;
             String s = null;
             String t = null;
@@ -111,7 +100,6 @@ class Proxy extends Source implements Runnable {
                 s = urlc.getHeaderField(i);
                 t = urlc.getHeaderFieldKey(i);
                 if (s == null) break;
-                // System.out.println("header: "+t+": "+s);
                 http_header.addElement((t == null ? s : (t + ": " + s)));
                 i++;
             }
@@ -135,7 +123,6 @@ class Proxy extends Source implements Runnable {
         } catch (Exception ee) {
             System.err.println(ee);
             me = null;
-//    drop();
             stop();
             return;
         }
@@ -149,7 +136,6 @@ class Proxy extends Source implements Runnable {
 
         retry = RETRY;
 
-        loop:
         while (me != null) {
             boolean eos = false;
             header = null;
@@ -163,9 +149,7 @@ class Proxy extends Source implements Runnable {
                     bytes = -1;
                     break;
                 }
-                if (bytes == -1) break;
-                if (bytes == 0) break;
-
+                if (bytes == -1 || bytes == 0) break;
                 oy.wrote(bytes);
 
                 lasttime = System.currentTimeMillis();
@@ -174,22 +158,15 @@ class Proxy extends Source implements Runnable {
                     Thread.sleep(1);
                 }  // sleep for green thread.
                 catch (Exception e) {
+                    System.err.println(e);
                 }
 
                 while (!eos) {
                     int result = oy.pageout(og);
 
                     if (result == 0) break; // need more data
-                    if (result == -1) { // missing or corrupt data at this page position
-//	    System.err.println("Corrupt or missing data in bitstream; continuing...");
-                    } else {
+                    if (result != -1) {
                         retry = RETRY;
-
-//  	    if(serialno!=og.serialno()){
-//              header=null;
-//              serialno=og.serialno();
-//	    }
-
                         if ((og.granulepos() == 0)
                                 || (og.granulepos() == -1)          // hack for Speex
                         ) {
@@ -204,7 +181,6 @@ class Proxy extends Source implements Runnable {
                             pages[page_count++] = og.copy();
                         } else {
                             if (header == null) {
-                                //parseHeader(pages, page_count);
                                 com.jcraft.jogg.Page foo;
                                 for (int i = 0; i < page_count; i++) {
                                     foo = pages[i];
@@ -217,14 +193,11 @@ class Proxy extends Source implements Runnable {
                             }
                         }
 
-//          synchronized(listeners){  // In some case, c.write will block.
                         int size = listeners.size();
 
                         if (size == 0) {
                             eos = true;
-
                             stop();
-
                             break;
                         }
 
@@ -243,7 +216,6 @@ class Proxy extends Source implements Runnable {
                             }
                             i++;
                         }
-//  	    }
                         if (og.eos() != 0) eos = true;
                     }
                 }
@@ -265,6 +237,7 @@ class Proxy extends Source implements Runnable {
                     try {
                         Thread.sleep(1000);
                     } catch (Exception e) {
+                        System.err.println(e);
                     }
 
                     try {
@@ -305,7 +278,6 @@ class Proxy extends Source implements Runnable {
             }
             bitStream = null;
             me = null;
-//    drop();
         }
         drop_clients();
     }
@@ -319,12 +291,14 @@ class Proxy extends Source implements Runnable {
                 try {
                     c.close();
                 } catch (Exception e) {
+                    System.err.println(e);
                 }
             }
             listeners.removeAllElements();
         }
     }
 
+    @Override
     void drop() {
         drop_clients();
         super.drop();

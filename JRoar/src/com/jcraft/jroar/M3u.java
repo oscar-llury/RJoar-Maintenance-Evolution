@@ -1,5 +1,5 @@
 /* -*-mode:java; c-basic-offset:2; -*- */
-/* JRoar -- pure Java streaming server for Ogg 
+/* JRoar -- pure Java streaming server for Ogg
  *
  * Copyright (C) 2001,2002 ymnk, JCraft,Inc.
  *
@@ -21,84 +21,84 @@
  */
 
 package com.jcraft.jroar;
-import java.lang.*;
+
 import java.io.*;
 import java.net.*;
 import java.util.*;
 
-class M3u extends Page{
-  String pls=null;
-  static void register(){
-  }
+class M3u extends Page {
+    String pls = null;
 
-  M3u(String pls){
-    super();
-    this.pls=pls;
-  }
-  public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException{
-    //Busca un fichero  en ogg en Sources, si no lo busca terminado en spx.
-    //Si lo encuentra devuevle HTTP OK por el MySocket que recibe de parametro de entrada y si no lo encuentra llama notFound,
-    // método heredado de la clase abstracta Page que devuelve un HTTP NOT FOUND por el MySockect que se le pasa de parámetro
+    static void register() {
+    }
 
-    byte[] foo=pls.getBytes();
-    foo[foo.length-1]='g'; foo[foo.length-2]='g'; foo[foo.length-3]='o';
-    String ogg=new String(foo);
-    Source source=Source.getSource(ogg);
-    if(source==null){
-      foo[foo.length-1]='x'; foo[foo.length-2]='p'; foo[foo.length-3]='s';
-      ogg=new String(foo);
-      source=Source.getSource(ogg);
+    M3u(String pls) {
+        super();
+        this.pls = pls;
     }
-    if(source!=null){
-      ms.println("HTTP/1.0 200 OK") ;
-      ms.println("Connection: close") ;
-      ms.println("Content-Type: audio/x-mpegurl") ;
-      ms.println("") ;
-      ms.println(HttpServer.myURL+ogg);
-      ms.flush( ) ;
-      ms.close( ) ;
-    }
-    else{
-      notFound(ms);
-    }
-  }
 
-  static String getURL(String m3u){
-    //Método que recibe un String como parámetro de entrada y si empieza por http:// considera que es uns url e intenta conectarse a ella
-    // si no logra conectarse devuelve null, si logra conectarse accede al flujo de entrada de la conexión (getInputStream())
-    // si este flujo esta a null devuelve null y si no lee una linea de este flujo (con readline) y la devuelve después de cerrar el flujo
-    InputStream pstream=null;
-    if(m3u.startsWith("http://")){
-      try{
-        URL url=new URL(m3u);
-        URLConnection urlc=url.openConnection();
-        pstream=urlc.getInputStream();
-      }
-      catch(Exception ee){
-        System.err.println(ee); 	    
-        return null;
-      }
+    public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException {
+        //Busca un fichero  en ogg en Sources, si no lo busca terminado en spx.
+        //Si lo encuentra devuevle HTTP OK por el MySocket que recibe de parametro de entrada y si no lo encuentra llama notFound,
+        // método heredado de la clase abstracta Page que devuelve un HTTP NOT FOUND por el MySockect que se le pasa de parámetro
+
+        byte[] foo = pls.getBytes();
+        foo[foo.length - 1] = 'g';
+        foo[foo.length - 2] = 'g';
+        foo[foo.length - 3] = 'o';
+        String ogg = new String(foo);
+        Source source = Source.getSource(ogg);
+        if (source == null) {
+            foo[foo.length - 1] = 'x';
+            foo[foo.length - 2] = 'p';
+            foo[foo.length - 3] = 's';
+            ogg = new String(foo);
+            source = Source.getSource(ogg);
+        }
+        if (source != null) {
+            ms.println("HTTP/1.0 200 OK");
+            ms.println("Connection: close");
+            ms.println("Content-Type: audio/x-mpegurl");
+            ms.println("");
+            ms.println(HttpServer.myURL + ogg);
+            ms.flush();
+            ms.close();
+        } else {
+            notFound(ms);
+        }
     }
-    if(pstream==null) return null;
-    String line=null;
-    while(true){
-      try{line=readline(pstream);}catch(Exception e){}
-      if(line==null)break;
-      break;
+
+    static String getURL(String m3u) {
+        //Método que recibe un String como parámetro de entrada y si empieza por http:// considera que es uns url e intenta conectarse a ella
+        // si no logra conectarse devuelve null, si logra conectarse accede al flujo de entrada de la conexión (getInputStream())
+        // si este flujo esta a null devuelve null y si no lee una linea de este flujo (con readline) y la devuelve después de cerrar el flujo
+        InputStream pstream = null;
+        if (m3u.startsWith("http://")) {
+            try {
+                URL url = new URL(m3u);
+                URLConnection urlc = url.openConnection();
+                pstream = urlc.getInputStream();
+            } catch (Exception ee) {
+                System.err.println(ee);
+                return null;
+            }
+        }
+        if (pstream == null) return null;
+        String line = null;
+        while (true) {
+            try {
+                line = readline(pstream);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            if (line == null) break;
+            break;
+        }
+        try {
+            pstream.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return line;
     }
-    try{pstream.close();}catch(Exception e){}
-    return line;
-  }     
-  static private String readline(InputStream is) {
-    //Método que lee una línea desde un InputStream que recibe como parámetro de entrada
-    StringBuffer rtn=new StringBuffer();
-    int temp;
-    do {
-      try {temp=is.read();}
-      catch(Exception e){return(null);}
-      if(temp==-1){ return(null);}
-      if(temp!=0 && temp!='\n')rtn.append((char)temp);
-    }while(temp!='\n');                                                        
-    return(rtn.toString());
-  }
 }

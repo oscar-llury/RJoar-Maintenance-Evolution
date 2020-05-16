@@ -70,7 +70,6 @@ class Ice extends Source {
         if (protocol == null || protocol.startsWith("ICE")) {
             for (int i = 0; i < size; ) {
                 foo = (String) headerfromice.elementAt(i);
-//System.out.println("fromIce: "+foo);
                 if (foo.startsWith(_ice)) {
                     if (foo.startsWith(_icepasswd)) {
                         String icepasswd = foo.substring(_icepasswd.length());
@@ -92,14 +91,13 @@ class Ice extends Source {
                 if (foo.startsWith(_auth)) {
                     String icepasswd = foo.substring(_auth.length());
                     byte[] code = null;
-//        try{ code=(new sun.misc.BASE64Decoder()).decodeBuffer(icepasswd); }
-//        catch(Exception ee){ }
                     try {
                         byte[] bar = icepasswd.getBytes();
                         if (bar.length > 0) {
                             code = fromBase64(bar, 0, bar.length);
                         }
                     } catch (Exception ee) {
+                        System.err.println(ee);
                     }
                     System.out.println("code: " + new String(code));
                     if (JRoar.icepasswd != null &&
@@ -123,14 +121,16 @@ class Ice extends Source {
                     mysocket.println("");
                     mysocket.flush();
                 } catch (Exception e) {
+                    System.err.println(e);
                 }
                 drop();
                 mountpoint = null;
                 try {
                     if (mysocket != null) mysocket.close();
                 } catch (Exception e) {
+                    System.err.println(e);
                 }
-                //mysocket=null;
+
                 return;
             }
             try {
@@ -138,6 +138,7 @@ class Ice extends Source {
                 mysocket.println("");
                 mysocket.flush();
             } catch (Exception e) {
+                System.err.println(e);
             }
         } else {
             System.out.println("unkown protocol: " + protocol);
@@ -149,8 +150,8 @@ class Ice extends Source {
             try {
                 if (mysocket != null) mysocket.close();
             } catch (Exception e) {
+                System.err.println(e);
             }
-            //mysocket=null;
             return;
         }
 
@@ -192,18 +193,17 @@ class Ice extends Source {
                 try {
                     bytes = bitStream.read(buffer, index, BUFSIZE);
                 } catch (Exception e) {
-//        System.err.println(e);
                     if (me == null) break;
                     bytes = -1;
                 }
 
-                if (bytes == -1) break;
-                if (bytes == 0) break;
+                if (bytes == -1 || bytes == 0) break;
 
                 try {
                     Thread.sleep(1);
                 }  // sleep for green thread.
                 catch (Exception e) {
+                    System.err.println(e);
                 }
 
                 lasttime = System.currentTimeMillis();
@@ -216,9 +216,7 @@ class Ice extends Source {
                     int result = oy.pageout(og);
 
                     if (result == 0) break; // need more data
-                    if (result == -1) { // missing or corrupt data at this page position
-//	    System.err.println("Corrupt or missing data in bitstream; continuing...");
-                    } else {
+                    if (result != -1) {
                         if (serialno != og.serialno()) {
                             header = null;
                             serialno = og.serialno();
@@ -238,7 +236,6 @@ class Ice extends Source {
                             }
                         }
 
-//          synchronized(listeners){   // In some case, c.write will block.
                         int size = listeners.size();
 
                         Client c = null;
@@ -256,7 +253,6 @@ class Ice extends Source {
                             }
                             i++;
                         }
-//          }
                         if (og.eos() != 0) eos = true;
                     }
                 }
@@ -265,12 +261,10 @@ class Ice extends Source {
         }
 
         oy.clear();
-//    try { if(bitStream!=null)bitStream.close(); } 
-//    catch(Exception e){}
-//    bitStream=null;
         try {
             if (mysocket != null) mysocket.close();
         } catch (Exception e) {
+            System.err.println(e);
         }
         mysocket = null;
         me = null;
@@ -283,6 +277,7 @@ class Ice extends Source {
             try {
                 if (mysocket != null) mysocket.close();
             } catch (Exception e) {
+                System.err.println(e);
             }
             mysocket = null;
             me = null;
@@ -299,33 +294,30 @@ class Ice extends Source {
                 try {
                     c.close();
                 } catch (Exception e) {
+                    System.err.println(e);
                 }
             }
             listeners.removeAllElements();
         }
     }
 
+    @Override
     void drop() {
         drop_clients();
         super.drop();
     }
 
+    @Override
     void addListener(Client c) {
         super.addListener(c);
         if ((System.currentTimeMillis() - lasttime) > TIMEOUT) {
             System.out.println("drop[0]:  current=" + System.currentTimeMillis() + ", last=" + lasttime);
-	/*
-      stop();
-	*/
         }
     }
 
     boolean isAlive() {
         if ((System.currentTimeMillis() - lasttime) > TIMEOUT) {
             System.out.println("drop[1]:  current=" + System.currentTimeMillis() + ", last=" + lasttime);
-	/*
-      return false;
-	*/
         }
         return true;
     }
