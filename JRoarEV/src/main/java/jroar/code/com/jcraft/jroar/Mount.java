@@ -1,0 +1,88 @@
+/* -*-mode:java; c-basic-offset:2; -*- */
+/* JRoar -- pure Java streaming server for Ogg
+ *
+ * Copyright (C) 2001,2002 ymnk, JCraft,Inc.
+ *
+ * Written by: 2001,2002 ymnk<ymnk@jcraft.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+package jroar.code.com.jcraft.jroar;
+
+import java.io.*;
+import java.util.*;
+
+class Mount extends Page {
+    static void register() {
+        register("/mount", Mount.class.getName());
+    }
+
+    public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException {
+        //Busca en la Hashtable de entrada un punto de montura (mountpoint), una fuente (source) y un contraseña (passwd)
+        //Si la contraseña es incorrecta o nula se llama a forward, método heredado de la clase abstracta Page que devuelve un HTTP 302
+        // Si no se ha metido un punto de montura y la fuente empieza por http o peercast se crea un proxy, sino se crea un Playfile
+
+        String mountpoint = (String) vars.get("mountpoint");
+        String source = (String) vars.get("source");
+        String passwd = (String) vars.get("passwd");
+
+        if (passwd == null || !passwd.equals(JRoar.passwd)) {
+            forward(ms, "/");
+            return;
+        }
+        String livestream = (String) vars.get("livestream");
+        int limit = 0;
+        {
+            String _limit = (String) vars.get("limit");
+            if (_limit != null) {
+                try {
+                    limit = Integer.parseInt(_limit);
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
+            }
+        }
+
+        if (mountpoint != null &&
+                source != null &&
+                (source.startsWith("http://")) && Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
+            if (livestream != null && livestream.equals("true")) {
+                Proxy proxy = new Proxy(mountpoint, source);
+                if (limit != 0) {
+                    proxy.setLimit(limit);
+                }
+            } else {
+                PlayFile p = new PlayFile(mountpoint, source);
+                if (limit != 0) {
+                    p.setLimit(limit);
+                }
+                p.kick();
+            }
+
+            if (((String) vars.get("jroar-method")).equals("GET")) {
+                Source s = Source.getSource(mountpoint);
+                s.addListener(new HttpClient(ms, h, mountpoint));
+                if (s instanceof Proxy) {
+                    ((Proxy) s).kick();
+                    return;
+                }
+            }
+
+        }
+        forward(ms, "/");
+    }
+
+}
