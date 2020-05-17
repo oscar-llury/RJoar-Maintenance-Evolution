@@ -33,10 +33,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 public class JRoar extends Applet implements Runnable {
-    static final String version = "0.0.9";
+    public static final String version = "0.0.9";
 
     static boolean running_as_applet = true;
     static java.net.URL codebase = null; // Contiene TODA la información sobre una URL
@@ -367,5 +369,40 @@ public class JRoar extends Applet implements Runnable {
         synchronized (mplisteners) {
             mplisteners.removeElement(foo);
         }
+    }
+    
+    //EVOLUCIÓN
+    
+    public static void install(Map<String,List<String>> infoParams) {
+
+        running_as_applet = false;
+
+        HttpServer.myaddress = null;
+        
+        if(infoParams.get("Port")!=null) {
+        	HttpServer.port = Integer.parseInt(infoParams.get("Port").get(0));
+        }
+        
+        if(infoParams.get("Pass")!=null) {
+        	JRoar.passwd = infoParams.get("Pass").get(0);
+        }else {
+        	JRoar.passwd = "pass";
+        }
+        
+        if(infoParams.get("PlayList")!=null) {
+        	List<String> laux = infoParams.get("PlayList");
+        	PlayFile p = new PlayFile(laux.get(0), laux.get(1));
+        }
+        
+        if(infoParams.get("Relay")!=null) {
+        	List<String> laux = infoParams.get("Relay");
+        	Proxy proxy = new Proxy(laux.get(0), laux.get(1));
+        }
+  
+        HttpServer httpServer = new HttpServer();
+        httpServer.start();
+
+        wd = new WatchDog();
+        wd.start();
     }
 }

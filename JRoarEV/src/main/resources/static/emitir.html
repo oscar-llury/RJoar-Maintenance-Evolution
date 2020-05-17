@@ -29,10 +29,8 @@
    "  -icepasswd password-for-ICE",
    "  -mplistener class-name",
    "  -shout    src-mount-point ip-address port-number password  dst-mount-point", -->
-
 	<div id="general-container">
-	
-		<div id="jroar-form">
+		<form id="jroar-form" action="/install">
 			<img src="/assets/img/img-form-emitir.png">
 		
 			<h1>Emite en JRoar</h1>
@@ -40,38 +38,38 @@
 			<p>* campos obligatorios</p>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-1" value="1"/>
+				<input type="checkbox" name="isPort" id="show-button-1" value="1"/>
 				<label>port (default: 8000)</label>
 				<div id="show-div-1">
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="port-number"/>
+						<input type="text" class="jroar-form-input" name="inputPort" placeholder="port-number"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-2" value="1"/>
+				<input type="checkbox" name="isAddress" id="show-button-2" value="1"/>
 				<label>myaddress</label>
 				<div id="show-div-2">
 					<div class="jroar-form-element">
 						<label>my-address</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="my-address"/>
+						<input type="text" class="jroar-form-input" name="inputAddress" placeholder="my-address"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-3" value="1"/>
+				<input type="checkbox" name="isRelay" id="show-button-3" value="1"/>
 				<label>relay</label>
 				<div id="show-div-3">
 					<div class="jroar-form-element">
 						<label>mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputRelayMountPoint" placeholder="mount-point"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>url-of-source</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="url-of-source"/>
+						<input type="text" class="jroar-form-input" name="inputSource" placeholder="url-of-source"/>
 					</div>
 				</div>
 			</div>
@@ -82,109 +80,109 @@
 				<div id="show-div-4">
 					<div class="jroar-form-element">
 						<label>mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputPlaylistMountPoint" placeholder="mount-point"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>filename</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="filename"/>
+						<input type="text" class="jroar-form-input" name="inputPlaylistFilename" placeholder="filename"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-5" value="1"/>
+				<input type="checkbox" name="isPage" id="show-button-5" value="1"/>
 				<label>page</label>
 				<div id="show-div-5">
 					<div class="jroar-form-element">
 						<label>page-name</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="page-name"/>
+						<input type="text" class="jroar-form-input" name="inputPageName" placeholder="page-name"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>class-name</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="class-name"/>
+						<input type="text" class="jroar-form-input" name="inputClassName" placeholder="class-name"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-6" value="1"/>
+				<input type="checkbox" name="isStore" id="show-button-6" value="1"/>
 				<label>store</label>
 				<div id="show-div-6">
 					<div class="jroar-form-element">
 						<label>page-name</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="page-name"/>
+						<input type="text" class="jroar-form-input" name="inputPageName" placeholder="page-name"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>URL</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="URL"/>
+						<input type="text" class="jroar-form-input" name="inputURL" placeholder="URL"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-7" value="1"/>
+				<input type="checkbox" name="isPass" id="show-button-7" value="1"/>
 				<label>passwd</label>
 				<div id="show-div-7">
 					<div class="jroar-form-element">
 						<label>password-for-web-interface</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="password-for-web-interface"/>
+						<input type="text" class="jroar-form-input" name="inputPass" placeholder="password-for-web-interface"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-8" value="1"/>
+				<input type="checkbox" name="isIcepass" id="show-button-8" value="1"/>
 				<label>icepasswd</label>
 				<div id="show-div-8">
 					<div class="jroar-form-element">
 						<label>password-for-ICE</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="password-for-ICE"/>
+						<input type="text" class="jroar-form-input" name="inputIcepass" placeholder="password-for-ICE"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-9" value="1"/>
+				<input type="checkbox" name="isListener" id="show-button-9" value="1"/>
 				<label>mplistener</label>
 				<div id="show-div-9">
 					<div class="jroar-form-element">
 						<label>class-name</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="class-name"/>
+						<input type="text" class="jroar-form-input" name="inputListClass" placeholder="class-name"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
-				<input type="checkbox" name="isPlaylist" id="show-button-10" value="1"/>
+				<input type="checkbox" name="isShout" id="show-button-10" value="1"/>
 				<label>shout</label>
 				<div id="show-div-10">
 					<div class="jroar-form-element">
 						<label>src-mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-mountPoint" placeholder="src-mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputSrcMount" placeholder="src-mount-point"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>ip-address</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="ip-address"/>
+						<input type="text" class="jroar-form-input" name="inputDstIP" placeholder="ip-address"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="port-number"/>
+						<input type="text" class="jroar-form-input" name="inputDstPort" placeholder="port-number"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>password</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="password"/>
+						<input type="text" class="jroar-form-input" name="inputDstPass" placeholder="password"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>dst-mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylist-filename" placeholder="dst-mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputDstMount" placeholder="dst-mount-point"/>
 					</div>
 				</div>
 			</div>
 			
 			
-			<button id="but-comenzar">¡Comenzar!</button>
-			
-		</div>
+			<input type="submit" id="but-comenzar" value="¡Comenzar!">
+		</form>
+		
 		
 		
 	</div>
