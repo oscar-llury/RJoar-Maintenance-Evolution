@@ -33,8 +33,8 @@ import jroar.code.com.jcraft.jogg.SyncState;
 import jroar.code.com.jcraft.jorbis.Comment;
 import jroar.code.com.jcraft.jorbis.Info;
 
-class Source {
-    static Hashtable sources = new Hashtable();
+public class Source {
+    public static Hashtable sources = new Hashtable();
     Vector listeners = new Vector();
     String mountpoint = null;
     String source = null;
@@ -90,13 +90,13 @@ class Source {
         }
     }
 
-    int getListeners() {
+    public int getListeners() {
         synchronized (listeners) {
             return listeners.size();
         }
     }
 
-    int getConnections() {
+    public int getConnections() {
         return connections;
     }
 

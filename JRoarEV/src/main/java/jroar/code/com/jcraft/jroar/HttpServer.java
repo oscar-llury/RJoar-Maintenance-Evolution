@@ -26,7 +26,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-class HttpServer extends Thread {
+public class HttpServer extends Thread {
     // Crea todas las páginas web
     static {
         HomePage.register();
@@ -47,7 +47,7 @@ class HttpServer extends Thread {
     private ServerSocket serverSocket = null;
     static int port = 8000;
     static String myaddress = null;
-    static String myURL = null;
+    public static String myURL = null;
 
     HttpServer() {
         connections = 0;

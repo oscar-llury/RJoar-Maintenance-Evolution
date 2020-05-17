@@ -22,17 +22,44 @@
 
 package jroar.code.com.jcraft.jroar;
 
+import jroar.web.model.InfoSource;
+
 import java.io.*;
 import java.util.*;
 
-class HomePage extends Page {
+public class HomePage extends Page {
     // Interfaz web de la página principal. Muestra cada Source con su número de listeners y de conexiones relizadas
     static void register() {
         register("/", HomePage.class.getName());
         register("/index.html", HomePage.class.getName());
     }
 
-    private static int count = 0;
+    private static int count = 0; // Visitas de la página
+
+    public static List<InfoSource> newKick(){
+        count++;
+        List<InfoSource> lSource = new LinkedList<>();
+        Enumeration keys = Source.sources.keys();
+        if (!keys.hasMoreElements()) {
+            return lSource;
+        }
+
+        while (keys.hasMoreElements()) {
+            String mountpoint = ((String) (keys.nextElement()));
+            Source source = Source.getSource(mountpoint);
+            if (source == null) continue;
+            String source_name = source.source;
+            String m3u = ogg2m3u(mountpoint);
+
+            int listeners = source.getListeners();
+            int connections = source.getConnections();
+
+            InfoSource iS = new InfoSource(mountpoint, source_name, m3u, listeners, connections);
+            lSource.add(iS);
+        }
+        return lSource;
+//Faltan las proxies;
+    }
 
     public void kick(MySocket s, Hashtable vars, Vector httpheader) throws IOException {
         count++;
@@ -149,7 +176,7 @@ class HomePage extends Page {
     }
 
 
-    private String ogg2m3u(String ogg) {
+    private static String ogg2m3u(String ogg) {
         if (!ogg.endsWith(".ogg") && !ogg.endsWith(".spx")) return ogg;
         byte[] foo = ogg.getBytes();
         foo[foo.length - 1] = 'u';
