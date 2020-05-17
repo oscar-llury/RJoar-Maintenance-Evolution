@@ -1,15 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="">
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page | JRoar</title>
+	<meta charset="utf-8">
+	<title>JRoar | Home Page</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+	<link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="./assets/img/logo16.png" sizes="16x16">
+	<link rel="icon" href="./assets/img/logo32.png" sizes="32x32">
+	<link rel="icon" href="./assets/img/logo48.png" sizes="48x48">
+	
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/home.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  
+	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>{{jVersion}} running at {{URL}}</h1>
-{{#sources}}
-    <h2>{{name}} -> {{m3u}}</h2>
-    <h3>{{listeners}} listeners</h3>
-    <h3>{{listeners}} connections</h3>
-{{/sources}}
+<header>
+	<nav>
+		<a href="/home">
+			<img id="img-logo-header" src="/assets/img/logo-negro.png"/>
+		</a>
+		<div id="header-nav">
+			<ul>
+				<li>
+					<a href="emitir.html">Emitir</a>
+				</li>
+				<li>
+					<a href="#">Menu1</a>
+				</li>
+				<li>
+					<a href="#">Menu2</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
+	<div id="general-container">
+		
+		
+		{{#sources}}
+			<div class="jroar-home-element">
+				<h1>Reproduciendo en {{URL}}</h1>
+			    <h2>{{name}} -> {{m3u}}</h2>
+			    <h4>{{listeners}} listeners</h4>
+			    <h4>{{listeners}} connections</h4>
+    		</div>
+		{{/sources}}
+		
+		<p>Versión del sistema {{jVersion}}</p>
+	</div>
+
+
+<footer>
+	<hr>
+	<div id="footer-container">
+		<div id="footer-logo">
+			<img src="/assets/img/logo-negro.png"/>
+		</div>
+		
+		<div id="footer-nav">
+			<p class="text-center">
+				<a href="/install">Emite en JRoar</a>
+			</p>
+			<p class="text-center">
+				<a href="#">Menu1</a>
+			</p>
+			<p class="text-center">
+				<a href="#">Menu2</a>
+			</p>
+			<ul>
+				<li>
+					<a href="#">
+						<i class="fab fa-twitter footer-icon"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sw-Evolution/20E02">
+						<i class="fab fa-github footer-icon"></i>
+					</a>
+				</li>
+			</ul>
+		
+		</div>
+	</div>
+</footer>
 </body>
 </html>

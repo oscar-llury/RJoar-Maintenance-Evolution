@@ -1,53 +1,15 @@
-
 #general-container{
-	display: flex;
+	display: grid;
 	justify-content: center;
   	align-items: center;
 }
 
-#jroar-form{
-	width: 40%;
-	padding: 5%;
-}
-#jroar-form img {
-	width: 100%;
-}
-.jroar-form-group{
-	background-color: #C5E3E8;
-	padding-right: 50px;
-	padding-top: 2%;
-	padding-left: 2%;
-	padding-bottom: 2%;
-	border-radius: 10px;
-	margin-bottom: 5%;
-}
-.jroar-form-element{
-	margin-bottom: 15px;
-	display: block;	
-	padding-left: 40px;
-	margin-top: 10px;
-}
-#show-div-1, #show-div-2, #show-div-3, #show-div-4, #show-div-5, 
-#show-div-6, #show-div-7, #show-div-8, #show-div-9, #show-div-10{
-	display:none;
-}
+#general-container div{
 
-.jroar-form-input{
-	display: block;
-	width: 100%;
-	height: 40px;
-	padding: 5px 12px;
-	font-size: 16px;
-	border: 1px solid #000;
-	border-radius: 5px;
 }
-#but-comenzar{
-	display: flex;
-	margin: auto;
-	padding: 10px 20px;
-	border: 0px solid #000;
-	color: #fff;
-	font-size: 1em;
-	border-radius: 5px;
-	background-color: #a10600;
+.jroar-home-element{
+	padding-left: 20px;	
+}
+.jroar-home-element h4{
+	padding-left: 20px;	
 }

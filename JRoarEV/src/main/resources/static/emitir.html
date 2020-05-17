@@ -2,21 +2,43 @@
 <html lang="">
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<title>JRoar | Emitir</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="/assets/img/favicon.ico">
 	
 	<link rel="stylesheet" href="/assets/css/style.css">
-	<link rel="stylesheet" href="/assets/css/home.css">
+	<link rel="stylesheet" href="/assets/css/emitir.css">
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-	<script src="/assets/js/home.js"></script>
+	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
+	<script src="/assets/js/emitir.js"></script>
 </head>
 
 <body>
+
+<header>
+	<nav>
+		<a href="/home">
+			<img id="img-logo-header" src="/assets/img/logo-negro.png"/>
+		</a>
+		<ul id="header-nav">
+			<li>
+				<a href="emitir.html">Emitir</a>
+			</li>
+			<li>
+				<a href="#">Menu1</a>
+			</li>
+			<li>
+				<a href="#">Menu2</a>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+
 <!-- 
    "  acceptable options",
    "  -port     port-number (default: 8000)",
@@ -182,10 +204,43 @@
 			
 			<input type="submit" id="but-comenzar" value="¡Comenzar!">
 		</form>
-		
-		
+
 		
 	</div>
+
+<footer>
+	<hr>
+	<div id="footer-container">
+		<div id="footer-logo">
+			<img src="/assets/img/logo-negro.png"/>
+		</div>
+		
+		<div id="footer-nav">
+			<p class="text-center">
+				<a href="/install">Emite en JRoar</a>
+			</p>
+			<p class="text-center">
+				<a href="#">Menu1</a>
+			</p>
+			<p class="text-center">
+				<a href="#">Menu2</a>
+			</p>
+			<ul>
+				<li>
+					<a href="#">
+						<i class="fab fa-twitter footer-icon"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sw-Evolution/20E02">
+						<i class="fab fa-github footer-icon"></i>
+					</a>
+				</li>
+			</ul>
+		
+		</div>
+	</div>
+</footer>
 
 </body>
 </html>
