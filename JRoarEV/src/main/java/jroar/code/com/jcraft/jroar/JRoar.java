@@ -403,41 +403,11 @@ public class JRoar extends Applet implements Runnable {
         	HttpServer.myaddress = infoParams.get("Address").get(0);
         }
         
-        if(infoParams.get("Page")!=null) {
-        	List<String> laux = infoParams.get("Page");
-        	try {
-				Class classObject = Class.forName(laux.get(1));
-				Page.register(laux.get(0), laux.get(1));
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-        }
-        
-        if(infoParams.get("Store")!=null) {
-        	List<String> laux = infoParams.get("Store");
-        	try {
-                new Store(laux.get(0), laux.get(1));
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        
         if(infoParams.get("Icepass")!=null) {
         	JRoar.icepasswd = infoParams.get("Icepass").get(0);
         }else {
         	JRoar.icepasswd = "pass";
         }
-        
-        if(infoParams.get("Listener")!=null) {
-        	try {
-                Class c = Class.forName(infoParams.get("Listener").get(0));
-                System.out.println("c: " + c);
-                addMountPointListener((MountPointListener) (c.newInstance()));
-            } catch (Exception e) {
-                System.err.println("Unknown listener class: " + infoParams.get("Listener").get(0));
-            }
-        }
-        
         
         if(infoParams.get("Shout")!=null) {
         	List<String> laux = infoParams.get("Shout");
