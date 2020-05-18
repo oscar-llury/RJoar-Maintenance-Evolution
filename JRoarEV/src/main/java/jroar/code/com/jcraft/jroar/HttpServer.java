@@ -33,7 +33,6 @@ public class HttpServer extends Thread {
         Ctrl.register();
         Stats.register();
         Mount.register();
-        Drop.register();
         Shout.register();
         Store.register();
 

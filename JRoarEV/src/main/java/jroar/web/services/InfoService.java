@@ -9,7 +9,7 @@ import jroar.code.com.jcraft.jroar.HomePage;
 import java.util.List;
 
 @Service
-public class HomeService {
+public class InfoService {
 
     public void addGlobalVariables(Model model) {
         model.addAttribute("jVersion", JRoar.version);

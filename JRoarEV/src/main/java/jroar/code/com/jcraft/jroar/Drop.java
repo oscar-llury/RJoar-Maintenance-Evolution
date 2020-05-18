@@ -25,26 +25,16 @@ package jroar.code.com.jcraft.jroar;
 import java.io.*;
 import java.util.*;
 
-class Drop extends Page {
+public class Drop {
+    // Evolución: Drop deja de ser una interfaz web (heredar de Page)
     // Esta interfaz web sirve para borrar un mountpoint
-    static void register() {
-        register("/drop", Drop.class.getName());
-    }
 
-    public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException {
-
-        String mpoint = (String) vars.get("mpoint");
-        String passwd = (String) vars.get("passwd");
-        if (passwd == null || !passwd.equals(JRoar.passwd)) {
-            forward(ms, "/");
-            return;
-        }
-
-        if (mpoint != null &&
-                Source.getSource(mpoint) != null) {
+    static public boolean deleteMountPoint(String mpoint) {
+        // Se reutiliza el método kick
+        if (mpoint!=null && Source.getSource(mpoint) != null) {
             Source.getSource(mpoint).drop();
+            return true;
         }
-        forward(ms, "/");
-        return;
+        return false;
     }
 }

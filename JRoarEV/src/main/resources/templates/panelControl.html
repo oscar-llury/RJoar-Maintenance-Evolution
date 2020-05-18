@@ -6,10 +6,10 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<link rel="shortcut icon" href="/assets/img/favicon.ico">
+	<link rel="shortcut icon" href="./assets/img/favicon.ico">
 	
-	<link rel="stylesheet" href="/assets/css/style.css">
-	<link rel="stylesheet" href="/assets/css/panelControl.css">
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<link rel="stylesheet" href="./assets/css/panelControl.css">
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -21,14 +21,14 @@
 <header>
 	<nav>
 		<a href="/home">
-			<img id="img-logo-header" src="/assets/img/logo-negro.png"/>
+			<img id="img-logo-header" src="./assets/img/logo-negro.png"/>
 		</a>
 		<ul id="header-nav">
 			<li>
 				<a href="/home">Home</a>
 			</li>
 			<li>
-				<a href="emitir.html">Emitir</a>
+				<a href="./static/emitir.html">Emitir</a>
 			</li>
 			<li>
 				<a href="panelControl.html">Panel de control</a>
@@ -42,11 +42,7 @@
 
 
 	<div id="general-container">
-		<h1>Reproduciendo en http://172.17.240.225:8001</h1>
-		<h2>name -> <a href="">mountpoint</a></h2>
-	    <h4>listeners listeners</h4>
-	    <h4>listeners connections</h4>
-	    
+		<h1>Panel de control</h1>
 		<form class="control-form" action="/control/mount" method="post">
 			<h2>Mount</h2>
 			<div>
@@ -60,18 +56,13 @@
 			<div>
 				<label>type</label>
 				<select id="control-form-select" name="type">
-					<option value="lifestream">Life Stream</option>
-					<option value=""></option>
-					<option value=""></option>
+					<option value="livestream">Livestream</option>
+					<option value="playlist">Playlist</option>
 				</select>
 			</div>
 			<div>
 				<label>limit</label>
 				<input type="text" class="control-form-input" name="limit" placeholder=""/>
-			</div>
-			<div>
-				<label>password</label>
-				<input type="text" class="control-form-input" name="pass" placeholder="" required/>
 			</div>
 			<input type="submit" class="control-but" value="Mount">
 		</form>
@@ -82,14 +73,10 @@
 			<div>
 				<label>playlist</label>
 				<select id="control-form-select" name="playList" required>
-				<!--{{# }}-->
-					<option value=""></option>
-				<!--{{/ }}-->
+				{{#sources}}
+					<option value="{{mountpoint}}">{{mountpoint}}</option>
+				{{/sources}}
 				</select>
-			</div>
-			<div>
-				<label>password</label>
-				<input type="text" class="control-form-input" name="pass" placeholder="" required/>
 			</div>
 		
 			<input type="submit" class="control-but" value="Drop">
@@ -114,11 +101,6 @@
 				<label>ice-password</label>
 				<input type="text" class="control-form-input" name="icePass" placeholder="" required/>
 			</div>
-			<div>
-				<label>password</label>
-				<input type="text" class="control-form-input" name="pass" placeholder="" required/>
-			</div>
-		
 			<input type="submit" class="control-but" value="Shout">
 		</form>
 	
@@ -129,7 +111,7 @@
 	<hr>
 	<div id="footer-container">
 		<div id="footer-logo">
-			<img src="/assets/img/logo-negro.png"/>
+			<img src="./assets/img/logo-negro.png"/>
 		</div>
 		
 		<div id="footer-nav">

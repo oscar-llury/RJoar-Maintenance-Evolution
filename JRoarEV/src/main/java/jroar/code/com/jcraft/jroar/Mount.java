@@ -25,9 +25,30 @@ package jroar.code.com.jcraft.jroar;
 import java.io.*;
 import java.util.*;
 
-class Mount extends Page {
+public class Mount extends Page {
     static void register() {
         register("/mount", Mount.class.getName());
+    }
+
+    // Evolución. Este método reutiliza partes del método original "kick"
+    public static void newKick(String mountpoint, String source, boolean livestream, int limit) {
+        if (mountpoint != null &&
+                source != null &&
+                (source.startsWith("http://")) && Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
+
+            if (livestream) {
+                Proxy proxy = new Proxy(mountpoint, source);
+                if (limit != 0) {
+                    proxy.setLimit(limit);
+                }
+            } else {
+                PlayFile p = new PlayFile(mountpoint, source);
+                if (limit != 0) {
+                    p.setLimit(limit);
+                }
+                p.kick();
+            }
+        }
     }
 
     public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException {
