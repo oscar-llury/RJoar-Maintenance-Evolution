@@ -35,9 +35,6 @@ public class HttpServer extends Thread {
         Mount.register();
         Drop.register();
         Shout.register();
-        Store.register();
-
-        Debug.register();
     }
 
     static int connections = 0;

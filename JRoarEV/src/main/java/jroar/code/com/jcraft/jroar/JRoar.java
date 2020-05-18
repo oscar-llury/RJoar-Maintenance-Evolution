@@ -203,7 +203,7 @@ public class JRoar extends Applet implements Runnable {
                 i += 2;
             } else if (arg[i].equals("-store") && arg.length > i + 2) {
                 try {
-                    new Store(arg[i + 1], arg[i + 2]);
+                    //new Store(arg[i + 1], arg[i + 2]);
                 } catch (Exception e) {
                     System.out.println(e);
                 }
@@ -315,10 +315,6 @@ public class JRoar extends Applet implements Runnable {
 
     public static String getMyURL() {
         return HttpServer.myURL;
-    }
-
-    public static void store(String foo, String bar) {
-        new Store(foo, bar);
     }
 
     private static final int WATCHDOGSLEEP = 3000;

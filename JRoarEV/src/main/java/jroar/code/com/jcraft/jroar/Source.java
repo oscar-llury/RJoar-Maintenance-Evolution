@@ -83,7 +83,7 @@ public class Source {
     static Source getSource(String mountpoint) {
         synchronized (sources) {
             Source foo = (Source) (sources.get(mountpoint));
-            if (foo != null && foo.limit > 0 && foo.limit < foo.getListeners()) {
+            if (foo != null && foo.limit > 0 && foo.limit < foo.getListeners()+1) {
                 foo = null;
             }
             return foo;
