@@ -47,19 +47,19 @@
 	    <h4>listeners listeners</h4>
 	    <h4>listeners connections</h4>
 	    
-		<form class="control-form" action="" method="post">
+		<form class="control-form" action="/control/mount" method="post">
 			<h2>Mount</h2>
 			<div>
 				<label>mount point</label>
-				<input type="text" class="control-form-input" name="" placeholder="/"/>
+				<input type="text" class="control-form-input" name="mountPoint" placeholder="/" required/>
 			</div>
 			<div>
 				<label>source</label>
-				<input type="text" class="control-form-input" name="" placeholder="http://"/>
+				<input type="text" class="control-form-input" name="source" placeholder="http://" required/>
 			</div>
 			<div>
 				<label>type</label>
-				<select id="control-form-select" name="">
+				<select id="control-form-select" name="type">
 					<option value="lifestream">Life Stream</option>
 					<option value=""></option>
 					<option value=""></option>
@@ -67,21 +67,21 @@
 			</div>
 			<div>
 				<label>limit</label>
-				<input type="text" class="control-form-input" name="" placeholder=""/>
+				<input type="text" class="control-form-input" name="limit" placeholder=""/>
 			</div>
 			<div>
 				<label>password</label>
-				<input type="text" class="control-form-input" name="" placeholder=""/>
+				<input type="text" class="control-form-input" name="pass" placeholder="" required/>
 			</div>
 			<input type="submit" class="control-but" value="Mount">
 		</form>
 	
 	
-		<form class="control-form" action="" method="post">
+		<form class="control-form" action="/control/drop" method="post">
 			<h2>Drop</h2>
 			<div>
 				<label>playlist</label>
-				<select id="control-form-select" name="">
+				<select id="control-form-select" name="playList" required>
 				<!--{{# }}-->
 					<option value=""></option>
 				<!--{{/ }}-->
@@ -89,18 +89,18 @@
 			</div>
 			<div>
 				<label>password</label>
-				<input type="text" class="control-form-input" name="" placeholder=""/>
+				<input type="text" class="control-form-input" name="pass" placeholder="" required/>
 			</div>
 		
 			<input type="submit" class="control-but" value="Drop">
 		</form>
 	
 	
-		<form class="control-form" action="" method="post">
+		<form class="control-form" action="/control/shout" method="post">
 			<h2>Shout</h2>
 			<div>
 				<label>playlist</label>
-				<select id="control-form-select" name="">
+				<select id="control-form-select" name="playList" required>
 				<!--{{# }}-->
 					<option value=""></option>
 				<!--{{/ }}-->
@@ -108,15 +108,15 @@
 			</div>
 			<div>
 				<label>to --></label>
-				<input type="text" class="control-form-input" name="" placeholder="ice://"/>
+				<input type="text" class="control-form-input" name="ice" placeholder="ice://" required/>
 			</div>
 			<div>
 				<label>ice-password</label>
-				<input type="text" class="control-form-input" name="" placeholder=""/>
+				<input type="text" class="control-form-input" name="icePass" placeholder="" required/>
 			</div>
 			<div>
 				<label>password</label>
-				<input type="text" class="control-form-input" name="" placeholder=""/>
+				<input type="text" class="control-form-input" name="pass" placeholder="" required/>
 			</div>
 		
 			<input type="submit" class="control-but" value="Shout">
