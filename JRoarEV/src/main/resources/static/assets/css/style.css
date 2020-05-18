@@ -1,4 +1,4 @@
-/* General */
+/*----------General----------*/
 @font-face{
 	font-family: Montserrat-Regular;
 	src: url(/assets/fonts/Montserrat/Montserrat-Regular.ttf);
@@ -56,14 +56,13 @@ label{
 	max-width: 100%;
 	margin-bottom: 5px;
 }
-
-
-
-
-
+body{
+	margin: auto;
+}
+/*----------Header----------*/
 header nav {
 	background-color: #C5E3E8;
-	padding: 0px 20px;
+	padding: 10px 20px;
 	display: flex;
 	align-items: center;
 }
@@ -82,13 +81,21 @@ header #header-nav li{
 	margin: 0px 10px;
 	display: inline;
 }
+header #header-nav li a{
+	text-decoration: none;
+}
+header #header-nav li a:hover{
+	text-decoration: underline;
+	font-weight: bold;
+}
+/*----------Body----------*/
+#general-container{
+	display: grid;
+	justify-content: center;
+  	align-items: center;
+}
 
-
-
-
-
-
-
+/*----------Footer----------*/
 footer {
 	padding: 10px 50px;
 }
@@ -113,6 +120,16 @@ footer #footer-nav ul{
 footer #footer-nav li{
 	margin: 10px;
 }
+footer #footer-nav a{
+	text-decoration: none;
+}
+footer #footer-nav a:hover{
+	text-decoration: underline;
+	font-weight: bold;
+}
 footer .footer-icon{
 	font-size: 25px;
+}
+footer .footer-icon:hover{
+	font-size: 35px;
 }

@@ -1,12 +1,5 @@
-
-#general-container{
-	display: flex;
-	justify-content: center;
-  	align-items: center;
-}
-
 #jroar-form{
-	width: 40%;
+	/*width: 40%;*/
 	padding: 5%;
 }
 #jroar-form img {
@@ -31,7 +24,6 @@
 #show-div-6, #show-div-7, #show-div-8, #show-div-9, #show-div-10{
 	display:none;
 }
-
 .jroar-form-input{
 	display: block;
 	width: 100%;

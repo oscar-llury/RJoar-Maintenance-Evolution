@@ -1,12 +1,3 @@
-#general-container{
-	display: grid;
-	justify-content: center;
-  	align-items: center;
-}
-
-#general-container div{
-
-}
 .jroar-home-element{
 	padding-left: 20px;	
 }

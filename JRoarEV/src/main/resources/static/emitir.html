@@ -26,10 +26,13 @@
 		</a>
 		<ul id="header-nav">
 			<li>
+				<a href="/home">Home</a>
+			</li>
+			<li>
 				<a href="emitir.html">Emitir</a>
 			</li>
 			<li>
-				<a href="#">Menu1</a>
+				<a href="panelControl.html">Panel de control</a>
 			</li>
 			<li>
 				<a href="#">Menu2</a>
@@ -52,13 +55,13 @@
    "  -mplistener class-name",
    "  -shout    src-mount-point ip-address port-number password  dst-mount-point", -->
 	<div id="general-container">
-		<form id="jroar-form" action="/install" method="post">
-			<img src="/assets/img/img-form-emitir.png">
-		
-			<h1>Emite en JRoar</h1>
-			<p>A continuación, se detalla la lista de parámetros disponibles para comenzar a reproducir en JRoar.</p>
-			<p>* campos obligatorios</p>
-			
+		<img src="/assets/img/img-form-emitir.png">
+	
+		<h1>Emite en JRoar</h1>
+		<p>A continuación, se detalla la lista de parámetros disponibles para comenzar a reproducir en JRoar.</p>
+		<p>* campos obligatorios</p>
+	
+		<form id="jroar-form" action="/install" method="post">	
 			<div class="jroar-form-group">
 				<input type="checkbox" name="isPort" id="show-button-1" value="1"/>
 				<label>port (default: 8000)</label>

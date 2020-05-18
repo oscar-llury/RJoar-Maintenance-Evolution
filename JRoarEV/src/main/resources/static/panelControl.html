@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<title>JRoar | Panel de control</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="shortcut icon" href="/assets/img/favicon.ico">
+	
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/panelControl.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<a href="/home">
+			<img id="img-logo-header" src="/assets/img/logo-negro.png"/>
+		</a>
+		<ul id="header-nav">
+			<li>
+				<a href="/home">Home</a>
+			</li>
+			<li>
+				<a href="emitir.html">Emitir</a>
+			</li>
+			<li>
+				<a href="panelControl.html">Panel de control</a>
+			</li>
+			<li>
+				<a href="#">Menu2</a>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+
+	<div id="general-container">
+		<h1>Reproduciendo en http://172.17.240.225:8001</h1>
+		<h2>name -> <a href="">mountpoint</a></h2>
+	    <h4>listeners listeners</h4>
+	    <h4>listeners connections</h4>
+	    
+		<form class="control-form" action="" method="post">
+			<h2>Mount</h2>
+			<div>
+				<label>mount point</label>
+				<input type="text" class="control-form-input" name="" placeholder="/"/>
+			</div>
+			<div>
+				<label>source</label>
+				<input type="text" class="control-form-input" name="" placeholder="http://"/>
+			</div>
+			<div>
+				<label>type</label>
+				<select id="control-form-select" name="">
+					<option value="lifestream">Life Stream</option>
+					<option value=""></option>
+					<option value=""></option>
+				</select>
+			</div>
+			<div>
+				<label>limit</label>
+				<input type="text" class="control-form-input" name="" placeholder=""/>
+			</div>
+			<div>
+				<label>password</label>
+				<input type="text" class="control-form-input" name="" placeholder=""/>
+			</div>
+			<input type="submit" class="control-but" value="Mount">
+		</form>
+	
+	
+		<form class="control-form" action="" method="post">
+			<h2>Drop</h2>
+			<div>
+				<label>playlist</label>
+				<select id="control-form-select" name="">
+				<!--{{# }}-->
+					<option value=""></option>
+				<!--{{/ }}-->
+				</select>
+			</div>
+			<div>
+				<label>password</label>
+				<input type="text" class="control-form-input" name="" placeholder=""/>
+			</div>
+		
+			<input type="submit" class="control-but" value="Drop">
+		</form>
+	
+	
+		<form class="control-form" action="" method="post">
+			<h2>Shout</h2>
+			<div>
+				<label>playlist</label>
+				<select id="control-form-select" name="">
+				<!--{{# }}-->
+					<option value=""></option>
+				<!--{{/ }}-->
+				</select>
+			</div>
+			<div>
+				<label>to --></label>
+				<input type="text" class="control-form-input" name="" placeholder="ice://"/>
+			</div>
+			<div>
+				<label>ice-password</label>
+				<input type="text" class="control-form-input" name="" placeholder=""/>
+			</div>
+			<div>
+				<label>password</label>
+				<input type="text" class="control-form-input" name="" placeholder=""/>
+			</div>
+		
+			<input type="submit" class="control-but" value="Shout">
+		</form>
+	
+	</div>
+
+
+<footer>
+	<hr>
+	<div id="footer-container">
+		<div id="footer-logo">
+			<img src="/assets/img/logo-negro.png"/>
+		</div>
+		
+		<div id="footer-nav">
+			<p class="text-center">
+				<a href="/install">Emite en JRoar</a>
+			</p>
+			<p class="text-center">
+				<a href="#">Menu1</a>
+			</p>
+			<p class="text-center">
+				<a href="#">Menu2</a>
+			</p>
+			<ul>
+				<li>
+					<a href="#">
+						<i class="fab fa-twitter footer-icon"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sw-Evolution/20E02">
+						<i class="fab fa-github footer-icon"></i>
+					</a>
+				</li>
+			</ul>
+		
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
