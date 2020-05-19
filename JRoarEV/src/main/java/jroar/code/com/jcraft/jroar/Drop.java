@@ -37,4 +37,13 @@ public class Drop {
         }
         return false;
     }
+    // Evolución: método para borrar todos los puntos de montura a la vez
+    static public void deleteAll() {
+        // Se reutiliza el método kick
+        Enumeration keys = Source.sources.keys();
+        while (keys.hasMoreElements()) {
+            String mountpoint = ((String) (keys.nextElement()));
+            Source.getSource(mountpoint).drop();
+        }
+    }
 }

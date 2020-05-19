@@ -34,7 +34,7 @@ public class Mount extends Page {
     public static void newKick(String mountpoint, String source, boolean livestream, int limit) {
         if (mountpoint != null &&
                 source != null &&
-                (source.startsWith("http://")) && Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
+                Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
 
             if (livestream) {
                 Proxy proxy = new Proxy(mountpoint, source);

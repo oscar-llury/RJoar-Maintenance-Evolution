@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import jroar.code.com.jcraft.jroar.Drop;
+import jroar.code.com.jcraft.jroar.Shout;
 import jroar.code.com.jcraft.jroar.Mount;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,11 +36,17 @@ public class ControlController {
 		Drop.deleteMountPoint(playList);
 		return "redirect:/home";
 	}
+
+	@RequestMapping("/control/dropall")
+	public String controlDropAll(Model model) {
+		Drop.deleteAll();
+		return "redirect:/home";
+	}
 	
 	@RequestMapping("/control/shout")
 	public String controlShout(Model model, @RequestParam String playList, @RequestParam String ice, 
-			@RequestParam String icePass, @RequestParam String pass) {
-		
+			@RequestParam String icePass) {
+		Shout.newKick(playList, ice, icePass);
 		return "redirect:/home";
 	}
 
