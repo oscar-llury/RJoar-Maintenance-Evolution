@@ -31,18 +31,18 @@ public class Mount extends Page {
     }
 
     // Evolución. Este método reutiliza partes del método original "kick"
-    public static void newKick(String mountpoint, String source, boolean livestream, int limit) {
+    public static void newKick(String mountpoint, String source, boolean livestream, int limit, boolean isVideo) {
         if (mountpoint != null &&
                 source != null &&
                 Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
 
             if (livestream) {
-                Proxy proxy = new Proxy(mountpoint, source);
+                Proxy proxy = new Proxy(mountpoint, source, isVideo);
                 if (limit != 0) {
                     proxy.setLimit(limit);
                 }
             } else {
-                PlayFile p = new PlayFile(mountpoint, source);
+                PlayFile p = new PlayFile(mountpoint, source, isVideo);
                 if (limit != 0) {
                     p.setLimit(limit);
                 }
@@ -81,12 +81,12 @@ public class Mount extends Page {
                 source != null &&
                 (source.startsWith("http://")) && Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
             if (livestream != null && livestream.equals("true")) {
-                Proxy proxy = new Proxy(mountpoint, source);
+                Proxy proxy = new Proxy(mountpoint, source,false);
                 if (limit != 0) {
                     proxy.setLimit(limit);
                 }
             } else {
-                PlayFile p = new PlayFile(mountpoint, source);
+                PlayFile p = new PlayFile(mountpoint, source,false);
                 if (limit != 0) {
                     p.setLimit(limit);
                 }

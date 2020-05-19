@@ -38,6 +38,13 @@ public class Source {
     Vector listeners = new Vector();
     String mountpoint = null;
     String source = null;
+    
+  //Evolución: añadido isVideo que indica si el usuario pretende retransmitir video o no(audio)
+    boolean isVideo = false;
+    
+    public boolean isVideo() {
+    	return this.isVideo;
+    }
 
     boolean for_relay_only = false;
 
@@ -277,8 +284,10 @@ public class Source {
         return false;
     }
 
-    Source(String mountpoint) {
+    //Evolución: añadido el parámetro isVideo que indica si el usuario pretende retransmitir video o no(audio)
+    Source(String mountpoint, boolean isVideo) {
         this.mountpoint = mountpoint;
+        this.isVideo=isVideo;
         synchronized (sources) {
             sources.put(mountpoint, this);
         }

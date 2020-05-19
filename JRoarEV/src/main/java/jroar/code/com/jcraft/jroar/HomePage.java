@@ -54,7 +54,7 @@ public class HomePage extends Page {
             int listeners = source.getListeners();
             int connections = source.getConnections();
 
-            InfoSource iS = new InfoSource(mountpoint, source_name, m3u, listeners, connections);
+            InfoSource iS = new InfoSource(mountpoint, source_name, m3u, listeners, connections,source.isVideo());
             lSource.add(iS);
         }
         return lSource;

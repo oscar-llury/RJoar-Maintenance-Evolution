@@ -50,15 +50,19 @@ class PlayFile extends Source implements Runnable {
     private String file = null;
     private String[] files = null;
 
-    PlayFile(String mountpoint, String[] files) {
-        super(mountpoint);
+    //Evolución: añadido el parámetro isVideo que indica si el usuario pretende retransmitir
+    //video o no(audio)
+    PlayFile(String mountpoint, String[] files, boolean isVideo) {
+        super(mountpoint,isVideo);
         HttpServer.source_connections++;
         this.source = "playlist";
         this.files = files;
     }
 
-    PlayFile(String mountpoint, String file) {
-        super(mountpoint);
+    //Evolución: añadido el parámetro isVideo que indica si el usuario pretende retransmitir
+    //video o no(audio)
+    PlayFile(String mountpoint, String file, boolean isVideo) {
+        super(mountpoint,isVideo);
         HttpServer.source_connections++;
         this.source = "playlist";
         // Si se le pasa una dirección http con una playlist, se llama al método fetch_m3u

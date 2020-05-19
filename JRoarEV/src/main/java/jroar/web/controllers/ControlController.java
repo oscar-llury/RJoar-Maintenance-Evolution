@@ -32,11 +32,13 @@ public class ControlController {
 	}
 	
 	@RequestMapping("/control/mount")
-	public String controlMount(Model model, @RequestParam String mountPoint, @RequestParam String source, @RequestParam String type,
+	public String controlMount(Model model,@RequestParam String inputMountEmissionType, @RequestParam String mountPoint, @RequestParam String source, @RequestParam String type,
 			@RequestParam(required = false) String limit) {
-		int limitInt = Integer.parseInt(limit);
+		int limitInt = 0;
+		if(limit!=null&&!limit.equals(""))
+			limitInt = Integer.parseInt(limit);
 		boolean livestream = type.equalsIgnoreCase("livestream");
-		Mount.newKick(mountPoint, source, livestream, limitInt);
+		Mount.newKick(mountPoint, source, livestream, limitInt,inputMountEmissionType.equals("video"));
 		return "redirect:/home";
 	}
 	

@@ -147,7 +147,7 @@ public class JRoar extends Applet implements Runnable {
                 i++;
             } else if ((arg[i].equals("-relay") || arg[i].equals("-proxy")) &&
                     arg.length > i + 2) {
-                Proxy proxy = new Proxy(arg[i + 1], arg[i + 2]);
+                Proxy proxy = new Proxy(arg[i + 1], arg[i + 2],false);
                 i += 2;
                 if (arg.length > i + 1 && !(arg[i + 1].startsWith("-"))) {
                     try {
@@ -158,7 +158,7 @@ public class JRoar extends Applet implements Runnable {
                     i++;
                 }
             } else if (arg[i].equals("-playlist") && arg.length > i + 2) {
-                PlayFile p = new PlayFile(arg[i + 1], arg[i + 2]);
+                PlayFile p = new PlayFile(arg[i + 1], arg[i + 2],false);
                 i += 2;
                 if (arg.length > i + 1 && !(arg[i + 1].startsWith("-"))) {
                     try {
@@ -362,18 +362,18 @@ public class JRoar extends Applet implements Runnable {
         
         if(infoParams.get("PlayList")!=null) {
         	List<String> laux = infoParams.get("PlayList");
-        	PlayFile p = new PlayFile(laux.get(0), laux.get(1));
+        	PlayFile p = new PlayFile(laux.get(0), laux.get(1),laux.get(2).equals("video"));
         	try {
-                p.setLimit(Integer.parseInt(laux.get(2)));
+                p.setLimit(Integer.parseInt(laux.get(3)));
             } catch (Exception e) {
             }
         }
         
         if(infoParams.get("Relay")!=null) {
         	List<String> laux = infoParams.get("Relay");
-        	Proxy proxy = new Proxy(laux.get(0), laux.get(1));
+        	Proxy proxy = new Proxy(laux.get(0), laux.get(1),laux.get(2).equals("video"));
         	try {
-                proxy.setLimit(Integer.parseInt(laux.get(2)));
+                proxy.setLimit(Integer.parseInt(laux.get(3)));
             } catch (Exception e) {
             }
         }

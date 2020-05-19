@@ -63,15 +63,17 @@
 			    <h4>{{listeners}} listeners</h4>
 			    <h4>{{listeners}} connections</h4>
     		</div>
-    	
+    	{{#isVideo}}
 		<video id="video-player" src="{{URL}}{{mountpoint}}" type="video/ogg"
 			   autoplay="false" muted="false" controls="true">
 		</video>
-		
+		{{/isVideo}}
+		{{^isVideo}}
 		<audio id="audio-player" src="{{URL}}{{mountpoint}}" type="audio/ogg" 
 			autoplay="false" muted="false" controls="true">
 			<p>Tu navegador no soporta esta caracteristica</p>
 		</audio>
+		{{/isVideo}}
 		{{/sources}}
 		
 		<p>Versión del sistema {{jVersion}}</p>

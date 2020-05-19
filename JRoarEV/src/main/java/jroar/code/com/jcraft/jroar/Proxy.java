@@ -49,8 +49,10 @@ class Proxy extends Source implements Runnable {
 
     private long lasttime = 0;
 
-    Proxy(String mountpoint, String source) {
-        super(mountpoint);
+    //Evolución: añadido el parámetro isVideo que indica si el usuario pretende retransmitir
+    //video o no(audio)
+    Proxy(String mountpoint, String source,boolean isVideo) {
+        super(mountpoint,isVideo);
         this.source = source;
 
         HttpServer.source_connections++;

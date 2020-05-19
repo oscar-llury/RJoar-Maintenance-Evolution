@@ -58,7 +58,7 @@ class Ice extends Source {
     }
 
     Ice(String mountpoint, MySocket mysocket, Vector headerfromice, String protocol) {
-        super(mountpoint);
+        super(mountpoint,false);
 
         this.mysocket = mysocket;
         this.bitStream = mysocket.getInputStream();

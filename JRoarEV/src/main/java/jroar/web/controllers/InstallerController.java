@@ -30,9 +30,9 @@ public class InstallerController {
 	public String install(Model model, User user, HttpServletRequest request,
 			@RequestParam(required = false) Integer isPort, @RequestParam(required = false) String inputPort,
 			@RequestParam(required = false) Integer isAddress, @RequestParam(required = false) String inputAddress,
-			@RequestParam(required = false) Integer isRelay, @RequestParam(required = false) String inputRelayMountPoint, 
+			@RequestParam(required = false) Integer isRelay, @RequestParam String inputRelayEmissionType,@RequestParam(required = false) String inputRelayMountPoint, 
 			@RequestParam(required = false) String inputSource, @RequestParam(required = false) String inputLimitRelay,
-			@RequestParam(required = false) Integer isPlaylist, @RequestParam(required = false) String inputPlaylistMountPoint,
+			@RequestParam(required = false) Integer isPlaylist,@RequestParam String inputPlaylistEmissionType,@RequestParam(required = false) String inputPlaylistMountPoint,
 			@RequestParam(required = false) String inputPlaylistFilename,@RequestParam(required = false) String inputLimitPlay,
 			@RequestParam(required = false) Integer isPass,  @RequestParam(required = false) String inputPass,
 			@RequestParam(required = false) Integer isIcepass, @RequestParam(required = false) String inputIcepass,
@@ -58,6 +58,7 @@ public class InstallerController {
 				List<String> laux = new LinkedList<String>();
 				laux.add(inputPlaylistMountPoint);
 				laux.add(inputPlaylistFilename);
+				laux.add(inputPlaylistEmissionType);
 				if(inputLimitPlay!=null&&!inputLimitPlay.equals("")) {
 					laux.add(inputLimitPlay);
 				}
@@ -68,6 +69,7 @@ public class InstallerController {
 				List<String> laux = new LinkedList<String>();
 				laux.add(inputRelayMountPoint);
 				laux.add(inputSource);
+				laux.add(inputRelayEmissionType);
 				if(inputLimitRelay!=null&&!inputLimitRelay.equals("")) {
 					laux.add(inputLimitRelay);
 				}
