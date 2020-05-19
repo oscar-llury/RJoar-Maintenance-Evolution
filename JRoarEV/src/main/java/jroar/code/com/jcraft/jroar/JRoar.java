@@ -388,11 +388,19 @@ public class JRoar extends Applet implements Runnable {
         if(infoParams.get("PlayList")!=null) {
         	List<String> laux = infoParams.get("PlayList");
         	PlayFile p = new PlayFile(laux.get(0), laux.get(1));
+        	try {
+                p.setLimit(Integer.parseInt(laux.get(2)));
+            } catch (Exception e) {
+            }
         }
         
         if(infoParams.get("Relay")!=null) {
         	List<String> laux = infoParams.get("Relay");
         	Proxy proxy = new Proxy(laux.get(0), laux.get(1));
+        	try {
+                proxy.setLimit(Integer.parseInt(laux.get(2)));
+            } catch (Exception e) {
+            }
         }
         
         if(infoParams.get("Address")!=null) {

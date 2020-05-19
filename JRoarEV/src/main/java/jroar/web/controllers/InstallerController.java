@@ -16,15 +16,17 @@ public class InstallerController {
 	
 	@RequestMapping("/installer")
 	public String installerHome(Model model) {
-		return "emitir.html";
+		return "emitir";
 	}
 	
 	@RequestMapping("/install")
 	public String install(Model model,
 			@RequestParam(required = false) Integer isPort, @RequestParam(required = false) String inputPort,
 			@RequestParam(required = false) Integer isAddress, @RequestParam(required = false) String inputAddress,
-			@RequestParam(required = false) Integer isRelay, @RequestParam(required = false) String inputRelayMountPoint, @RequestParam(required = false) String inputSource,
-			@RequestParam(required = false) Integer isPlaylist, @RequestParam(required = false) String inputPlaylistMountPoint, @RequestParam(required = false) String inputPlaylistFilename,
+			@RequestParam(required = false) Integer isRelay, @RequestParam(required = false) String inputRelayMountPoint, 
+			@RequestParam(required = false) String inputSource, @RequestParam(required = false) String inputLimitRelay,
+			@RequestParam(required = false) Integer isPlaylist, @RequestParam(required = false) String inputPlaylistMountPoint,
+			@RequestParam(required = false) String inputPlaylistFilename,@RequestParam(required = false) String inputLimitPlay,
 			@RequestParam(required = false) Integer isPass,  @RequestParam(required = false) String inputPass,
 			@RequestParam(required = false) Integer isIcepass, @RequestParam(required = false) String inputIcepass,
 			@RequestParam(required = false) Integer isShout, @RequestParam(required = false) String inputSrcMount, @RequestParam(required = false) String inputDstIP,
@@ -43,6 +45,9 @@ public class InstallerController {
 				List<String> laux = new LinkedList<String>();
 				laux.add(inputPlaylistMountPoint);
 				laux.add(inputPlaylistFilename);
+				if(inputLimitPlay!=null) {
+					laux.add(inputLimitPlay);
+				}
 				infoParams.put("PlayList",laux);
 			}
 			
@@ -50,6 +55,9 @@ public class InstallerController {
 				List<String> laux = new LinkedList<String>();
 				laux.add(inputRelayMountPoint);
 				laux.add(inputSource);
+				if(inputLimitRelay!=null) {
+					laux.add(inputLimitRelay);
+				}
 				infoParams.put("Relay",laux);
 			}
 			

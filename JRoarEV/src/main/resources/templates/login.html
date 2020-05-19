@@ -51,14 +51,16 @@
 	
 		<img id="img-login" src="./assets/img/logo-negro.png"/>
 		
-		<form  action="" method="post">	
+		<form  action="/login" method="post">	
 			<h1>Iniciar sesión</h1>
-			<label>Usuario</label>
-			<input type="text" class="input-login" name=""/>
+			<label>Email</label>
+			<input type="text" class="input-login" name="username"/>
 			<br>
 			<label>Contraseña</label>
-			<input type="text" class="input-login" name=""/>
-			
+			<input type="text" class="input-login" name="password"/>
+			{{#isError}}
+			<p>Email o contraseña incorrecta</p>
+			{{/isError}}
 			<input type="submit" id="but-login" value="Iniciar sesión">
 		</form>
 	</div>

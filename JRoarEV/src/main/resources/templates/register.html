@@ -52,13 +52,22 @@
 	
 		<img id="img-login" src="./assets/img/logo-negro.png"/>
 		
-		<form  action="" method="post">	
+		<form  action="/register" method="post">	
 			<h1>Registro</h1>
-			<label>Usuario</label>
-			<input type="text" class="input-login" name=""/>
+			<label>Email</label>
+			<input type="text" class="input-login" name="email"/>
+			{{#emailExist}}
+			<p>El email indicado ya está registrado en JRoar, porfavor introduzca otro email o inicie sesión</p>
+			{{/emailExist}}
+			<br>
+			<label>Nombre</label>
+			<input type="text" class="input-login" name="firstName"/>
 			<br>
 			<label>Contraseña</label>
-			<input type="text" class="input-login" name=""/>
+			<input type="text" class="input-login" name="lastName"/>
+			<br>
+			<label>Contraseña</label>
+			<input type="text" class="input-login" name="password"/>
 			
 			<input type="submit" id="but-login" value="Registrarse">
 		</form>
