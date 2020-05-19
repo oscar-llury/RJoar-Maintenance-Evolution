@@ -89,11 +89,7 @@ header #header-nav li a:hover{
 	font-weight: bold;
 }
 /*----------Body----------*/
-#general-container{
-	display: grid;
-	justify-content: center;
-  	align-items: center;
-}
+
 
 /*----------Footer----------*/
 footer {

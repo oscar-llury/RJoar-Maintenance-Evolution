@@ -12,7 +12,7 @@
 	<link rel="icon" href="./assets/img/logo48.png" sizes="48x48">
 	
 	<link rel="stylesheet" href="/assets/css/style.css">
-	<link rel="stylesheet" href="/assets/css/home.css">
+	<link rel="stylesheet" href="/assets/css/login-register.css">
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -46,54 +46,26 @@
 	</nav>
 </header>
 
+
+
 	<div id="general-container">
+	
+		<img id="img-login" src="./assets/img/logo-negro.png"/>
 		
-		
-		{{#sources}}
-			<div class="jroar-home-element">
-				<h1>Reproduciendo en {{URL}}</h1>
-				<h2>{{name}} -> <a href="{{URL}}{{m3u}}">{{mountpoint}}</a></h2>
-			    <h4>{{listeners}} listeners</h4>
-			    <h4>{{listeners}} connections</h4>
-    		</div>
-		{{/sources}}
-		
-		<p>Versión del sistema {{jVersion}}</p>
+		<form  action="" method="post">	
+			<h1>Registro</h1>
+			<label>Usuario</label>
+			<input type="text" class="input-login" name=""/>
+			<br>
+			<label>Contraseña</label>
+			<input type="text" class="input-login" name=""/>
+			
+			<input type="submit" id="but-login" value="Registrarse">
+		</form>
 	</div>
 
 
-<footer>
-	<hr>
-	<div id="footer-container">
-		<div id="footer-logo">
-			<img src="/assets/img/logo-negro.png"/>
-		</div>
-		
-		<div id="footer-nav">
-			<p class="text-center">
-				<a href="emitir.html">Emite en JRoar</a>
-			</p>
-			<p class="text-center">
-				<a href="#">Menu1</a>
-			</p>
-			<p class="text-center">
-				<a href="#">Menu2</a>
-			</p>
-			<ul>
-				<li>
-					<a href="#">
-						<i class="fab fa-twitter footer-icon"></i>
-					</a>
-				</li>
-				<li>
-					<a href="https://github.com/Sw-Evolution/20E02">
-						<i class="fab fa-github footer-icon"></i>
-					</a>
-				</li>
-			</ul>
-		
-		</div>
-	</div>
-</footer>
+
+
 </body>
 </html>
