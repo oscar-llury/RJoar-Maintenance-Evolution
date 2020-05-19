@@ -2,7 +2,7 @@
 <html lang="">
 <head>
 	<meta charset="utf-8">
-	<title>JRoar | Emitir</title>
+	<title>JRoar | Instalador</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -24,30 +24,6 @@
 		<a href="/home">
 			<img id="img-logo-header" src="./assets/img/logo-negro.png"/>
 		</a>
-		<ul id="header-nav">
-			<li>
-				<a href="/">Home</a>
-			</li>
-			{{#logged}}
-				<li>
-					<a href="/control">Panel de control</a>
-				</li>
-				<li class="nav-item">
-					<a href="#">@{{user.firstName}}</a>
-				</li>
-				<li>
-					<a href="/logout">Logout</a>
-				</li>
-			{{/logged}}
-			{{^logged}}
-				<li class="nav-item">
-					<a href="/login">Login</a>
-				</li>
-				<li class="nav-item">
-					<a href="/register">Registro</a>
-				</li>
-			{{/logged}}
-		</ul>
 	</nav>
 </header>
 
@@ -66,34 +42,31 @@
    "  -shout    src-mount-point ip-address port-number password  dst-mount-point", -->
 	<div id="general-container">
 		<img src="/assets/img/img-form-emitir.png">
-		<h1>Registro del administrador</h1>
-		<div id="emitir-admin">
-			<label>Email</label>
-			<input type="text" class="input-login" name="email"/>
-			{{#emailExist}}
-			<p>El email indicado ya está registrado en JRoar, porfavor introduzca otro email o inicie sesión</p>
-			{{/emailExist}}
-			<br>
-			<label>Nombre</label>
-			<input type="text" class="input-login" name="firstName"/>
-			<br>
-			<label>Contraseña</label>
-			<input type="text" class="input-login" name="lastName"/>
-			<br>
-			<label>Contraseña</label>
-			<input type="text" class="input-login" name="password"/>
-		</div>
-		<h1>Emite en JRoar</h1>
-		<p>A continuación, se detalla la lista de parámetros disponibles para comenzar a reproducir en JRoar.</p>
-	
 		<form id="jroar-form" action="/install" method="post">	
+			<h1>Registro del administrador</h1>
+			<div id="emitir-admin">
+				<label>Email</label>
+				<input type="text" class="input-login" name="email" required/>
+				<br>
+				<label>Nombre</label>
+				<input type="text" class="input-login" name="firstName" required/>
+				<br>
+				<label>Apellido</label>
+				<input type="text" class="input-login" name="lastName" required/>
+				<br>
+				<label>Contraseña</label>
+				<input type="text" class="input-login" name="password" required/>
+			</div>
+			<h1>Emite en JRoar</h1>
+			<p>A continuación, se detalla la lista de parámetros disponibles para comenzar a reproducir en JRoar.</p>
+	
 			<div class="jroar-form-group">
 				<input type="checkbox" name="isPort" id="show-button-1" value="1"/>
 				<label>port (default: 8000)</label>
 				<div id="show-div-1">
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="text" class="jroar-form-input" name="inputPort" placeholder="port number"/>
+						<input type="number" class="jroar-form-input" name="inputPort" placeholder="port number"/>
 					</div>
 				</div>
 			</div>

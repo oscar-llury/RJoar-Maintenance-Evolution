@@ -27,6 +27,7 @@ public class ControlController {
 	public String control(Model model, HttpServletRequest request) {
 		iService.addGlobalVariables(model);
 		sesion.userLoader(model,request);
+		model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
 		return "panelControl";
 	}
 	

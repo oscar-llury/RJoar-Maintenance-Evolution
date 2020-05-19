@@ -16,11 +16,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		// Páginas privadas
-		http.authorizeRequests().antMatchers("/control").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers("/control/mount").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/control").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/control/mount").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/control/drop").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers("/control/dropall").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers("/control/shout").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/control/shout").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/logout").authenticated();
 
 		// Todas las demás páginas serán públicas, es decir, no requieren autenticación

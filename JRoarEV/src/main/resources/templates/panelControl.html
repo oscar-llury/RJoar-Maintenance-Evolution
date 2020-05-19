@@ -86,6 +86,7 @@
 			<input type="submit" class="control-but" value="Mount">
 		</form>
 	
+		{{#isAdmin}}	
 	
 		<form class="control-form" action="/control/drop" method="post">
 			<h2>Drop</h2>
@@ -100,8 +101,14 @@
 		
 			<input type="submit" class="control-but" value="Drop">
 		</form>
-	
-	
+		
+		<form class="control-form" action="/control/dropall" method="post">
+			<h2>Drop All</h2>
+			<input type="submit" class="control-but-2" value="Drop all">
+		</form>
+		
+		{{/isAdmin}}
+		
 		<form class="control-form" action="/control/shout" method="post">
 			<h2>Shout</h2>
 			<div>

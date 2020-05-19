@@ -1,0 +1,21 @@
+#general-container{
+	display: grid;
+	justify-content: center;
+  	align-items: center;
+}
+
+#general-container img {
+	width: 80%;
+	display: grid;
+	justify-content: center;
+  	align-items: center;
+  	margin: auto;
+}
+
+#general-container h1 {
+  	margin: auto;
+}
+
+#general-container h3 {
+  	margin: auto;
+}
