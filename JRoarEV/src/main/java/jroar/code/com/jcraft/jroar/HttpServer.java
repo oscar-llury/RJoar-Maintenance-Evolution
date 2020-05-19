@@ -31,7 +31,6 @@ public class HttpServer extends Thread {
     static {
         HomePage.register();
         Ctrl.register();
-        Stats.register();
         Mount.register();
         Shout.register();
     }

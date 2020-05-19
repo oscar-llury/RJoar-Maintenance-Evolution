@@ -77,7 +77,6 @@ public class Source {
             sources.remove(mountpoint);
             mountpoint = null;
         }
-        kickmplisters(tmp, false);
     }
 
     static Source getSource(String mountpoint) {
@@ -287,7 +286,6 @@ public class Source {
             for_relay_only = true;
         }
 
-        kickmplisters(mountpoint, true);
     }
 
     int getLimit() {
@@ -296,18 +294,6 @@ public class Source {
 
     void setLimit(int foo) {
         limit = foo;
-    }
-
-    private static void kickmplisters(String mountpoint, boolean mount) {
-        synchronized (JRoar.mplisteners) {
-            for (java.util.Enumeration e = JRoar.mplisteners.elements();
-                 e.hasMoreElements(); ) {
-                if (mount)
-                    ((MountPointListener) (e.nextElement())).mount(mountpoint);
-                else
-                    ((MountPointListener) (e.nextElement())).unmount(mountpoint);
-            }
-        }
     }
 
 }

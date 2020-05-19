@@ -48,8 +48,6 @@ public class JRoar extends Applet implements Runnable {
     static String icepasswd = null;
     static String comment = null;
 
-    static java.util.Vector mplisteners = new java.util.Vector();
-
     Button mount;
 
     public JRoar() {
@@ -208,16 +206,6 @@ public class JRoar extends Applet implements Runnable {
                     System.out.println(e);
                 }
                 i += 2;
-            } else if (arg[i].equals("-mplistener") && arg.length > i + 1) {
-                try {
-                    Class c = Class.forName(arg[i + 1]);
-                    System.out.println("c: " + c);
-                    addMountPointListener((MountPointListener) (c.newInstance()));
-                } catch (Exception e) {
-                    System.err.println("Unknown listener class: " + arg[i + 1]);
-                }
-                i++;
-                // PeerCast eliminado
             } else {
                 System.err.println("invalid option: " + arg[i]);
                 for (int ii = 0; ii < usage.length; ii++) {
@@ -354,19 +342,6 @@ public class JRoar extends Applet implements Runnable {
             }
         }
     }
-
-    static void addMountPointListener(MountPointListener foo) {
-        synchronized (mplisteners) {
-            mplisteners.addElement(foo);
-        }
-    }
-
-    static void removeMountPointListener(MountPointListener foo) {
-        synchronized (mplisteners) {
-            mplisteners.removeElement(foo);
-        }
-    }
-    
     //EVOLUCIÓN
     
     public static void install(Map<String,List<String>> infoParams) {
