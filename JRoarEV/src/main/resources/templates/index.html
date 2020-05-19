@@ -28,20 +28,27 @@
 		</a>
 		<ul id="header-nav">
 			<li>
-				<a href="/home">Home</a>
+				<a href="/">Home</a>
 			</li>
-			<li>
-				<a href="/emitir.html">Emitir</a>
-			</li>
-			<li>
-				<a href="/control">Panel de control</a>
-			</li>
-			<li>
-				<a href="/login.html">Iniciar sesión</a>
-			</li>
-			<li>
-				<a href="/register.html">Registro</a>
-			</li>
+			{{#logged}}
+				<li>
+					<a href="/control">Panel de control</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">@{{user.firstName}}</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			{{/logged}}
+			{{^logged}}
+				<li class="nav-item">
+					<a href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register">Registro</a>
+				</li>
+			{{/logged}}
 		</ul>
 	</nav>
 </header>
@@ -56,9 +63,15 @@
 			    <h4>{{listeners}} listeners</h4>
 			    <h4>{{listeners}} connections</h4>
     		</div>
-		<video src="{{URL}}{{mountpoint}}" type="video/ogg" height=600 width=900
+    	
+		<video id="video-player" src="{{URL}}{{mountpoint}}" type="video/ogg"
 			   autoplay="false" muted="false" controls="true">
 		</video>
+		
+		<audio id="audio-player" src="{{URL}}{{mountpoint}}" type="audio/ogg" 
+			autoplay="false" muted="false" controls="true">
+			<p>Tu navegador no soporta esta caracteristica</p>
+		</audio>
 		{{/sources}}
 		
 		<p>Versión del sistema {{jVersion}}</p>
@@ -76,12 +89,20 @@
 			<p class="text-center">
 				<a href="emitir.html">Emite en JRoar</a>
 			</p>
-			<p class="text-center">
-				<a href="#">Menu1</a>
-			</p>
-			<p class="text-center">
-				<a href="#">Menu2</a>
-			</p>
+			{{#logged}}
+				<p class="text-center">
+					<a href="/control">Panel de control</a>
+				</p>
+			{{/logged}}
+			{{^logged}}
+				<p class="text-center">
+					<a href="/login">Login</a>
+				</p>
+				<p class="text-center">
+					<a href="/register">Registro</a>
+				</p>
+			{{/logged}}
+
 			<ul>
 				<li>
 					<a href="#">
@@ -98,5 +119,6 @@
 		</div>
 	</div>
 </footer>
+
 </body>
 </html>

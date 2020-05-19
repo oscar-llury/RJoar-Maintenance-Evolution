@@ -9,3 +9,14 @@
 .jroar-home-element h4{
 	padding-left: 20px;	
 }
+
+#audio-player {
+	background: #C5E3E8 !important;
+	margin: auto;
+	width: 600px;
+}
+#video-player{
+	background: #C5E3E8 !important;
+	margin: auto;
+	width: 600px;
+}

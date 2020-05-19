@@ -16,8 +16,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		// Páginas privadas
-		http.authorizeRequests().antMatchers("/installer").hasAnyRole("ADMIN");
-		
+		http.authorizeRequests().antMatchers("/control").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/control/mount").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/control/drop").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/control/dropall").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/control/shout").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/logout").authenticated();
+
 		// Todas las demás páginas serán públicas, es decir, no requieren autenticación
 		http.authorizeRequests().anyRequest().permitAll();
 
@@ -28,12 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginPage("/login");
 		http.formLogin().usernameParameter("username");
 		http.formLogin().passwordParameter("password");
-		http.formLogin().defaultSuccessUrl("/home");
+		http.formLogin().defaultSuccessUrl("/");
 		http.formLogin().failureUrl("/loginerror");
 
 		// Logout
 		http.logout().logoutUrl("/logout");
-		http.logout().logoutSuccessUrl("/home");
+		http.logout().invalidateHttpSession(true);
+		http.logout().logoutSuccessUrl("/");
 	}
 
 	@Override

@@ -25,33 +25,52 @@
 		</a>
 		<ul id="header-nav">
 			<li>
-				<a href="/home">Home</a>
+				<a href="/">Home</a>
 			</li>
-			<li>
-				<a href="./static/emitir.html">Emitir</a>
-			</li>
-			<li>
-				<a href="panelControl.html">Panel de control</a>
-			</li>
-			<li>
-				<a href="#">Menu2</a>
-			</li>
+			{{#logged}}
+				<li>
+					<a href="/control">Panel de control</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">@{{user.firstName}}</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			{{/logged}}
+			{{^logged}}
+				<li class="nav-item">
+					<a href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register">Registro</a>
+				</li>
+			{{/logged}}
 		</ul>
 	</nav>
 </header>
 
 
 	<div id="general-container">
-		<h1>Panel de control</h1>
+		<h1 id="panelControl-h1">Panel de control</h1>
 		<form class="control-form" action="/control/mount" method="post">
 			<h2>Mount</h2>
+			<div>
+				<label>Tipo de emisión: </label>
+				<div id="control-tipo-emision">
+					<input type="radio" class="jroar-form-input-radio" name="inputMountEmissionType" value="song"/>
+					<label> solo audio</label>
+					<input type="radio" checked="checked" class="jroar-form-input-radio" name="inputMountEmissionType" value="video"/>
+					<label> audio y video</label>
+				</div>
+			</div>
 			<div>
 				<label>mount point</label>
 				<input type="text" class="control-form-input" name="mountPoint" placeholder="/" required/>
 			</div>
 			<div>
 				<label>source</label>
-				<input type="text" class="control-form-input" name="source" placeholder="http://" required/>
+				<input type="text" checked="checked" class="control-form-input" name="source" placeholder="http://" required/>
 			</div>
 			<div>
 				<label>type</label>
@@ -111,19 +130,27 @@
 	<hr>
 	<div id="footer-container">
 		<div id="footer-logo">
-			<img src="./assets/img/logo-negro.png"/>
+			<img src="/assets/img/logo-negro.png"/>
 		</div>
 		
 		<div id="footer-nav">
 			<p class="text-center">
-				<a href="/install">Emite en JRoar</a>
+				<a href="emitir.html">Emite en JRoar</a>
 			</p>
-			<p class="text-center">
-				<a href="#">Menu1</a>
-			</p>
-			<p class="text-center">
-				<a href="#">Menu2</a>
-			</p>
+			{{#logged}}
+				<p class="text-center">
+					<a href="/control">Panel de control</a>
+				</p>
+			{{/logged}}
+			{{^logged}}
+				<p class="text-center">
+					<a href="/login">Login</a>
+				</p>
+				<p class="text-center">
+					<a href="/register">Registro</a>
+				</p>
+			{{/logged}}
+
 			<ul>
 				<li>
 					<a href="#">

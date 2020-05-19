@@ -16,6 +16,8 @@
 	width: 120px;
 	text-align: left;
 	margin-right: 5px;
+	margin: auto;
+	vertical-align: middle;
 }
 #general-container form .input-login{
 	border: 0px solid #fff;
@@ -24,6 +26,7 @@
 	background-color: #C5E3E8;
 	width: 300px;
 	margin: 10px 0px;
+	vertical-align: middle;
 }
 
 #but-login{

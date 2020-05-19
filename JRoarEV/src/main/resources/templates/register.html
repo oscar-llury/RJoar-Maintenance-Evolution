@@ -2,7 +2,7 @@
 <html lang="">
 <head>
 	<meta charset="utf-8">
-	<title>JRoar | Home Page</title>
+	<title>JRoar | Registro</title>
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	
@@ -28,20 +28,27 @@
 		</a>
 		<ul id="header-nav">
 			<li>
-				<a href="/home">Home</a>
+				<a href="/">Home</a>
 			</li>
-			<li>
-				<a href="/emitir.html">Emitir</a>
-			</li>
-			<li>
-				<a href="/control">Panel de control</a>
-			</li>
-			<li>
-				<a href="/login.html">Iniciar sesión</a>
-			</li>
-			<li>
-				<a href="/register.html">Registro</a>
-			</li>
+			{{#logged}}
+				<li>
+					<a href="/control">Panel de control</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">@{{user.firstName}}</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			{{/logged}}
+			{{^logged}}
+				<li class="nav-item">
+					<a href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register">Registro</a>
+				</li>
+			{{/logged}}
 		</ul>
 	</nav>
 </header>
@@ -66,7 +73,7 @@
 			<label>Contraseña</label>
 			<input type="text" class="input-login" name="lastName"/>
 			<br>
-			<label>Contraseña</label>
+			<label>Repetir contraseña</label>
 			<input type="text" class="input-login" name="password"/>
 			
 			<input type="submit" id="but-login" value="Registrarse">

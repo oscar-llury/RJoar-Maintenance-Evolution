@@ -1,6 +1,10 @@
 package jroar.web.controllers;
 
 import jroar.web.services.InfoService;
+import jroar.web.services.SessionService;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +20,13 @@ public class ControlController {
 	@Autowired
 	InfoService iService;
 
+	@Autowired
+	private SessionService sesion;
+	
 	@RequestMapping("/control")
-	public String control(Model model) {
+	public String control(Model model, HttpServletRequest request) {
 		iService.addGlobalVariables(model);
+		sesion.userLoader(model,request);
 		return "panelControl";
 	}
 	

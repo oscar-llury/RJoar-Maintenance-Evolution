@@ -22,21 +22,31 @@
 <header>
 	<nav>
 		<a href="/home">
-			<img id="img-logo-header" src="/assets/img/logo-negro.png"/>
+			<img id="img-logo-header" src="./assets/img/logo-negro.png"/>
 		</a>
 		<ul id="header-nav">
 			<li>
-				<a href="/home">Home</a>
+				<a href="/">Home</a>
 			</li>
-			<li>
-				<a href="emitir.html">Emitir</a>
-			</li>
-			<li>
-				<a href="/control)">Panel de control</a>
-			</li>
-			<li>
-				<a href="#">Menu2</a>
-			</li>
+			{{#logged}}
+				<li>
+					<a href="/control">Panel de control</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">@{{user.firstName}}</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			{{/logged}}
+			{{^logged}}
+				<li class="nav-item">
+					<a href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register">Registro</a>
+				</li>
+			{{/logged}}
 		</ul>
 	</nav>
 </header>
@@ -56,10 +66,25 @@
    "  -shout    src-mount-point ip-address port-number password  dst-mount-point", -->
 	<div id="general-container">
 		<img src="/assets/img/img-form-emitir.png">
-	
+		<h1>Registro del administrador</h1>
+		<div id="emitir-admin">
+			<label>Email</label>
+			<input type="text" class="input-login" name="email"/>
+			{{#emailExist}}
+			<p>El email indicado ya está registrado en JRoar, porfavor introduzca otro email o inicie sesión</p>
+			{{/emailExist}}
+			<br>
+			<label>Nombre</label>
+			<input type="text" class="input-login" name="firstName"/>
+			<br>
+			<label>Contraseña</label>
+			<input type="text" class="input-login" name="lastName"/>
+			<br>
+			<label>Contraseña</label>
+			<input type="text" class="input-login" name="password"/>
+		</div>
 		<h1>Emite en JRoar</h1>
 		<p>A continuación, se detalla la lista de parámetros disponibles para comenzar a reproducir en JRoar.</p>
-		<p>* campos obligatorios</p>
 	
 		<form id="jroar-form" action="/install" method="post">	
 			<div class="jroar-form-group">
@@ -68,7 +93,7 @@
 				<div id="show-div-1">
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="text" class="jroar-form-input" name="inputPort" placeholder="port-number"/>
+						<input type="text" class="jroar-form-input" name="inputPort" placeholder="port number"/>
 					</div>
 				</div>
 			</div>
@@ -79,7 +104,7 @@
 				<div id="show-div-2">
 					<div class="jroar-form-element">
 						<label>my-address</label>
-						<input type="text" class="jroar-form-input" name="inputAddress" placeholder="my-address"/>
+						<input type="text" class="jroar-form-input" name="inputAddress" placeholder="my address"/>
 					</div>
 				</div>
 			</div>
@@ -89,16 +114,23 @@
 				<label>relay</label>
 				<div id="show-div-3">
 					<div class="jroar-form-element">
+						<label>Tipo de emisión: </label>
+						<input type="radio" class="jroar-form-input-radio" name="inputRelayEmissionType" value="audio"/>
+						<label> solo audio</label>
+						<input type="radio" checked="checked" class="jroar-form-input-radio" name="inputRelayEmissionType" value="video"/>
+						<label> audio y video</label>
+					</div>
+					<div class="jroar-form-element">
 						<label>mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputRelayMountPoint" placeholder="mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputRelayMountPoint" placeholder="mount point"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>url-of-source</label>
-						<input type="text" class="jroar-form-input" name="inputSource" placeholder="url-of-source"/>
+						<input type="text" class="jroar-form-input" name="inputSource" placeholder="url of source"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>limit</label>
-						<input type="number" class="jroar-form-input" name="inputLimitRelay" placeholder="url-of-source"/>
+						<input type="number" class="jroar-form-input" name="inputLimitRelay" placeholder="time limit"/>
 					</div>
 				</div>
 			</div>
@@ -108,8 +140,15 @@
 				<label>playlist</label>
 				<div id="show-div-4">
 					<div class="jroar-form-element">
+						<label>Tipo de emisión: </label>
+						<input type="radio" class="jroar-form-input-radio" name="inputPlaylistEmissionType" value="audio"/>
+						<label> solo audio</label>
+						<input type="radio" checked="checked" class="jroar-form-input-radio" name="inputPlaylistEmissionType" value="video"/>
+						<label> audio y video</label>
+					</div>
+					<div class="jroar-form-element">
 						<label>mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylistMountPoint" placeholder="mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputPlaylistMountPoint" placeholder="mount point"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>filename</label>
@@ -117,7 +156,7 @@
 					</div>
 					<div class="jroar-form-element">
 						<label>limit</label>
-						<input type="number" class="jroar-form-input" name="inputLimitPlay" placeholder="url-of-source"/>
+						<input type="number" class="jroar-form-input" name="inputLimitPlay" placeholder="time limit"/>
 					</div>
 				</div>
 			</div>
@@ -128,7 +167,7 @@
 				<div id="show-div-7">
 					<div class="jroar-form-element">
 						<label>password-for-web-interface</label>
-						<input type="text" class="jroar-form-input" name="inputPass" placeholder="password-for-web-interface"/>
+						<input type="text" class="jroar-form-input" name="inputPass" placeholder="password for web interface"/>
 					</div>
 				</div>
 			</div>
@@ -139,7 +178,7 @@
 				<div id="show-div-8">
 					<div class="jroar-form-element">
 						<label>password-for-ICE</label>
-						<input type="text" class="jroar-form-input" name="inputIcepass" placeholder="password-for-ICE"/>
+						<input type="text" class="jroar-form-input" name="inputIcepass" placeholder="password for ICE"/>
 					</div>
 				</div>
 			</div>
@@ -150,15 +189,15 @@
 				<div id="show-div-10">
 					<div class="jroar-form-element">
 						<label>src-mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputSrcMount" placeholder="src-mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputSrcMount" placeholder="src mount point"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>ip-address</label>
-						<input type="text" class="jroar-form-input" name="inputDstIP" placeholder="ip-address"/>
+						<input type="text" class="jroar-form-input" name="inputDstIP" placeholder="ip address"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="text" class="jroar-form-input" name="inputDstPort" placeholder="port-number"/>
+						<input type="text" class="jroar-form-input" name="inputDstPort" placeholder="port number"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>password</label>
@@ -166,7 +205,7 @@
 					</div>
 					<div class="jroar-form-element">
 						<label>dst-mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputDstMount" placeholder="dst-mount-point"/>
+						<input type="text" class="jroar-form-input" name="inputDstMount" placeholder="dst mount point"/>
 					</div>
 				</div>
 			</div>
@@ -187,14 +226,22 @@
 		
 		<div id="footer-nav">
 			<p class="text-center">
-				<a href="/install">Emite en JRoar</a>
+				<a href="emitir.html">Emite en JRoar</a>
 			</p>
-			<p class="text-center">
-				<a href="#">Menu1</a>
-			</p>
-			<p class="text-center">
-				<a href="#">Menu2</a>
-			</p>
+			{{#logged}}
+				<p class="text-center">
+					<a href="/control">Panel de control</a>
+				</p>
+			{{/logged}}
+			{{^logged}}
+				<p class="text-center">
+					<a href="/login">Login</a>
+				</p>
+				<p class="text-center">
+					<a href="/register">Registro</a>
+				</p>
+			{{/logged}}
+
 			<ul>
 				<li>
 					<a href="#">

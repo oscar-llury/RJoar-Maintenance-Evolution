@@ -1,18 +1,25 @@
 #general-container {
 	display: grid;
   	align-items: center;
-  	background-color: red;
 }
-}
+
 #general-container #panelControl-h1{
 	text-align: center !important;
+}
+#control-tipo-emision{
+	width: 370px;
+	display: inline-block;
+	text-align: initial;
+}
+#control-tipo-emision label{
+	width: auto;
 }
 .control-form{
 	padding: 0px 5%;
 	text-align: center;
 }
 .control-form label{
-	width: 120px;
+	width: 150px;
 	text-align: end;
 	margin-right: 5px;
 }

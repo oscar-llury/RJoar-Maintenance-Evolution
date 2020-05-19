@@ -13,11 +13,7 @@ import jroar.code.com.jcraft.jroar.JRoar;
 
 @Controller
 public class InstallerController {
-	
-	@RequestMapping("/installer")
-	public String installerHome(Model model) {
-		return "emitir";
-	}
+
 	
 	@RequestMapping("/install")
 	public String install(Model model,

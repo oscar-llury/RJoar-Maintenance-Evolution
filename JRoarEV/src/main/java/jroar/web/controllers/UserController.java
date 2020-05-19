@@ -20,16 +20,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import jroar.web.model.User;
 import jroar.web.repositories.UserRepository;
+import jroar.web.services.SessionService;
 
 @Controller
 public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository; 
+	
+	@Autowired
+	private SessionService sesion;
 
 	@GetMapping("/login")
-	public String login(Model model) {
+	public String login(Model model, HttpServletRequest request) {
 		model.addAttribute("isError",false);
+		sesion.userLoader(model,request);
 		return "login";
 	}
 	
@@ -46,8 +51,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/register")
-	public String registerPage(Model model) {
+	public String registerPage(Model model, HttpServletRequest request) {
 		model.addAttribute("emailExist", false);
+		sesion.userLoader(model,request);
 		return "register";
 	}
 	

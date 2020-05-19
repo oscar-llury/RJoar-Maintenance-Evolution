@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<title>JRoar | Panel de control</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="shortcut icon" href="./assets/img/favicon.ico">
+	
+	<link rel="stylesheet" href="./assets/css/style.css">
+	<link rel="stylesheet" href="./assets/css/panelControl.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header>
+	<nav>
+		<a href="/home">
+			<img id="img-logo-header" src="./assets/img/logo-negro.png"/>
+		</a>
+		<ul id="header-nav">
+			<li>
+				<a href="/">Home</a>
+			</li>
+			{{#logged}}
+				<li>
+					<a href="/control">Panel de control</a>
+				</li>
+				<li class="nav-item">
+					<a href="#">@{{user.firstName}}</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			{{/logged}}
+			{{^logged}}
+				<li class="nav-item">
+					<a href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register">Registro</a>
+				</li>
+			{{/logged}}
+		</ul>
+	</nav>
+</header>
+
+
+
+
+
+	<h1>Ha ocurriod un error</h1>
+
+
+
+
+
+
+<footer>
+	<hr>
+	<div id="footer-container">
+		<div id="footer-logo">
+			<img src="/assets/img/logo-negro.png"/>
+		</div>
+		
+		<div id="footer-nav">
+			<p class="text-center">
+				<a href="emitir.html">Emite en JRoar</a>
+			</p>
+			{{#logged}}
+				<p class="text-center">
+					<a href="/control">Panel de control</a>
+				</p>
+			{{/logged}}
+			{{^logged}}
+				<p class="text-center">
+					<a href="/login">Login</a>
+				</p>
+				<p class="text-center">
+					<a href="/register">Registro</a>
+				</p>
+			{{/logged}}
+
+			<ul>
+				<li>
+					<a href="#">
+						<i class="fab fa-twitter footer-icon"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sw-Evolution/20E02">
+						<i class="fab fa-github footer-icon"></i>
+					</a>
+				</li>
+			</ul>
+		
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
