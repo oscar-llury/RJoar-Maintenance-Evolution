@@ -32,7 +32,7 @@
 					<a href="/control">Panel de control</a>
 				</li>
 				<li class="nav-item">
-					<a href="#">@{{user.firstName}}</a>
+					<a href="/profile">@{{user.firstName}}</a>
 				</li>
 				<li>
 					<a href="/logout">Logout</a>
@@ -137,25 +137,27 @@
 
 <footer>
 	<hr>
+	
 	<div id="footer-container">
 		<div id="footer-logo">
 			<img src="/assets/img/logo-negro.png"/>
+			<p>Versión del sistema {{jVersion}}</p>
 		</div>
-		
+
 		<div id="footer-nav">
-			<p class="text-center">
-				<a href="emitir.html">Emite en JRoar</a>
+			<p class="text-nav">
+				<a href="/stats">Ver estadísticas</a>
 			</p>
 			{{#logged}}
-				<p class="text-center">
+				<p class="text-nav">
 					<a href="/control">Panel de control</a>
 				</p>
 			{{/logged}}
 			{{^logged}}
-				<p class="text-center">
+				<p class="text-nav">
 					<a href="/login">Login</a>
 				</p>
-				<p class="text-center">
+				<p class="text-nav">
 					<a href="/register">Registro</a>
 				</p>
 			{{/logged}}
@@ -172,7 +174,7 @@
 					</a>
 				</li>
 			</ul>
-		
+
 		</div>
 	</div>
 </footer>

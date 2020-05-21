@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ControlController {
 
 	@Autowired
-	InfoService iService;
+	private InfoService iService;
 
 	@Autowired
 	private SessionService sesion;
@@ -36,10 +36,12 @@ public class ControlController {
 	
 	@RequestMapping("/control")
 	public String control(Model model, HttpServletRequest request) {
-		iService.addGlobalVariables(model,request);
+		
+		
 		sesion.userLoader(model,request);
 		model.addAttribute("clientList", Ctrl.getClients());
 		model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
+		iService.addGlobalVariables(model,request);
 		return "panelControl";
 	}
 	

@@ -9,19 +9,25 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import jroar.web.services.InfoService;
 import jroar.web.services.SessionService;
 
 @Controller
 public class ErrorControler implements ErrorController{
 	
 	@Autowired
+	private InfoService iService;
+	
+	@Autowired
 	private SessionService sesion;
 
 	@GetMapping("/error")
 	public String handle(Model model, HttpServletRequest request) {
+		
 		int httpErrorCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 		sesion.userLoader(model,request);
 		selectError(model, httpErrorCode);
+		iService.addGlobalVariables(model,request);
 		return "error";
 	}
 

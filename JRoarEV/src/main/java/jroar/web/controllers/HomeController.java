@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
 	@Autowired
-	private InfoService hService;
+	private InfoService iService;
 
 	@Autowired
 	private SessionService sesion;
@@ -54,6 +54,8 @@ public class HomeController {
 	@RequestMapping(value= {"home","index","/"})
 	public String home(Model model, HttpServletRequest request) {
 		if(!installerInfo.isInstall()) {
+			iService.addGlobalVariables(model,request);
+			sesion.userLoader(model,request);
 			return "emitir";
 		}else {
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -71,8 +73,9 @@ public class HomeController {
 				statsRepository.save(nuevaStat);
 			}
 			model.addAttribute("visitasHoy", contVisitas);
-			model.addAttribute("visitasTotales", hService.visitasTotales());
-			hService.addGlobalVariables(model,request);
+			model.addAttribute("visitasTotales", iService.visitasTotales());
+			
+			iService.addGlobalVariables(model,request);
 			sesion.userLoader(model,request);
 			return "index";
 		}

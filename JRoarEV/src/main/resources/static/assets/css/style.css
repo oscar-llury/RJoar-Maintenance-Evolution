@@ -89,8 +89,13 @@ header #header-nav li a:hover{
 	font-weight: bold;
 }
 /*----------Body----------*/
-
-
+button:hover{
+	background-color: #C5E3E8;
+	color: #000;
+}
+button:active{
+	border: 1px solid #000;
+}
 /*----------Footer----------*/
 footer {
 	padding: 10px 50px;
@@ -98,16 +103,32 @@ footer {
 }
 footer #footer-container{
 	margin: 0px 20%;
+	text-align: center;
 }
 footer #footer-logo {
 	margin-top: 10px;
 	display: inline-block;
+    margin: 10px 40px 0px 0px;
 }
 footer #footer-logo img {
 	width: 150px;
 }
+footer #footer-stats{
+	text-align: center;
+	display: inline-block;
+	vertical-align: top;
+	margin: 10px 40px 0px 40px;
+}
+footer #footer-stats p{
+	font-weight: bold;
+}
+footer .text-nav{
+	text-align: left;
+}
 footer #footer-nav{
-	float: right;
+	display: inline-block;
+	margin: 10px 0px 0px 40px;
+    vertical-align: top;
 }
 footer #footer-nav ul{
 	display:inline-flex;

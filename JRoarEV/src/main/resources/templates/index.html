@@ -18,38 +18,7 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-        window.reproducir = function(idVideo) {
-            document.getElementById(idVideo).play();
-        };
-
-        window.pausar = function(idVideo) {
-            document.getElementById(idVideo).pause();
-        };
-
-        function playPause(idVideo) {
-            var myVideo = document.getElementById(idVideo);
-            if (myVideo.paused)
-                myVideo.play();
-            else
-                myVideo.pause();
-        }
-
-        function makeBig(idVideo) {
-            var myVideo = document.getElementById(idVideo);
-            myVideo.width = 900;
-        }
-
-        function makeSmall(idVideo) {
-            var myVideo = document.getElementById(idVideo);
-            myVideo.width = 320;
-        }
-
-        function makeNormal(idVideo) {
-            var myVideo = document.getElementById(idVideo);
-            myVideo.width = 600;
-        }
-    </script>
+	<script src="/assets/js/home.js"></script>
     </head>
 <body>
 
@@ -67,7 +36,7 @@
 					<a href="/control">Panel de control</a>
 				</li>
 				<li class="nav-item">
-					<a href="#">@{{user.firstName}}</a>
+					<a href="/profile">@{{user.firstName}}</a>
 				</li>
 				<li>
 					<a href="/logout">Logout</a>
@@ -94,90 +63,104 @@
 				<h2>{{name}} -> <a href="{{URL}}{{m3u}}">{{mountpoint}}</a></h2>
 			    <h4>{{listeners}} listeners</h4>
 			    <h4>{{listeners}} connections</h4>
-			    <h4>Likes: {{likes}}</h4>
-			    <h4>Dislikes: {{dislikes}}</h4>
-			    {{#canRate}}
-			    <form action="/rate">
-			    	<input type="submit" id="but-comenzar" value="Like">
-			    	<input type="hidden" value="like" name="isLike">
-			    	<input type="hidden" value="{{mountpoint}}" name="name">
-			    </form>
-			     <form action="/rate">
-			    	<input type="submit" id="but-comenzar" value="DisLike">
-			    	<input type="hidden" value="dislike" name="isLike">
-			    	<input type="hidden" value="{{mountpoint}}" name="name">
-			    </form>
-			    <br>
-			    {{/canRate}}
-				{{#hasProxy}}
-				<h4>Proxies:</h4>
-				{{#proxyList}}
-					<li>{{strProxy}}</li>
-				{{/proxyList}}
+			    <div id="home-rate">
+				    <h4>Likes: {{likes}}</h4>
+				    <h4>Dislikes: {{dislikes}}</h4>
+				    {{#canRate}}
+				    	<label>Registra tu votación:</label>
+					    <form action="/rate">
+					    	<input type="submit" id="but-comenzar" value="Like">
+					    	<input type="hidden" value="like" name="isLike">
+					    	<input type="hidden" value="{{mountpoint}}" name="name">
+					    </form>
+					     <form action="/rate">
+					    	<input type="submit" id="but-comenzar" value="DisLike">
+					    	<input type="hidden" value="dislike" name="isLike">
+					    	<input type="hidden" value="{{mountpoint}}" name="name">
+					    </form>
+					    <br>
+				    {{/canRate}}
+			    </div>
+					{{#hasProxy}}
+					<h4>Proxies:</h4>
+					{{#proxyList}}
+						<li>{{strProxy}}</li>
+					{{/proxyList}}
 				{{/hasProxy}}
     		</div>
-    	{{#isVideo}}
-		<video id="video{{mountpoint}}" src="{{URL}}{{mountpoint}}" type="video/ogg"
-			   muted="false" controls="true">
-		</video>
-        <button onclick="playPause('video{{mountpoint}}')">Reproducir/Pausar</button>
-        <button onclick="makeBig('video{{mountpoint}}')">Grande</button>
-        <button onclick="makeSmall('video{{mountpoint}}')">Pequeño</button>
-        <button onclick="makeNormal('video{{mountpoint}}')">Normal</button>
-		{{/isVideo}}
-		{{^isVideo}}
-		<audio id="audio-player" src="{{URL}}{{mountpoint}}" type="audio/ogg"
-			autoplay="false" muted="false" controls="true">
-			<p>Tu navegador no soporta esta caracteristica</p>
-		</audio>
-		{{/isVideo}}
-		<div class="jroar-form-group">
-			<h2>Comentarios</h2>
-			<div class="comments">
-			{{#hasComments}}
-			{{#comments}}
-				<h3>{{userName}} :</h3>
-				<p>{{comment}}</p>
-			{{/comments}}
-			{{/hasComments}}
-			{{^hasComments}}
-				<p>No hay comentarios actualmente.</p>
-			{{/hasComments}}
-			{{#canRate}}
-				<br>
-				<form action="/comment" method="post">
-					<input type="text" class="input-comment" name="text" placeholder="Escribe tu comentario aquí">
-					<input type="hidden" value="{{mountpoint}}" name="mountPoint">
-					<input type="submit" id="but-comment" value="comentar">	    	
-				</form>
-			{{/canRate}}
+		    	{{#isVideo}}
+					<video id="video{{mountpoint}}" class="video-home" src="{{URL}}{{mountpoint}}" type="video/ogg"
+						   muted="false" controls="true">
+					</video>
+			        <div id="video-controls1">
+			        	<button class="button-video-player" onclick="playPause('video{{mountpoint}}')">Reproducir/Pausar</button>
+			        </div>
+			        <div id="video-controls2">
+			        	<label>Tamaño de ventana:</label>
+				        <button class="button-video-player-wid" onclick="makeSmall('video{{mountpoint}}')">Pequeño</button>
+				        <button class="button-video-player-wid" onclick="makeNormal('video{{mountpoint}}')">Normal</button>
+				        <button class="button-video-player-wid" onclick="makeBig('video{{mountpoint}}')">Grande</button>
+					</div>
+				{{/isVideo}}
+				{{^isVideo}}
+					<audio id="audio-player" src="{{URL}}{{mountpoint}}" type="audio/ogg"
+						autoplay="false" muted="false" controls="true">
+						<p>Tu navegador no soporta esta caracteristica</p>
+					</audio>
+			{{/isVideo}}
+			<div id="jroar-comments-group">
+				<h2>Comentarios</h2>
+				<div class="comments">
+				{{#hasComments}}
+					{{#comments}}
+						<h3>usuario: {{userName}}</h3>
+						<p>{{comment}}</p>
+					{{/comments}}
+				{{/hasComments}}
+				{{^hasComments}}
+						<p>No hay comentarios actualmente.</p>
+					{{/hasComments}}
+				{{#canRate}}
+					<form action="/comment" id="form-coments" method="post">
+						<label>Publica un nuevo comentario:</label>
+						<input type="text" id="input-comment" name="text" placeholder="Escribe tu comentario aquí">
+						<input type="hidden" value="{{mountpoint}}" name="mountPoint">
+						<input type="submit" id="but-comment" value="Comentar">	    	
+					</form>
+				{{/canRate}}
+				</div>
 			</div>
-		</div>
 		{{/sources}}
 </div>
 <footer>
 	<hr>
-	<p style="background-color: #C5E3E8; text-align: center; font-weight: bold;"><b>{{visitasHoy}}</b> visitas hoy - <b>{{visitasTotales}}</b> visitas totales</p>
+	
 	<div id="footer-container">
 		<div id="footer-logo">
 			<img src="/assets/img/logo-negro.png"/>
 			<p>Versión del sistema {{jVersion}}</p>
 		</div>
+		
+		<div id="footer-stats">
+			<p>
+				<b>{{visitasHoy}}</b> visitas hoy - <b>{{visitasTotales}}</b> visitas totales
+			</p>
+		</div>
 
 		<div id="footer-nav">
-			<p class="text-center">
-				<a href="emitir.html">Emite en JRoar</a>
+			<p class="text-nav">
+				<a href="/stats">Ver estadísticas</a>
 			</p>
 			{{#logged}}
-				<p class="text-center">
+				<p class="text-nav">
 					<a href="/control">Panel de control</a>
 				</p>
 			{{/logged}}
 			{{^logged}}
-				<p class="text-center">
+				<p class="text-nav">
 					<a href="/login">Login</a>
 				</p>
-				<p class="text-center">
+				<p class="text-nav">
 					<a href="/register">Registro</a>
 				</p>
 			{{/logged}}

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="">
+<head>
+	<meta charset="utf-8">
+	<title>JRoar | Perfil</title>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+	<link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon"/>
+	<link rel="icon" href="./assets/img/logo16.png" sizes="16x16">
+	<link rel="icon" href="./assets/img/logo32.png" sizes="32x32">
+	<link rel="icon" href="./assets/img/logo48.png" sizes="48x48">
+	
+	<link rel="stylesheet" href="/assets/css/style.css">
+	<link rel="stylesheet" href="/assets/css/profile.css">
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  
+	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
+	<script src="/assets/js/profile.js"></script>
+	
+</head>
+<body>
+
+<header>
+	<nav>
+		<a href="/home">
+			<img id="img-logo-header" src="./assets/img/logo-negro.png"/>
+		</a>
+		<ul id="header-nav">
+			<li>
+				<a href="/">Home</a>
+			</li>
+			{{#logged}}
+				<li>
+					<a href="/control">Panel de control</a>
+				</li>
+				<li class="nav-item">
+					<a href="/profile">@{{user.firstName}}</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			{{/logged}}
+			{{^logged}}
+				<li class="nav-item">
+					<a href="/login">Login</a>
+				</li>
+				<li class="nav-item">
+					<a href="/register">Registro</a>
+				</li>
+			{{/logged}}
+		</ul>
+	</nav>
+</header>
+
+
+	<div id="general-container">
+		
+		<h1>Información personal</h1>
+		<div id="profile-user-info">
+			<h3>Nombre: {{user.firstName}}</h3>
+			<h3>Apellidos: {{user.lastName}}</h3>
+			<h3>Email: {{user.email}}</h3> 
+			<button class="profile-show-edit" onclick="showProfileEdit('profileUserEdit')">Editar datos</button>
+		</div>
+		
+		<div id="profileUserEdit">
+			<form action="/profileEdit" method="post">
+				<label>Nombre: </label>
+				<input type="text" class="input-profile" name="inputFirstName" placeholder="{{user.firstName}}"/>
+				<br>
+				<label>Apellidos: </label>
+				<input type="text" class="input-profile" name="inputLastName" placeholder="{{user.lastName}}"/>
+				<br>
+				<input type="submit" id="edit-data" value="Actualizar datos">
+			</form>
+		</div>
+		
+	</div>
+
+
+<footer>
+	<hr>
+	
+	<div id="footer-container">
+		<div id="footer-logo">
+			<img src="/assets/img/logo-negro.png"/>
+			<p>Versión del sistema {{jVersion}}</p>
+		</div>
+
+
+		<div id="footer-nav">
+			<p class="text-nav">
+				<a href="/stats">Ver estadísticas</a>
+			</p>
+			{{#logged}}
+				<p class="text-nav">
+					<a href="/control">Panel de control</a>
+				</p>
+			{{/logged}}
+			{{^logged}}
+				<p class="text-nav">
+					<a href="/login">Login</a>
+				</p>
+				<p class="text-nav">
+					<a href="/register">Registro</a>
+				</p>
+			{{/logged}}
+
+			<ul>
+				<li>
+					<a href="#">
+						<i class="fab fa-twitter footer-icon"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/Sw-Evolution/20E02">
+						<i class="fab fa-github footer-icon"></i>
+					</a>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</footer>
+
+</body>
+</html>
