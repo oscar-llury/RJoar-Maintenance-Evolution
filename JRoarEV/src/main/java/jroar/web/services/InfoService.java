@@ -3,8 +3,10 @@ package jroar.web.services;
 import jroar.code.com.jcraft.jroar.HttpServer;
 import jroar.code.com.jcraft.jroar.JRoar;
 import jroar.web.model.InfoSource;
+import jroar.web.model.StatInfo;
 import jroar.web.model.User;
 import jroar.web.repositories.MountRatingRepository;
+import jroar.web.repositories.StatsRepository;
 import jroar.web.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class InfoService {
 	
 	@Autowired
 	private UserRepository userRepository;
+
+    @Autowired
+    private StatsRepository statsRepository;
 	
     public void addGlobalVariables(Model model,HttpServletRequest request) {
         model.addAttribute("jVersion", JRoar.version);
@@ -34,6 +39,15 @@ public class InfoService {
         	i.setCanRate(request.isUserInRole("USER"));
         }
         model.addAttribute("sources", iSource);
+    }
+
+    public int visitasTotales() {
+        List<StatInfo> lista = statsRepository.findAll();
+        int total = 0;
+        for (StatInfo stat: lista) {
+            total = total + stat.getVisits();
+        }
+        return total;
     }
 
 }
