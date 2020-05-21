@@ -4,7 +4,7 @@ import jroar.code.com.jcraft.jroar.HttpServer;
 import jroar.code.com.jcraft.jroar.JRoar;
 import jroar.web.model.InfoSource;
 import jroar.web.model.StatInfo;
-import jroar.web.model.User;
+import jroar.web.repositories.CommentRepository;
 import jroar.web.repositories.MountRatingRepository;
 import jroar.web.repositories.StatsRepository;
 import jroar.web.repositories.UserRepository;
@@ -29,6 +29,9 @@ public class InfoService {
     @Autowired
     private StatsRepository statsRepository;
 	
+    @Autowired
+	private CommentRepository commentRepository; 
+    
     public void addGlobalVariables(Model model,HttpServletRequest request) {
         model.addAttribute("jVersion", JRoar.version);
         model.addAttribute("URL", HttpServer.myURL);
@@ -37,6 +40,7 @@ public class InfoService {
         	i.setLikes(mountRatingRepository.countLikes(i.getMountpoint()));
         	i.setDislikes(mountRatingRepository.countDisLikes(i.getMountpoint()));
         	i.setCanRate(request.isUserInRole("USER"));
+        	i.setComments(commentRepository.findByMountPoint(i.getMountpoint()));
         }
         model.addAttribute("sources", iSource);
     }

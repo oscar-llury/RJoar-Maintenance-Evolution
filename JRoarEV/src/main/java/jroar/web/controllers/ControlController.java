@@ -1,7 +1,9 @@
 package jroar.web.controllers;
 
 import jroar.code.com.jcraft.jroar.Ctrl;
+import jroar.web.model.Comment;
 import jroar.web.model.MountRating;
+import jroar.web.repositories.CommentRepository;
 import jroar.web.repositories.MountRatingRepository;
 import jroar.web.services.InfoService;
 import jroar.web.services.SessionService;
@@ -29,6 +31,9 @@ public class ControlController {
 	@Autowired
 	private MountRatingRepository mountRatingRepository;
 	
+	@Autowired
+	private CommentRepository commentRepository;
+	
 	@RequestMapping("/control")
 	public String control(Model model, HttpServletRequest request) {
 		iService.addGlobalVariables(model,request);
@@ -52,8 +57,13 @@ public class ControlController {
 	@RequestMapping("/control/drop")
 	public String controlDrop(Model model, @RequestParam String playList) {
 		Drop.deleteMountPoint(playList);
+		//Borrar los ratings asociados al punto de montura que se va a eliminar
 		for(MountRating r : mountRatingRepository.findByName(playList)) {
 			mountRatingRepository.delete(r);
+		}
+		//Borrar los comentarios asociados al punto de montura que se va a eliminar
+		for(Comment c : commentRepository.findByMountPoint(playList)) {
+			commentRepository.delete(c);
 		}
 		return "redirect:/home";
 	}
@@ -61,8 +71,13 @@ public class ControlController {
 	@RequestMapping("/control/dropall")
 	public String controlDropAll(Model model) {
 		Drop.deleteAll();
+		//Borrar todos los ratings al borrarse todos los puntos de montura
 		for(MountRating r : mountRatingRepository.findAll()) {
 			mountRatingRepository.delete(r);
+		}
+		//Borrar todos los comentarios al borrarse todos los puntos de montura
+		for(Comment c : commentRepository.findAll()) {
+			commentRepository.delete(c);
 		}
 		return "redirect:/home";
 	}

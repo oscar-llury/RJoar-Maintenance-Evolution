@@ -1,9 +1,11 @@
 package jroar.web.controllers;
 
+import jroar.web.model.Comment;
 import jroar.web.model.InstallerInfo;
 import jroar.web.model.MountRating;
 import jroar.web.model.StatInfo;
 import jroar.web.model.User;
+import jroar.web.repositories.CommentRepository;
 import jroar.web.repositories.MountRatingRepository;
 import jroar.web.repositories.StatsRepository;
 import jroar.web.repositories.UserRepository;
@@ -46,6 +48,9 @@ public class HomeController {
 	@Autowired
 	private MountRatingRepository mountRatingRepository;
 	
+	@Autowired
+	private CommentRepository commentRepository;
+	
 	@RequestMapping(value= {"home","index","/"})
 	public String home(Model model, HttpServletRequest request) {
 		if(!installerInfo.isInstall()) {
@@ -87,6 +92,16 @@ public class HomeController {
 			}
 			mountRatingRepository.save(r);
 			
+		}	
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/comment")
+	public String comment(Model model, HttpServletRequest request, @RequestParam(required = false) String text, @RequestParam String mountPoint) {
+		if(request.isUserInRole("USER")&&text!=null&&!text.equals("")) {
+			User user = userRepository.findByEmail(request.getUserPrincipal().getName());
+			Comment c =  new Comment(mountPoint,text,user,user.getFirstName());
+			commentRepository.save(c);
 		}	
 		return "redirect:/";
 	}

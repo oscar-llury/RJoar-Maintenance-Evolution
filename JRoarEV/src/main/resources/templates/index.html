@@ -131,12 +131,30 @@
 			<p>Tu navegador no soporta esta caracteristica</p>
 		</audio>
 		{{/isVideo}}
+		<div class="jroar-form-group">
+			<h2>Comentarios</h2>
+			<div class="comments">
+			{{#hasComments}}
+			{{#comments}}
+				<h3>{{userName}} :</h3>
+				<p>{{comment}}</p>
+			{{/comments}}
+			{{/hasComments}}
+			{{^hasComments}}
+				<p>No hay comentarios actualmente.</p>
+			{{/hasComments}}
+			{{#canRate}}
+				<br>
+				<form action="/comment" method="post">
+					<input type="text" class="input-comment" name="text" placeholder="Escribe tu comentario aquí">
+					<input type="hidden" value="{{mountpoint}}" name="mountPoint">
+					<input type="submit" id="but-comment" value="comentar">	    	
+				</form>
+			{{/canRate}}
+			</div>
+		</div>
 		{{/sources}}
-
-
-	</div>
-
-
+</div>
 <footer>
 	<hr>
 	<p style="background-color: #C5E3E8; text-align: center; font-weight: bold;"><b>{{visitasHoy}}</b> visitas hoy - <b>{{visitasTotales}}</b> visitas totales</p>

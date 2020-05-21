@@ -12,6 +12,8 @@ public class InfoSource {
     private int likes;
     private int dislikes;
     private boolean canRate;
+    private List<Comment> comments;
+    private boolean hasComments;
     private List<InfoProxy> proxyList;
 
     public InfoSource(String mountpoint, String name, String m3u, int listeners, int connections,boolean isVideo, List<InfoProxy> proxyList, boolean hasProxy) {
@@ -97,6 +99,23 @@ public class InfoSource {
 
 	public void setCanRate(boolean canRate) {
 		this.canRate = canRate;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+		this.setHasComments(!comments.isEmpty());
+	}
+	
+	public boolean isHasComments() {
+		return hasComments;
+	}
+
+	public void setHasComments(boolean hasComments) {
+		this.hasComments = hasComments;
 	}
 
 	public List<InfoProxy> getProxyList() {
