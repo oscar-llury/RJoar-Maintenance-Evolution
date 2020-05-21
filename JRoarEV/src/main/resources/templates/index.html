@@ -5,20 +5,52 @@
 	<title>JRoar | Home Page</title>
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	
+
 	<link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon"/>
 	<link rel="icon" href="./assets/img/logo16.png" sizes="16x16">
 	<link rel="icon" href="./assets/img/logo32.png" sizes="32x32">
 	<link rel="icon" href="./assets/img/logo48.png" sizes="48x48">
-	
+
 	<link rel="stylesheet" href="/assets/css/style.css">
 	<link rel="stylesheet" href="/assets/css/home.css">
-	
+
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  
+
 	<script src="https://kit.fontawesome.com/65f7dd0165.js" crossorigin="anonymous"></script>
-</head>
+    <script type="text/javascript">
+        window.reproducir = function(idVideo) {
+            document.getElementById(idVideo).play();
+        };
+
+        window.pausar = function(idVideo) {
+            document.getElementById(idVideo).pause();
+        };
+
+        function playPause(idVideo) {
+            var myVideo = document.getElementById(idVideo);
+            if (myVideo.paused)
+                myVideo.play();
+            else
+                myVideo.pause();
+        }
+
+        function makeBig(idVideo) {
+            var myVideo = document.getElementById(idVideo);
+            myVideo.width = 900;
+        }
+
+        function makeSmall(idVideo) {
+            var myVideo = document.getElementById(idVideo);
+            myVideo.width = 320;
+        }
+
+        function makeNormal(idVideo) {
+            var myVideo = document.getElementById(idVideo);
+            myVideo.width = 600;
+        }
+    </script>
+    </head>
 <body>
 
 <header>
@@ -54,8 +86,8 @@
 </header>
 
 	<div id="general-container">
-		
-		
+
+
 		{{#sources}}
 			<div class="jroar-home-element">
 				<h1>Reproduciendo en {{URL}}</h1>
@@ -85,18 +117,22 @@
 				{{/hasProxy}}
     		</div>
     	{{#isVideo}}
-		<video id="video-player" src="{{URL}}{{mountpoint}}" type="video/ogg"
-			   autoplay="false" muted="false" controls="true">
+		<video id="video{{mountpoint}}" src="{{URL}}{{mountpoint}}" type="video/ogg"
+			   muted="false" controls="true">
 		</video>
+        <button onclick="playPause('video{{mountpoint}}')">Reproducir/Pausar</button>
+        <button onclick="makeBig('video{{mountpoint}}')">Grande</button>
+        <button onclick="makeSmall('video{{mountpoint}}')">Pequeño</button>
+        <button onclick="makeNormal('video{{mountpoint}}')">Normal</button>
 		{{/isVideo}}
 		{{^isVideo}}
-		<audio id="audio-player" src="{{URL}}{{mountpoint}}" type="audio/ogg" 
+		<audio id="audio-player" src="{{URL}}{{mountpoint}}" type="audio/ogg"
 			autoplay="false" muted="false" controls="true">
 			<p>Tu navegador no soporta esta caracteristica</p>
 		</audio>
 		{{/isVideo}}
 		{{/sources}}
-		
+
 		<p>Versión del sistema {{jVersion}}</p>
 	</div>
 
@@ -107,7 +143,7 @@
 		<div id="footer-logo">
 			<img src="/assets/img/logo-negro.png"/>
 		</div>
-		
+
 		<div id="footer-nav">
 			<p class="text-center">
 				<a href="emitir.html">Emite en JRoar</a>
@@ -138,7 +174,7 @@
 					</a>
 				</li>
 			</ul>
-		
+
 		</div>
 	</div>
 </footer>
