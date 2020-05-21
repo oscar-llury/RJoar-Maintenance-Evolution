@@ -1,5 +1,6 @@
 package jroar.web.controllers;
 
+import jroar.code.com.jcraft.jroar.Ctrl;
 import jroar.web.services.InfoService;
 import jroar.web.services.SessionService;
 
@@ -27,6 +28,7 @@ public class ControlController {
 	public String control(Model model, HttpServletRequest request) {
 		iService.addGlobalVariables(model);
 		sesion.userLoader(model,request);
+		model.addAttribute("clientList", Ctrl.getClients());
 		model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
 		return "panelControl";
 	}

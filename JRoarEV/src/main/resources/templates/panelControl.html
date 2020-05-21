@@ -108,15 +108,17 @@
 		</form>
 		
 		{{/isAdmin}}
-		
+		{{#clientList}}
+			<li>{{srcmpoint}} -> <a href="{{url}}">{{url}}</a></li>
+		{{/clientList}}
 		<form class="control-form" action="/control/shout" method="post">
 			<h2>Shout</h2>
 			<div>
 				<label>playlist</label>
 				<select id="control-form-select" name="playList" required>
-				<!--{{# }}-->
-					<option value=""></option>
-				<!--{{/ }}-->
+					{{#sources}}
+					<option value="{{mountpoint}}">{{mountpoint}}</option>
+					{{/sources}}
 				</select>
 			</div>
 			<div>

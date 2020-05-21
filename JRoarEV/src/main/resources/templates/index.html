@@ -62,6 +62,12 @@
 				<h2>{{name}} -> <a href="{{URL}}{{m3u}}">{{mountpoint}}</a></h2>
 			    <h4>{{listeners}} listeners</h4>
 			    <h4>{{listeners}} connections</h4>
+				{{#hasProxy}}
+				<h4>Proxies:</h4>
+				{{#proxyList}}
+					<li>{{strProxy}}</li>
+				{{/proxyList}}
+				{{/hasProxy}}
     		</div>
     	{{#isVideo}}
 		<video id="video-player" src="{{URL}}{{mountpoint}}" type="video/ogg"

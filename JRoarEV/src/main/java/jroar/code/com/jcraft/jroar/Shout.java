@@ -25,10 +25,7 @@ package jroar.code.com.jcraft.jroar;
 import java.io.*;
 import java.util.*;
 
-public class Shout extends Page {
-    static void register() {
-        register("/shout", Shout.class.getName());
-    }
+public class Shout {
 
     static public void newKick(String srcmpoint, String dst, String ice_passwd) {
         if (srcmpoint == null ||
@@ -60,54 +57,6 @@ public class Shout extends Page {
                 port,      // dst port number
                 ice_passwd,// passwd
                 dstmpoint);// dst mount point
-    }
-
-    public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException {
-        String srcmpoint = (String) vars.get("srcmpoint");
-        String dst = (String) vars.get("dst");
-        String ice_passwd = (String) vars.get("ice-passwd");
-        String passwd = (String) vars.get("passwd");
-
-        System.out.println("srcmpoint=" + srcmpoint + ",ice_passwd=" + ice_passwd);
-        System.out.println("dst=" + dst + ",passwd=" + passwd);
-
-        if (passwd == null || !passwd.equals(JRoar.passwd)) {
-            forward(ms, "/");
-            return;
-        }
-        if (srcmpoint == null ||
-                dst == null ||
-                ice_passwd == null ||
-                !dst.startsWith("ice://")) {
-            forward(ms, "/");
-            return;
-        }
-        dst = dst.substring(6);
-        if (dst.indexOf('/') == -1) {
-            forward(ms, "/");
-            return;
-        }
-        String dstmpoint = dst.substring(dst.indexOf('/')); // coge el mountpoint del destino
-        dst = dst.substring(0, dst.indexOf('/'));
-        int port = 80;
-        if (dst.indexOf(':') != -1) {
-            String _port = dst.substring(dst.indexOf(':') + 1);
-            dst = dst.substring(0, dst.indexOf(':')); // coge la IP
-            if (_port.length() == 0) _port = "80";
-            try {
-                port = Integer.parseInt(_port); // coge el puerto
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        }
-        System.out.println("?");
-
-        ShoutClient sc = new ShoutClient(srcmpoint, // src mount point
-                dst,       // dst ip address
-                port,      // dst port number
-                ice_passwd,// passwd
-                dstmpoint);// dst mount point
-        forward(ms, "/");
     }
 
 }

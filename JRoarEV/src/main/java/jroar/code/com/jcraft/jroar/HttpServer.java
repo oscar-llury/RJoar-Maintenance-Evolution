@@ -29,10 +29,7 @@ import java.util.*;
 public class HttpServer extends Thread {
     // Crea todas las páginas web
     static {
-        HomePage.register();
-        Ctrl.register();
         Mount.register();
-        Shout.register();
     }
 
     static int connections = 0;
