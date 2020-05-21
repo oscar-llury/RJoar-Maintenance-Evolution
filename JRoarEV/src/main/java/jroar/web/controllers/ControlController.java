@@ -1,6 +1,8 @@
 package jroar.web.controllers;
 
 import jroar.code.com.jcraft.jroar.Ctrl;
+import jroar.web.model.MountRating;
+import jroar.web.repositories.MountRatingRepository;
 import jroar.web.services.InfoService;
 import jroar.web.services.SessionService;
 
@@ -24,9 +26,12 @@ public class ControlController {
 	@Autowired
 	private SessionService sesion;
 	
+	@Autowired
+	private MountRatingRepository mountRatingRepository;
+	
 	@RequestMapping("/control")
 	public String control(Model model, HttpServletRequest request) {
-		iService.addGlobalVariables(model);
+		iService.addGlobalVariables(model,request);
 		sesion.userLoader(model,request);
 		model.addAttribute("clientList", Ctrl.getClients());
 		model.addAttribute("isAdmin", request.isUserInRole("ADMIN"));
@@ -47,12 +52,18 @@ public class ControlController {
 	@RequestMapping("/control/drop")
 	public String controlDrop(Model model, @RequestParam String playList) {
 		Drop.deleteMountPoint(playList);
+		for(MountRating r : mountRatingRepository.findByName(playList)) {
+			mountRatingRepository.delete(r);
+		}
 		return "redirect:/home";
 	}
 
 	@RequestMapping("/control/dropall")
 	public String controlDropAll(Model model) {
 		Drop.deleteAll();
+		for(MountRating r : mountRatingRepository.findAll()) {
+			mountRatingRepository.delete(r);
+		}
 		return "redirect:/home";
 	}
 	

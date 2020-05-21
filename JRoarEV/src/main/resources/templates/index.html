@@ -62,6 +62,21 @@
 				<h2>{{name}} -> <a href="{{URL}}{{m3u}}">{{mountpoint}}</a></h2>
 			    <h4>{{listeners}} listeners</h4>
 			    <h4>{{listeners}} connections</h4>
+			    <h4>Likes: {{likes}}</h4>
+			    <h4>Dislikes: {{dislikes}}</h4>
+			    {{#canRate}}
+			    <form action="/rate">
+			    	<input type="submit" id="but-comenzar" value="Like">
+			    	<input type="hidden" value="like" name="isLike">
+			    	<input type="hidden" value="{{mountpoint}}" name="name">
+			    </form>
+			     <form action="/rate">
+			    	<input type="submit" id="but-comenzar" value="DisLike">
+			    	<input type="hidden" value="dislike" name="isLike">
+			    	<input type="hidden" value="{{mountpoint}}" name="name">
+			    </form>
+			    <br>
+			    {{/canRate}}
 				{{#hasProxy}}
 				<h4>Proxies:</h4>
 				{{#proxyList}}
