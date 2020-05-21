@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-public class JRoar extends Applet implements Runnable {
+public class JRoar  {
     public static final String version = "0.0.9";
 
     static boolean running_as_applet = true;
@@ -53,168 +53,9 @@ public class JRoar extends Applet implements Runnable {
     public JRoar() {
     }
 
-    @Override
-    public void init() {
-        String s;
-
-        codebase = getCodeBase(); // contiene la URL del directorio que contiene este applet
-
-        s = getParameter("jroar.port");
-        if (s != null) {
-            try {
-                HttpServer.port = Integer.parseInt(s);
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        }
-
-        s = getParameter("jroar.myaddress");
-        HttpServer.myaddress = s;
-
-        s = getParameter("jroar.passwd");
-        if (s != null) JRoar.passwd = s;
-
-        s = getParameter("jroar.icepasswd");
-        if (s != null) JRoar.icepasswd = s;
-
-        s = getParameter("jroar.comment");
-        if (s != null) JRoar.comment = s;
-
-        add(mount = new Button("Control"));
-
-        mount.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    getAppletContext().showStatus("Opening " + HttpServer.myURL + "/ctrl.html");
-                    URL url = new URL(HttpServer.myURL + "/ctrl.html");
-                    getAppletContext().showDocument(url, "_blank");
-                } catch (Exception ee) {
-                    System.out.println(ee);
-                }
-            }
-        });
-        setBackground(Color.white);
-        (new Thread(this)).start();
-    }
-
     static WatchDog wd = null;
 
     public void run() {
-        HttpServer httpServer = new HttpServer();
-        httpServer.start();
-
-        wd = new WatchDog();
-        wd.start();
-    }
-
-    public static void main(String[] arg) {
-        String[] usage = {
-                "  acceptable options",
-                "  -port     port-number (default: 8000)",
-                "  -myaddress my-address",
-                "  -relay    mount-point url-of-source [limit]",
-                "  -playlist mount-point filename [limit]",
-                "  -page     page-name class-name",
-                "  -store    page-name URL",
-                "  -passwd   password-for-web-interface",
-                "  -icepasswd password-for-ICE",
-                "  -mplistener class-name",
-                "  -shout    src-mount-point ip-address port-number password  dst-mount-point",
-        };
-
-        running_as_applet = false;
-
-        HttpServer.myaddress = null;
-        for (int i = 0; i < arg.length; i++) {
-            if (arg[i].equals("-port") && arg.length > i + 1) {
-                try {
-                    HttpServer.port = Integer.parseInt(arg[i + 1]);
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                i++;
-            } else if (arg[i].equals("-myaddress") && arg.length > i + 1) {
-                HttpServer.myaddress = arg[i + 1];
-                i++;
-            } else if (arg[i].equals("-passwd") && arg.length > i + 1) {
-                JRoar.passwd = arg[i + 1];
-                i++;
-            } else if (arg[i].equals("-icepasswd") && arg.length > i + 1) {
-                JRoar.icepasswd = arg[i + 1];
-                i++;
-            } else if (arg[i].equals("-comment") && arg.length > i + 1) {
-                JRoar.comment = arg[i + 1];
-                i++;
-            } else if ((arg[i].equals("-relay") || arg[i].equals("-proxy")) &&
-                    arg.length > i + 2) {
-                Proxy proxy = new Proxy(arg[i + 1], arg[i + 2],false);
-                i += 2;
-                if (arg.length > i + 1 && !(arg[i + 1].startsWith("-"))) {
-                    try {
-                        proxy.setLimit(Integer.parseInt(arg[i + 1]));
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    i++;
-                }
-            } else if (arg[i].equals("-playlist") && arg.length > i + 2) {
-                PlayFile p = new PlayFile(arg[i + 1], arg[i + 2],false);
-                i += 2;
-                if (arg.length > i + 1 && !(arg[i + 1].startsWith("-"))) {
-                    try {
-                        p.setLimit(Integer.parseInt(arg[i + 1]));
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    i++;
-                }
-                p.kick();
-            } else if (arg[i].equals("-udp") && arg.length > i + 4) {
-                int port = 0;
-                try {
-                    port = Integer.parseInt(arg[i + 3]);
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-
-            } else if (arg[i].equals("-shout") && arg.length > i + 5) {
-                int port = 0;
-                try {
-                    port = Integer.parseInt(arg[i + 3]);
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-                // Creemos que esto es IceS
-                ShoutClient sc = new ShoutClient(arg[i + 1], // src mount point
-                        arg[i + 2], // dst ip address
-                        port,     // dst port number
-                        arg[i + 4], // passwd
-                        arg[i + 5]);// dst mount point
-                i += 5;
-            } else if (arg[i].equals("-page") && arg.length > i + 2) {
-                try {
-                    Class classObject = Class.forName(arg[i + 2]);
-                    Page.register(arg[i + 1], arg[i + 2]);
-                } catch (Exception e) {
-                    System.err.println("Unknown class: " + arg[i + 2]);
-                }
-                i += 2;
-            } else if (arg[i].equals("-store") && arg.length > i + 2) {
-                try {
-                    //new Store(arg[i + 1], arg[i + 2]);
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
-                i += 2;
-            } else {
-                System.err.println("invalid option: " + arg[i]);
-                for (int ii = 0; ii < usage.length; ii++) {
-                    System.err.println(usage[ii]);
-                }
-                System.exit(-1);
-            }
-        }
-
         HttpServer httpServer = new HttpServer();
         httpServer.start();
 
