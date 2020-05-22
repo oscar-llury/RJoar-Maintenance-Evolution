@@ -16,6 +16,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		// Páginas privadas
+		http.authorizeRequests().antMatchers("/rate").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/comment").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/profile").hasAnyRole("USER");
+        http.authorizeRequests().antMatchers("/profileEdit").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/control").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/control/mount").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/control/drop").hasAnyRole("ADMIN");

@@ -27,10 +27,6 @@ import java.net.*;
 import java.util.*;
 
 public class HttpServer extends Thread {
-    // Crea todas las páginas web
-    static {
-        Mount.register();
-    }
 
     static int connections = 0;
     static int client_connections = 0; // Conexiones de listeners

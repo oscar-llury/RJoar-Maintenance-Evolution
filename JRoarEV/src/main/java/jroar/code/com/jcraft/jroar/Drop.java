@@ -22,7 +22,6 @@
 
 package jroar.code.com.jcraft.jroar;
 
-import java.io.*;
 import java.util.*;
 
 public class Drop {

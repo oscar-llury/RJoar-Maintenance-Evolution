@@ -24,7 +24,6 @@ package jroar.code.com.jcraft.jroar;
 
 import jroar.web.model.InfoClient;
 
-import java.io.*;
 import java.util.*;
 
 public class Ctrl {

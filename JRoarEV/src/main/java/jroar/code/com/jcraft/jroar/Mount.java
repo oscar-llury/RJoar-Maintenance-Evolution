@@ -22,14 +22,7 @@
 
 package jroar.code.com.jcraft.jroar;
 
-import java.io.*;
-import java.util.*;
-
-public class Mount extends Page {
-    static void register() {
-        register("/mount", Mount.class.getName());
-    }
-
+public class Mount {
     // Evolución. Este método reutiliza partes del método original "kick"
     public static void newKick(String mountpoint, String source, boolean livestream, int limit, boolean isVideo) {
         if (mountpoint != null &&
@@ -50,60 +43,4 @@ public class Mount extends Page {
             }
         }
     }
-
-    public void kick(MySocket ms, Hashtable vars, Vector h) throws IOException {
-        //Busca en la Hashtable de entrada un punto de montura (mountpoint), una fuente (source) y un contraseña (passwd)
-        //Si la contraseña es incorrecta o nula se llama a forward, método heredado de la clase abstracta Page que devuelve un HTTP 302
-        // Si no se ha metido un punto de montura y la fuente empieza por http o peercast se crea un proxy, sino se crea un Playfile
-
-        String mountpoint = (String) vars.get("mountpoint");
-        String source = (String) vars.get("source");
-        String passwd = (String) vars.get("passwd");
-
-        if (passwd == null || !passwd.equals(JRoar.passwd)) {
-            forward(ms, "/");
-            return;
-        }
-        String livestream = (String) vars.get("livestream");
-        int limit = 0;
-        {
-            String _limit = (String) vars.get("limit");
-            if (_limit != null) {
-                try {
-                    limit = Integer.parseInt(_limit);
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-            }
-        }
-
-        if (mountpoint != null &&
-                source != null &&
-                (source.startsWith("http://")) && Page.map(mountpoint) == null && mountpoint.startsWith("/") && Source.getSource(mountpoint) == null) {
-            if (livestream != null && livestream.equals("true")) {
-                Proxy proxy = new Proxy(mountpoint, source,false);
-                if (limit != 0) {
-                    proxy.setLimit(limit);
-                }
-            } else {
-                PlayFile p = new PlayFile(mountpoint, source,false);
-                if (limit != 0) {
-                    p.setLimit(limit);
-                }
-                p.kick();
-            }
-
-            if (((String) vars.get("jroar-method")).equals("GET")) {
-                Source s = Source.getSource(mountpoint);
-                s.addListener(new HttpClient(ms, h, mountpoint));
-                if (s instanceof Proxy) {
-                    ((Proxy) s).kick();
-                    return;
-                }
-            }
-
-        }
-        forward(ms, "/");
-    }
-
 }
