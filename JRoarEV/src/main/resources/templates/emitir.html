@@ -66,7 +66,7 @@
 				<div id="show-div-1">
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="number" class="jroar-form-input" name="inputPort" placeholder="port number"/>
+						<input type="number" class="jroar-form-input" name="inputPort" placeholder="número de puerto"/>
 					</div>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 				<div id="show-div-2">
 					<div class="jroar-form-element">
 						<label>my-address</label>
-						<input type="text" class="jroar-form-input" name="inputAddress" placeholder="my address"/>
+						<input type="text" class="jroar-form-input" name="inputAddress" placeholder="dirección IP dónde emitir"/>
 					</div>
 				</div>
 			</div>
@@ -91,19 +91,19 @@
 						<input type="radio" class="jroar-form-input-radio" name="inputRelayEmissionType" value="audio"/>
 						<label> solo audio</label>
 						<input type="radio" checked="checked" class="jroar-form-input-radio" name="inputRelayEmissionType" value="video"/>
-						<label> audio y video</label>
+						<label> audio y vídeo</label>
 					</div>
 					<div class="jroar-form-element">
 						<label>mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputRelayMountPoint" placeholder="mount point"/>
+						<input type="text" class="jroar-form-input" name="inputRelayMountPoint" placeholder="/... .ogg"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>url-of-source</label>
-						<input type="text" class="jroar-form-input" name="inputSource" placeholder="url of source"/>
+						<input type="text" class="jroar-form-input" name="inputSource" placeholder="http://..."/>
 					</div>
 					<div class="jroar-form-element">
 						<label>limit</label>
-						<input type="number" class="jroar-form-input" name="inputLimitRelay" placeholder="time limit"/>
+						<input type="number" class="jroar-form-input" name="inputLimitRelay" placeholder="máximo de conexiones simultáneas"/>
 					</div>
 				</div>
 			</div>
@@ -117,30 +117,30 @@
 						<input type="radio" class="jroar-form-input-radio" name="inputPlaylistEmissionType" value="audio"/>
 						<label> solo audio</label>
 						<input type="radio" checked="checked" class="jroar-form-input-radio" name="inputPlaylistEmissionType" value="video"/>
-						<label> audio y video</label>
+						<label> audio y vídeo</label>
 					</div>
 					<div class="jroar-form-element">
 						<label>mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylistMountPoint" placeholder="mount point"/>
+						<input type="text" class="jroar-form-input" name="inputPlaylistMountPoint" placeholder="/... .ogg"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>filename</label>
-						<input type="text" class="jroar-form-input" name="inputPlaylistFilename" placeholder="filename"/>
+						<input type="text" class="jroar-form-input" name="inputPlaylistFilename" placeholder="archivo playlist fuente en local"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>limit</label>
-						<input type="number" class="jroar-form-input" name="inputLimitPlay" placeholder="time limit"/>
+						<input type="number" class="jroar-form-input" name="inputLimitPlay" placeholder="máximo de conexiones simultáneas"/>
 					</div>
 				</div>
 			</div>
 			
 			<div class="jroar-form-group">
 				<input type="checkbox" name="isPass" id="show-button-7" value="1"/>
-				<label>passwd</label>
+				<label>JRoar-password (default: pass)</label>
 				<div id="show-div-7">
 					<div class="jroar-form-element">
-						<label>password-for-web-interface</label>
-						<input type="text" class="jroar-form-input" name="inputPass" placeholder="password for web interface"/>
+						<label>JRoar-password</label>
+						<input type="text" class="jroar-form-input" name="inputPass" placeholder="contraseña para JRoar"/>
 					</div>
 				</div>
 			</div>
@@ -151,7 +151,7 @@
 				<div id="show-div-8">
 					<div class="jroar-form-element">
 						<label>password-for-ICE</label>
-						<input type="text" class="jroar-form-input" name="inputIcepass" placeholder="password for ICE"/>
+						<input type="text" class="jroar-form-input" name="inputIcepass" placeholder="contraseña para ICE"/>
 					</div>
 				</div>
 			</div>
@@ -162,23 +162,23 @@
 				<div id="show-div-10">
 					<div class="jroar-form-element">
 						<label>src-mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputSrcMount" placeholder="src mount point"/>
+						<input type="text" class="jroar-form-input" name="inputSrcMount" placeholder="dirección origen ... .ogg"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>ip-address</label>
-						<input type="text" class="jroar-form-input" name="inputDstIP" placeholder="ip address"/>
+						<input type="text" class="jroar-form-input" name="inputDstIP" placeholder="dirección IP destino"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>port-number</label>
-						<input type="text" class="jroar-form-input" name="inputDstPort" placeholder="port number"/>
+						<input type="text" class="jroar-form-input" name="inputDstPort" placeholder="número de puerto destino"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>password</label>
-						<input type="text" class="jroar-form-input" name="inputDstPass" placeholder="password"/>
+						<input type="text" class="jroar-form-input" name="inputDstPass" placeholder="contraseña"/>
 					</div>
 					<div class="jroar-form-element">
 						<label>dst-mount-point</label>
-						<input type="text" class="jroar-form-input" name="inputDstMount" placeholder="dst mount point"/>
+						<input type="text" class="jroar-form-input" name="inputDstMount" placeholder="destino /... .ogg"/>
 					</div>
 				</div>
 			</div>
