@@ -10,6 +10,13 @@
 	padding-left: 20px;	
 	margin: 20px 0px;
 }
+#home-rate h4{
+	display:inline-block;
+	margin: auto;
+}
+#home-rate #home-rate-dislike{
+	margin-left: 20px;
+}
 #home-rate form{
 	display: inline-block;
 	margin: 0px 5px;
@@ -24,16 +31,22 @@
 	font-size: 1em;
 	margin: 5px;
 }
+#but-comenzar:hover{
+	background-color: green;
+}
 #audio-player {
 	background: #C5E3E8 !important;
 	margin: auto;
 	padding: 10px;
+	width: 600px;
+	border-radius: 10px;
 }
 .video-home{
 	background: #C5E3E8 !important;
 	margin: auto;
 	width: 600px;
 	padding: 10px;
+	border-radius: 10px;
 }
 .button-video-player{
 	width: 200px;

@@ -35,12 +35,12 @@
 					<a href="/profile">@{{user.firstName}}</a>
 				</li>
 				<li>
-					<a href="/logout">Logout</a>
+					<a href="/logout">Cerrar sesión</a>
 				</li>
 			{{/logged}}
 			{{^logged}}
 				<li class="nav-item">
-					<a href="/login">Login</a>
+					<a href="/login">Iniciar sesión</a>>
 				</li>
 				<li class="nav-item">
 					<a href="/register">Registro</a>
@@ -54,23 +54,23 @@
 	<div id="general-container">
 		<h1 id="panelControl-h1">Panel de control</h1>
 		<form class="control-form" action="/control/mount" method="post">
-			<h2>Mount</h2>
+			<h2>Montaje</h2>
 			<div>
 				<label>Tipo de emisión: </label>
 				<div id="control-tipo-emision">
 					<input type="radio" class="jroar-form-input-radio" name="inputMountEmissionType" value="song"/>
 					<label> solo audio</label>
 					<input type="radio" checked="checked" class="jroar-form-input-radio" name="inputMountEmissionType" value="video"/>
-					<label> audio y video</label>
+					<label> audio y vídeo</label>
 				</div>
 			</div>
 			<div>
 				<label>mount point</label>
-				<input type="text" class="control-form-input" name="mountPoint" placeholder="/" required/>
+				<input type="text" class="control-form-input" name="mountPoint" placeholder="/... .ogg" required/>
 			</div>
 			<div>
 				<label>source</label>
-				<input type="text" checked="checked" class="control-form-input" name="source" placeholder="http://" required/>
+				<input type="text" checked="checked" class="control-form-input" name="source" placeholder="http:// o fuente en local" required/>
 			</div>
 			<div>
 				<label>type</label>
@@ -81,15 +81,15 @@
 			</div>
 			<div>
 				<label>limit</label>
-				<input type="text" class="control-form-input" name="limit" placeholder=""/>
+				<input type="text" class="control-form-input" name="limit" placeholder="máximo de conexiones simultáneas"/>
 			</div>
-			<input type="submit" class="control-but" value="Mount">
+			<input type="submit" class="control-but" value="Montar">
 		</form>
 	
 		{{#isAdmin}}	
 	
 		<form class="control-form" action="/control/drop" method="post">
-			<h2>Drop</h2>
+			<h2>Eliminar</h2>
 			<div>
 				<label>playlist</label>
 				<select id="control-form-select" name="playList" required>
@@ -99,12 +99,12 @@
 				</select>
 			</div>
 		
-			<input type="submit" class="control-but" value="Drop">
+			<input type="submit" class="control-but" value="Eliminar">
 		</form>
 		
 		<form class="control-form" action="/control/dropall" method="post">
-			<h2>Drop All</h2>
-			<input type="submit" class="control-but-2" value="Drop all">
+			<h2>Eliminar todo</h2>
+			<input type="submit" class="control-but-2" value="Eliminar todo">
 		</form>
 		
 		{{/isAdmin}}
@@ -155,7 +155,7 @@
 			{{/logged}}
 			{{^logged}}
 				<p class="text-nav">
-					<a href="/login">Login</a>
+					<a href="/login">Iniciar sesión</a>
 				</p>
 				<p class="text-nav">
 					<a href="/register">Registro</a>

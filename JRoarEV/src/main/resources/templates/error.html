@@ -35,12 +35,12 @@
 					<a href="#">@{{user.firstName}}</a>
 				</li>
 				<li>
-					<a href="/logout">Logout</a>
+					<a href="/logout">Cerrar sesión</a>
 				</li>
 			{{/logged}}
 			{{^logged}}
 				<li class="nav-item">
-					<a href="/login">Login</a>
+					<a href="/login">Iniciar sesión</a>
 				</li>
 				<li class="nav-item">
 					<a href="/register">Registro</a>
@@ -63,12 +63,10 @@
 	<div id="footer-container">
 		<div id="footer-logo">
 			<img src="/assets/img/logo-negro.png"/>
+			<p>Versión del sistema {{jVersion}}</p>
 		</div>
 		
 		<div id="footer-nav">
-			<p class="text-center">
-				<a href="emitir.html">Emite en JRoar</a>
-			</p>
 			{{#logged}}
 				<p class="text-center">
 					<a href="/control">Panel de control</a>
@@ -76,7 +74,7 @@
 			{{/logged}}
 			{{^logged}}
 				<p class="text-center">
-					<a href="/login">Login</a>
+					<a href="/login">Iniciar sesión</a>
 				</p>
 				<p class="text-center">
 					<a href="/register">Registro</a>
